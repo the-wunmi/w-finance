@@ -4,8 +4,8 @@ class PlaidAccount::Investments::BalanceCalculator
   NegativeCashBalanceError = Class.new(StandardError)
   NegativeTotalValueError = Class.new(StandardError)
 
-  def initialize(plaid_account, security_resolver:)
-    @plaid_account = plaid_account
+  def initialize(external_account, security_resolver:)
+    @external_account = external_account
     @security_resolver = security_resolver
   end
 
@@ -41,10 +41,10 @@ class PlaidAccount::Investments::BalanceCalculator
   end
 
   private
-    attr_reader :plaid_account, :security_resolver
+    attr_reader :external_account, :security_resolver
 
     def holdings
-      plaid_account.raw_investments_payload["holdings"] || []
+      external_account.raw_investments_payload["holdings"] || []
     end
 
     def calculate_investment_brokerage_cash
@@ -55,7 +55,7 @@ class PlaidAccount::Investments::BalanceCalculator
     # Plaid guarantees `current_balance` AND/OR `available_balance` is always present, and based on the docs,
     # `current_balance` should represent "total account value".
     def total_investment_account_value
-      plaid_account.current_balance || plaid_account.available_balance
+      external_account.current_balance || external_account.available_balance
     end
 
     # Plaid holdings summed up, LESS "brokerage cash" holdings (that we've manually identified)

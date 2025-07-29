@@ -2,31 +2,31 @@ module Family::PlaidConnectable
   extend ActiveSupport::Concern
 
   included do
-    has_many :plaid_items, dependent: :destroy
+    has_many :external_items, dependent: :destroy
   end
 
   def can_connect_plaid_us?
     plaid(:us).present?
   end
 
-  # If Plaid provider is configured and user is in the EU region
+  # If external provider is configured and user is in the EU region
   def can_connect_plaid_eu?
     plaid(:eu).present? && self.eu?
   end
 
-  def create_plaid_item!(public_token:, item_name:, region:)
+  def create_external_item!(public_token:, item_name:, region:)
     public_token_response = plaid(region).exchange_public_token(public_token)
 
-    plaid_item = plaid_items.create!(
+    external_item = external_items.create!(
       name: item_name,
-      plaid_id: public_token_response.item_id,
+      external_id: public_token_response.item_id,
       access_token: public_token_response.access_token,
-      plaid_region: region
+      region: region
     )
 
-    plaid_item.sync_later
+    external_item.sync_later
 
-    plaid_item
+    external_item
   end
 
   def get_link_token(webhooks_url:, redirect_url:, accountable_type: nil, region: :us, access_token: nil)

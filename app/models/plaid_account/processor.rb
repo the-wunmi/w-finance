@@ -1,13 +1,13 @@
 class PlaidAccount::Processor
   include PlaidAccount::TypeMappable
 
-  attr_reader :plaid_account
+  attr_reader :external_account
 
-  def initialize(plaid_account)
-    @plaid_account = plaid_account
+  def initialize(external_account)
+    @external_account = external_account
   end
 
-  # Each step represents a different Plaid API endpoint / "product"
+  # Each step represents a different external API endpoint / "product"
   #
   # Processing the account is the first step and if it fails, we halt the entire processor
   # Each subsequent step can fail independently, but we continue processing the rest of the steps
@@ -20,33 +20,33 @@ class PlaidAccount::Processor
 
   private
     def family
-      plaid_account.plaid_item.family
+      external_account.external_item.family
     end
 
     # Shared securities reader and resolver
     def security_resolver
-      @security_resolver ||= PlaidAccount::Investments::SecurityResolver.new(plaid_account)
+      @security_resolver ||= PlaidAccount::Investments::SecurityResolver.new(external_account)
     end
 
     def process_account!
       PlaidAccount.transaction do
         account = family.accounts.find_or_initialize_by(
-          plaid_account_id: plaid_account.id
+          external_account_id: external_account.id
         )
 
-        # Name and subtype are the only attributes a user can override for Plaid accounts
+        # Name and subtype are the only attributes a user can override for external accounts
         account.enrich_attributes(
           {
-            name: plaid_account.name,
-            subtype: map_subtype(plaid_account.plaid_type, plaid_account.plaid_subtype)
+            name: external_account.name,
+            subtype: map_subtype(external_account.external_type, external_account.external_subtype)
           },
-          source: "plaid"
+          source: "external"
         )
 
         account.assign_attributes(
-          accountable: map_accountable(plaid_account.plaid_type),
+          accountable: map_accountable(external_account.external_type),
           balance: balance_calculator.balance,
-          currency: plaid_account.currency,
+          currency: external_account.currency,
           cash_balance: balance_calculator.cash_balance
         )
 
@@ -62,36 +62,36 @@ class PlaidAccount::Processor
     end
 
     def process_transactions
-      PlaidAccount::Transactions::Processor.new(plaid_account).process
+      PlaidAccount::Transactions::Processor.new(external_account).process
     rescue => e
       report_exception(e)
     end
 
     def process_investments
-      PlaidAccount::Investments::TransactionsProcessor.new(plaid_account, security_resolver: security_resolver).process
-      PlaidAccount::Investments::HoldingsProcessor.new(plaid_account, security_resolver: security_resolver).process
+      PlaidAccount::Investments::TransactionsProcessor.new(external_account, security_resolver: security_resolver).process
+      PlaidAccount::Investments::HoldingsProcessor.new(external_account, security_resolver: security_resolver).process
     rescue => e
       report_exception(e)
     end
 
     def process_liabilities
-      case [ plaid_account.plaid_type, plaid_account.plaid_subtype ]
+      case [ external_account.external_type, external_account.external_subtype ]
       when [ "credit", "credit card" ]
-        PlaidAccount::Liabilities::CreditProcessor.new(plaid_account).process
+        PlaidAccount::Liabilities::CreditProcessor.new(external_account).process
       when [ "loan", "mortgage" ]
-        PlaidAccount::Liabilities::MortgageProcessor.new(plaid_account).process
+        PlaidAccount::Liabilities::MortgageProcessor.new(external_account).process
       when [ "loan", "student" ]
-        PlaidAccount::Liabilities::StudentLoanProcessor.new(plaid_account).process
+        PlaidAccount::Liabilities::StudentLoanProcessor.new(external_account).process
       end
     rescue => e
       report_exception(e)
     end
 
     def balance_calculator
-      if plaid_account.plaid_type == "investment"
-        @balance_calculator ||= PlaidAccount::Investments::BalanceCalculator.new(plaid_account, security_resolver: security_resolver)
+      if external_account.external_type == "investment"
+        @balance_calculator ||= PlaidAccount::Investments::BalanceCalculator.new(external_account, security_resolver: security_resolver)
       else
-        balance = plaid_account.current_balance || plaid_account.available_balance || 0
+        balance = external_account.current_balance || external_account.available_balance || 0
 
         # We don't currently distinguish "cash" vs. "non-cash" balances for non-investment accounts.
         OpenStruct.new(
@@ -103,7 +103,7 @@ class PlaidAccount::Processor
 
     def report_exception(error)
       Sentry.capture_exception(error) do |scope|
-        scope.set_tags(plaid_account_id: plaid_account.id)
+        scope.set_tags(external_account_id: external_account.id)
       end
     end
 end

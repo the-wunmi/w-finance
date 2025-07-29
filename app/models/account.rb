@@ -22,7 +22,7 @@ class Account < ApplicationRecord
   scope :assets, -> { where(classification: "asset") }
   scope :liabilities, -> { where(classification: "liability") }
   scope :alphabetically, -> { order(:name) }
-  scope :manual, -> { where(plaid_account_id: nil) }
+  scope :manual, -> { where(external_account_id: nil) }
 
   has_one_attached :logo
 
@@ -74,7 +74,7 @@ class Account < ApplicationRecord
   end
 
   def institution_domain
-    url_string = plaid_account&.plaid_item&.institution_url
+    url_string = external_account&.external_item&.institution_url
     return nil unless url_string.present?
 
     begin

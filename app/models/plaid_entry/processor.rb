@@ -1,14 +1,14 @@
 class PlaidEntry::Processor
-  # plaid_transaction is the raw hash fetched from Plaid API and converted to JSONB
-  def initialize(plaid_transaction, plaid_account:, category_matcher:)
-    @plaid_transaction = plaid_transaction
-    @plaid_account = plaid_account
+  # external_transaction is the raw hash fetched from external API and converted to JSONB
+  def initialize(external_transaction, external_account:, category_matcher:)
+    @external_transaction = external_transaction
+    @external_account = external_account
     @category_matcher = category_matcher
   end
 
   def process
     PlaidAccount.transaction do
-      entry = account.entries.find_or_initialize_by(plaid_id: plaid_id) do |e|
+      entry = account.entries.find_or_initialize_by(external_id: external_id) do |e|
         e.entryable = Transaction.new
       end
 
@@ -21,7 +21,7 @@ class PlaidEntry::Processor
       entry.enrich_attribute(
         :name,
         name,
-        source: "plaid"
+        source: "external"
       )
 
       if detailed_category
@@ -31,7 +31,7 @@ class PlaidEntry::Processor
           entry.transaction.enrich_attribute(
             :category_id,
             matched_category.id,
-            source: "plaid"
+            source: "external"
           )
         end
       end
@@ -40,56 +40,56 @@ class PlaidEntry::Processor
         entry.transaction.enrich_attribute(
           :merchant_id,
           merchant.id,
-          source: "plaid"
+          source: "external"
         )
       end
     end
   end
 
   private
-    attr_reader :plaid_transaction, :plaid_account, :category_matcher
+    attr_reader :external_transaction, :external_account, :category_matcher
 
     def account
-      plaid_account.account
+      external_account.account
     end
 
-    def plaid_id
-      plaid_transaction["transaction_id"]
+    def external_id
+      external_transaction["transaction_id"]
     end
 
     def name
-      plaid_transaction["merchant_name"] || plaid_transaction["original_description"]
+      external_transaction["merchant_name"] || external_transaction["original_description"]
     end
 
     def amount
-      plaid_transaction["amount"]
+      external_transaction["amount"]
     end
 
     def currency
-      plaid_transaction["iso_currency_code"]
+      external_transaction["iso_currency_code"]
     end
 
     def date
-      plaid_transaction["date"]
+      external_transaction["date"]
     end
 
     def detailed_category
-      plaid_transaction.dig("personal_finance_category", "detailed")
+      external_transaction.dig("personal_finance_category", "detailed")
     end
 
     def merchant
-      merchant_id = plaid_transaction["merchant_entity_id"]
-      merchant_name = plaid_transaction["merchant_name"]
+      merchant_id = external_transaction["merchant_entity_id"]
+      merchant_name = external_transaction["merchant_name"]
 
       return nil unless merchant_id.present? && merchant_name.present?
 
       ProviderMerchant.find_or_create_by!(
-        source: "plaid",
+        source: "external",
         name: merchant_name,
       ) do |m|
         m.provider_merchant_id = merchant_id
-        m.website_url = plaid_transaction["website"]
-        m.logo_url = plaid_transaction["logo_url"]
+        m.website_url = external_transaction["website"]
+        m.logo_url = external_transaction["logo_url"]
       end
     end
 end

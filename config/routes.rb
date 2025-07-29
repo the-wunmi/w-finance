@@ -245,7 +245,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :plaid_items, only: %i[new edit create destroy] do
+  resources :external_items, only: %i[new edit create destroy] do
     member do
       post :sync
     end

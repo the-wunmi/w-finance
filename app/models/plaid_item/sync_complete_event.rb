@@ -1,22 +1,22 @@
 class PlaidItem::SyncCompleteEvent
-  attr_reader :plaid_item
+  attr_reader :external_item
 
-  def initialize(plaid_item)
-    @plaid_item = plaid_item
+  def initialize(external_item)
+    @external_item = external_item
   end
 
   def broadcast
-    plaid_item.accounts.each do |account|
+    external_item.accounts.each do |account|
       account.broadcast_sync_complete
     end
 
-    plaid_item.broadcast_replace_to(
-      plaid_item.family,
-      target: "plaid_item_#{plaid_item.id}",
-      partial: "plaid_items/plaid_item",
-      locals: { plaid_item: plaid_item }
+    external_item.broadcast_replace_to(
+      external_item.family,
+      target: "external_item_#{external_item.id}",
+      partial: "external_items/external_item",
+      locals: { external_item: external_item }
     )
 
-    plaid_item.family.broadcast_sync_complete
+    external_item.family.broadcast_sync_complete
   end
 end

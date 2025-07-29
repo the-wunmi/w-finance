@@ -1,8 +1,8 @@
 class PlaidAccount::Investments::TransactionsProcessor
   SecurityNotFoundError = Class.new(StandardError)
 
-  def initialize(plaid_account, security_resolver:)
-    @plaid_account = plaid_account
+  def initialize(external_account, security_resolver:)
+    @external_account = external_account
     @security_resolver = security_resolver
   end
 
@@ -17,10 +17,10 @@ class PlaidAccount::Investments::TransactionsProcessor
   end
 
   private
-    attr_reader :plaid_account, :security_resolver
+    attr_reader :external_account, :security_resolver
 
     def account
-      plaid_account.account
+      external_account.account
     end
 
     def cash_transaction?(transaction)
@@ -32,13 +32,13 @@ class PlaidAccount::Investments::TransactionsProcessor
 
       unless resolved_security_result.security.present?
         Sentry.capture_exception(SecurityNotFoundError.new("Could not find security for plaid trade")) do |scope|
-          scope.set_tags(plaid_account_id: plaid_account.id)
+          scope.set_tags(external_account_id: external_account.id)
         end
 
         return # We can't process a non-cash transaction without a security
       end
 
-      entry = account.entries.find_or_initialize_by(plaid_id: transaction["investment_transaction_id"]) do |e|
+      entry = account.entries.find_or_initialize_by(external_id: transaction["investment_transaction_id"]) do |e|
         e.entryable = Trade.new
       end
 
@@ -65,7 +65,7 @@ class PlaidAccount::Investments::TransactionsProcessor
     end
 
     def find_or_create_cash_entry(transaction)
-      entry = account.entries.find_or_initialize_by(plaid_id: transaction["investment_transaction_id"]) do |e|
+      entry = account.entries.find_or_initialize_by(external_id: transaction["investment_transaction_id"]) do |e|
         e.entryable = Transaction.new
       end
 
@@ -85,7 +85,7 @@ class PlaidAccount::Investments::TransactionsProcessor
     end
 
     def transactions
-      plaid_account.raw_investments_payload["transactions"] || []
+      external_account.raw_investments_payload["transactions"] || []
     end
 
     # Plaid unfortunately returns incorrect signage on some `quantity` values. They claim all "sell" transactions

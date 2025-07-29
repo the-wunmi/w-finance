@@ -3,29 +3,29 @@ module PlaidAccount::TypeMappable
 
   UnknownAccountTypeError = Class.new(StandardError)
 
-  def map_accountable(plaid_type)
+  def map_accountable(external_type)
     accountable_class = TYPE_MAPPING.dig(
-      plaid_type.to_sym,
+      external_type.to_sym,
       :accountable
     )
 
     unless accountable_class
-      raise UnknownAccountTypeError, "Unknown account type: #{plaid_type}"
+      raise UnknownAccountTypeError, "Unknown account type: #{external_type}"
     end
 
     accountable_class.new
   end
 
-  def map_subtype(plaid_type, plaid_subtype)
+  def map_subtype(external_type, external_subtype)
     TYPE_MAPPING.dig(
-      plaid_type.to_sym,
+      external_type.to_sym,
       :subtype_mapping,
-      plaid_subtype
+      external_subtype
     ) || "other"
   end
 
-  # Plaid Account Types -> Accountable Types
-  # https://plaid.com/docs/api/accounts/#account-type-schema
+  # External Account Types -> Accountable Types
+  # Based on external provider account type schema
   TYPE_MAPPING = {
     depository: {
       accountable: Depository,

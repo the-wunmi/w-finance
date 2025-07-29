@@ -21,7 +21,7 @@ class Assistant::Function::GetAccounts < Assistant::Function
           classification: account.classification,
           type: account.accountable_type,
           start_date: account.start_date,
-          is_plaid_linked: account.plaid_account_id.present?,
+          is_external_linked: account.external_account_id.present?,
           status: account.status,
           historical_balances: historical_balances(account)
         }

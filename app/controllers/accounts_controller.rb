@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
 
   def index
     @manual_accounts = family.accounts.manual.alphabetically
-    @plaid_items = family.plaid_items.ordered
+    @external_items = family.external_items.ordered
 
     render layout: "settings"
   end

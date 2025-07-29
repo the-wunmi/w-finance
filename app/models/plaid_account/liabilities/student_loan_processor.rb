@@ -1,6 +1,6 @@
 class PlaidAccount::Liabilities::StudentLoanProcessor
-  def initialize(plaid_account)
-    @plaid_account = plaid_account
+  def initialize(external_account)
+    @external_account = external_account
   end
 
   def process
@@ -15,10 +15,10 @@ class PlaidAccount::Liabilities::StudentLoanProcessor
   end
 
   private
-    attr_reader :plaid_account
+    attr_reader :external_account
 
     def account
-      plaid_account.account
+      external_account.account
     end
 
     def term_months
@@ -45,6 +45,6 @@ class PlaidAccount::Liabilities::StudentLoanProcessor
     end
 
     def student_loan_data
-      plaid_account.raw_liabilities_payload["student"]
+      external_account.raw_liabilities_payload["student"]
     end
 end

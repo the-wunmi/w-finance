@@ -2,13 +2,13 @@
 # providers a convenience method, get_account_data which scopes the item-level payload
 # to each Plaid Account
 class PlaidItem::AccountsSnapshot
-  def initialize(plaid_item, plaid_provider:)
-    @plaid_item = plaid_item
+  def initialize(external_item, plaid_provider:)
+    @external_item = external_item
     @plaid_provider = plaid_provider
   end
 
   def accounts
-    @accounts ||= plaid_provider.get_item_accounts(plaid_item.access_token).accounts
+    @accounts ||= plaid_provider.get_item_accounts(external_item.access_token).accounts
   end
 
   def get_account_data(account_id)
@@ -26,7 +26,7 @@ class PlaidItem::AccountsSnapshot
   end
 
   private
-    attr_reader :plaid_item, :plaid_provider
+    attr_reader :external_item, :plaid_provider
 
     TransactionsData = Data.define(:added, :modified, :removed)
     LiabilitiesData = Data.define(:credit, :mortgage, :student)
@@ -68,30 +68,30 @@ class PlaidItem::AccountsSnapshot
     end
 
     def can_fetch_transactions?
-      plaid_item.supports_product?("transactions") && accounts.any?
+      external_item.supports_product?("transactions") && accounts.any?
     end
 
     def transactions_data
       return nil unless can_fetch_transactions?
 
       @transactions_data ||= plaid_provider.get_transactions(
-        plaid_item.access_token,
-        next_cursor: plaid_item.next_cursor
+        external_item.access_token,
+        next_cursor: external_item.next_cursor
       )
     end
 
     def can_fetch_investments?
-      plaid_item.supports_product?("investments") &&
+      external_item.supports_product?("investments") &&
       accounts.any? { |a| a.type == "investment" }
     end
 
     def investments_data
       return nil unless can_fetch_investments?
-      @investments_data ||= plaid_provider.get_item_investments(plaid_item.access_token)
+      @investments_data ||= plaid_provider.get_item_investments(external_item.access_token)
     end
 
     def can_fetch_liabilities?
-      plaid_item.supports_product?("liabilities") &&
+      external_item.supports_product?("liabilities") &&
       accounts.any? do |a|
         a.type == "credit" && a.subtype == "credit card" ||
         a.type == "loan" && (a.subtype == "mortgage" || a.subtype == "student")
@@ -100,6 +100,6 @@ class PlaidItem::AccountsSnapshot
 
     def liabilities_data
       return nil unless can_fetch_liabilities?
-      @liabilities_data ||= plaid_provider.get_item_liabilities(plaid_item.access_token)
+      @liabilities_data ||= plaid_provider.get_item_liabilities(external_item.access_token)
     end
 end

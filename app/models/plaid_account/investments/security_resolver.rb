@@ -2,8 +2,8 @@
 class PlaidAccount::Investments::SecurityResolver
   UnresolvablePlaidSecurityError = Class.new(StandardError)
 
-  def initialize(plaid_account)
-    @plaid_account = plaid_account
+  def initialize(external_account)
+    @external_account = external_account
     @security_cache = {}
   end
 
@@ -38,12 +38,12 @@ class PlaidAccount::Investments::SecurityResolver
   end
 
   private
-    attr_reader :plaid_account, :security_cache
+    attr_reader :external_account, :security_cache
 
     Response = Struct.new(:security, :cash_equivalent?, :brokerage_cash?, keyword_init: true)
 
     def securities
-      plaid_account.raw_investments_payload["securities"] || []
+      external_account.raw_investments_payload["securities"] || []
     end
 
     # Tries to find security, or returns the "proxy security" (common with options contracts that have underlying securities)

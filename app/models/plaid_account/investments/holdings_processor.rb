@@ -1,6 +1,6 @@
 class PlaidAccount::Investments::HoldingsProcessor
-  def initialize(plaid_account, security_resolver:)
-    @plaid_account = plaid_account
+  def initialize(external_account, security_resolver:)
+    @external_account = external_account
     @security_resolver = security_resolver
   end
 
@@ -38,13 +38,13 @@ class PlaidAccount::Investments::HoldingsProcessor
   end
 
   private
-    attr_reader :plaid_account, :security_resolver
+    attr_reader :external_account, :security_resolver
 
     def account
-      plaid_account.account
+      external_account.account
     end
 
     def holdings
-      plaid_account.raw_investments_payload["holdings"] || []
+      external_account.raw_investments_payload["holdings"] || []
     end
 end

@@ -2,12 +2,12 @@ module Account::Linkable
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :plaid_account, optional: true
+    belongs_to :external_account, optional: true
   end
 
-  # A "linked" account gets transaction and balance data from a third party like Plaid
+  # A "linked" account gets transaction and balance data from a third party
   def linked?
-    plaid_account_id.present?
+    external_account_id.present?
   end
 
   # An "offline" or "unlinked" account is one where the user tracks values and

@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.string "currency"
     t.virtual "classification", type: :string, as: "\nCASE\n    WHEN ((accountable_type)::text = ANY ((ARRAY['Loan'::character varying, 'CreditCard'::character varying, 'OtherLiability'::character varying])::text[])) THEN 'liability'::text\n    ELSE 'asset'::text\nEND", stored: true
     t.uuid "import_id"
-    t.uuid "plaid_account_id"
+    t.uuid "external_account_id"
     t.decimal "cash_balance", precision: 19, scale: 4, default: "0.0"
     t.jsonb "locked_attributes", default: {}
     t.string "status", default: "active"
@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.index ["family_id", "status"], name: "index_accounts_on_family_id_and_status"
     t.index ["family_id"], name: "index_accounts_on_family_id"
     t.index ["import_id"], name: "index_accounts_on_import_id"
-    t.index ["plaid_account_id"], name: "index_accounts_on_plaid_account_id"
+    t.index ["external_account_id"], name: "index_accounts_on_external_account_id"
     t.index ["status"], name: "index_accounts_on_status"
   end
 
@@ -231,7 +231,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.uuid "import_id"
     t.text "notes"
     t.boolean "excluded", default: false
-    t.string "plaid_id"
+    t.string "external_id"
     t.jsonb "locked_attributes", default: {}
     t.index "lower((name)::text)", name: "index_entries_on_lower_name"
     t.index ["account_id", "date"], name: "index_entries_on_account_id_and_date"
@@ -527,11 +527,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.jsonb "locked_attributes", default: {}
   end
 
-  create_table "plaid_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "plaid_item_id", null: false
-    t.string "plaid_id", null: false
-    t.string "plaid_type", null: false
-    t.string "plaid_subtype"
+  create_table "external_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "external_item_id", null: false
+    t.string "external_id", null: false
+    t.string "external_type", null: false
+    t.string "external_subtype"
+    t.string "external_provider", null: false
     t.decimal "current_balance", precision: 19, scale: 4
     t.decimal "available_balance", precision: 19, scale: 4
     t.string "currency", null: false
@@ -543,14 +544,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.jsonb "raw_transactions_payload", default: {}
     t.jsonb "raw_investments_payload", default: {}
     t.jsonb "raw_liabilities_payload", default: {}
-    t.index ["plaid_id"], name: "index_plaid_accounts_on_plaid_id", unique: true
-    t.index ["plaid_item_id"], name: "index_plaid_accounts_on_plaid_item_id"
+    t.index ["external_id"], name: "index_external_accounts_on_external_id", unique: true
+    t.index ["external_item_id"], name: "index_external_accounts_on_external_item_id"
   end
 
-  create_table "plaid_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "family_id", null: false
+  create_table "external_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "family_id", null: true
     t.string "access_token"
-    t.string "plaid_id", null: false
+    t.string "external_id", null: false
     t.string "name"
     t.string "next_cursor"
     t.boolean "scheduled_for_deletion", default: false
@@ -558,15 +559,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.datetime "updated_at", null: false
     t.string "available_products", default: [], array: true
     t.string "billed_products", default: [], array: true
-    t.string "plaid_region", default: "us", null: false
+    t.string "region", default: "us", null: true
     t.string "institution_url"
     t.string "institution_id"
     t.string "institution_color"
     t.string "status", default: "good", null: false
     t.jsonb "raw_payload", default: {}
     t.jsonb "raw_institution_payload", default: {}
-    t.index ["family_id"], name: "index_plaid_items_on_family_id"
-    t.index ["plaid_id"], name: "index_plaid_items_on_plaid_id", unique: true
+    t.index ["family_id"], name: "index_external_items_on_family_id"
+    t.index ["external_id"], name: "index_external_items_on_external_id", unique: true
   end
 
   create_table "properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -826,7 +827,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
 
   add_foreign_key "accounts", "families"
   add_foreign_key "accounts", "imports"
-  add_foreign_key "accounts", "plaid_accounts"
+  add_foreign_key "accounts", "external_accounts"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_keys", "users"
@@ -853,8 +854,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
   add_foreign_key "mobile_devices", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
-  add_foreign_key "plaid_accounts", "plaid_items"
-  add_foreign_key "plaid_items", "families"
+  add_foreign_key "external_accounts", "external_items"
+  add_foreign_key "external_items", "families"
   add_foreign_key "rejected_transfers", "transactions", column: "inflow_transaction_id"
   add_foreign_key "rejected_transfers", "transactions", column: "outflow_transaction_id"
   add_foreign_key "rule_actions", "rules"

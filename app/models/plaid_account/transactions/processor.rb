@@ -1,6 +1,6 @@
 class PlaidAccount::Transactions::Processor
-  def initialize(plaid_account)
-    @plaid_account = plaid_account
+  def initialize(external_account)
+    @external_account = external_account
   end
 
   def process
@@ -9,20 +9,20 @@ class PlaidAccount::Transactions::Processor
     modified_transactions.each do |transaction|
       PlaidEntry::Processor.new(
         transaction,
-        plaid_account: plaid_account,
+        external_account: external_account,
         category_matcher: category_matcher
       ).process
     end
 
     PlaidAccount.transaction do
       removed_transactions.each do |transaction|
-        remove_plaid_transaction(transaction)
+        remove_external_transaction(transaction)
       end
     end
   end
 
   private
-    attr_reader :plaid_account
+    attr_reader :external_account
 
     def category_matcher
       @category_matcher ||= PlaidAccount::Transactions::CategoryMatcher.new(family_categories)
@@ -39,22 +39,22 @@ class PlaidAccount::Transactions::Processor
     end
 
     def account
-      plaid_account.account
+      external_account.account
     end
 
-    def remove_plaid_transaction(raw_transaction)
-      account.entries.find_by(plaid_id: raw_transaction["transaction_id"])&.destroy
+    def remove_external_transaction(raw_transaction)
+      account.entries.find_by(external_id: raw_transaction["transaction_id"])&.destroy
     end
 
     # Since we find_or_create_by transactions, we don't need a distinction between added/modified
     def modified_transactions
-      modified = plaid_account.raw_transactions_payload["modified"] || []
-      added = plaid_account.raw_transactions_payload["added"] || []
+      modified = external_account.raw_transactions_payload["modified"] || []
+      added = external_account.raw_transactions_payload["added"] || []
 
       modified + added
     end
 
     def removed_transactions
-      plaid_account.raw_transactions_payload["removed"] || []
+      external_account.raw_transactions_payload["removed"] || []
     end
 end
