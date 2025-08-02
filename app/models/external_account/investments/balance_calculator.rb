@@ -1,6 +1,6 @@
 # Plaid Investment balances have a ton of edge cases.  This processor is responsible
 # for deriving "brokerage cash" vs. "total value" based on Plaid's reported balances and holdings.
-class PlaidAccount::Investments::BalanceCalculator
+class ExternalAccount::Investments::BalanceCalculator
   NegativeCashBalanceError = Class.new(StandardError)
   NegativeTotalValueError = Class.new(StandardError)
 
@@ -26,7 +26,7 @@ class PlaidAccount::Investments::BalanceCalculator
   #
   # Internally, we DO NOT.  Maybe clearly distinguishes between "brokerage cash" vs. "holdings (i.e. invested cash)"
   # For this reason, we must manually calculate the cash balance based on "total value" and "holdings value"
-  # See PlaidAccount::Investments::SecurityResolver for more details.
+  # See ExternalAccount::Investments::SecurityResolver for more details.
   def cash_balance
     cash_balance = calculate_investment_brokerage_cash
 

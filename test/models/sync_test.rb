@@ -75,8 +75,8 @@ class SyncTest < ActiveSupport::TestCase
     # instance we configured above
     Account.any_instance.expects(:perform_post_sync).once
     Account.any_instance.expects(:broadcast_sync_complete).once
-    PlaidItem.any_instance.expects(:perform_post_sync).once
-    PlaidItem.any_instance.expects(:broadcast_sync_complete).once
+    ExternalItem.any_instance.expects(:perform_post_sync).once
+    ExternalItem.any_instance.expects(:broadcast_sync_complete).once
     Family.any_instance.expects(:perform_post_sync).once
     Family.any_instance.expects(:broadcast_sync_complete).once
 
@@ -113,17 +113,17 @@ class SyncTest < ActiveSupport::TestCase
     assert_equal "syncing", family_sync.reload.status
     assert_equal "syncing", plaid_item_sync.reload.status
 
-    # This error should "bubble up" to the PlaidItem and Family sync results
+    # This error should "bubble up" to the ExternalItem and Family sync results
     account.expects(:perform_sync).with(account_sync).raises(StandardError.new("test account sync error"))
 
     # Since these are accessed through `parent`, they won't necessarily be the same
     # instance we configured above
     Account.any_instance.expects(:perform_post_sync).once
-    PlaidItem.any_instance.expects(:perform_post_sync).once
+    ExternalItem.any_instance.expects(:perform_post_sync).once
     Family.any_instance.expects(:perform_post_sync).once
 
     Account.any_instance.expects(:broadcast_sync_complete).once
-    PlaidItem.any_instance.expects(:broadcast_sync_complete).once
+    ExternalItem.any_instance.expects(:broadcast_sync_complete).once
     Family.any_instance.expects(:broadcast_sync_complete).once
 
     account_sync.perform
@@ -165,11 +165,11 @@ class SyncTest < ActiveSupport::TestCase
     # Since these are accessed through `parent`, they won't necessarily be the same
     # instance we configured above
     Account.any_instance.expects(:perform_post_sync).once
-    PlaidItem.any_instance.expects(:perform_post_sync).once
+    ExternalItem.any_instance.expects(:perform_post_sync).once
     Family.any_instance.expects(:perform_post_sync).once
 
     Account.any_instance.expects(:broadcast_sync_complete).once
-    PlaidItem.any_instance.expects(:broadcast_sync_complete).once
+    ExternalItem.any_instance.expects(:broadcast_sync_complete).once
     Family.any_instance.expects(:broadcast_sync_complete).once
 
     account_sync.perform

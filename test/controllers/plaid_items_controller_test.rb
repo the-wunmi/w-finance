@@ -16,7 +16,7 @@ class PlaidItemsControllerTest < ActionDispatch::IntegrationTest
       OpenStruct.new(access_token: "access-sandbox-1234", item_id: "item-sandbox-1234")
     )
 
-    assert_difference "PlaidItem.count", 1 do
+    assert_difference "ExternalItem.count", 1 do
       post plaid_items_url, params: {
         plaid_item: {
           public_token: public_token,
@@ -40,7 +40,7 @@ class PlaidItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "sync" do
     plaid_item = plaid_items(:one)
-    PlaidItem.any_instance.expects(:sync_later).once
+    ExternalItem.any_instance.expects(:sync_later).once
 
     post sync_plaid_item_url(plaid_item)
 

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PlaidAccount::Liabilities::CreditProcessorTest < ActiveSupport::TestCase
+class ExternalAccount::Liabilities::CreditProcessorTest < ActiveSupport::TestCase
   setup do
     @plaid_account = plaid_accounts(:one)
     @plaid_account.update!(
@@ -21,7 +21,7 @@ class PlaidAccount::Liabilities::CreditProcessorTest < ActiveSupport::TestCase
       }
     })
 
-    processor = PlaidAccount::Liabilities::CreditProcessor.new(@plaid_account)
+    processor = ExternalAccount::Liabilities::CreditProcessor.new(@plaid_account)
     processor.process
 
     assert_equal 100, @plaid_account.account.credit_card.minimum_payment
@@ -30,7 +30,7 @@ class PlaidAccount::Liabilities::CreditProcessorTest < ActiveSupport::TestCase
 
   test "does nothing when liability data absent" do
     @plaid_account.update!(raw_liabilities_payload: {})
-    processor = PlaidAccount::Liabilities::CreditProcessor.new(@plaid_account)
+    processor = ExternalAccount::Liabilities::CreditProcessor.new(@plaid_account)
     processor.process
 
     assert_nil @plaid_account.account.credit_card.minimum_payment

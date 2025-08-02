@@ -1,9 +1,9 @@
 require "test_helper"
 
-class PlaidAccount::Investments::TransactionsProcessorTest < ActiveSupport::TestCase
+class ExternalAccount::Investments::TransactionsProcessorTest < ActiveSupport::TestCase
   setup do
     @plaid_account = plaid_accounts(:one)
-    @security_resolver = PlaidAccount::Investments::SecurityResolver.new(@plaid_account)
+    @security_resolver = ExternalAccount::Investments::SecurityResolver.new(@plaid_account)
   end
 
   test "creates regular trade entries" do
@@ -29,7 +29,7 @@ class PlaidAccount::Investments::TransactionsProcessorTest < ActiveSupport::Test
       security: securities(:aapl)
     ))
 
-    processor = PlaidAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
 
     assert_difference [ "Entry.count", "Trade.count" ], 1 do
       processor.process
@@ -62,7 +62,7 @@ class PlaidAccount::Investments::TransactionsProcessorTest < ActiveSupport::Test
 
     @security_resolver.expects(:resolve).never # Cash transactions don't have a security
 
-    processor = PlaidAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
 
     assert_difference [ "Entry.count", "Transaction.count" ], 1 do
       processor.process
@@ -95,7 +95,7 @@ class PlaidAccount::Investments::TransactionsProcessorTest < ActiveSupport::Test
 
     @security_resolver.expects(:resolve).never # Cash transactions don't have a security
 
-    processor = PlaidAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
 
     assert_difference [ "Entry.count", "Transaction.count" ], 1 do
       processor.process
@@ -132,7 +132,7 @@ class PlaidAccount::Investments::TransactionsProcessorTest < ActiveSupport::Test
       security: securities(:aapl)
     ))
 
-    processor = PlaidAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
 
     assert_difference [ "Entry.count", "Trade.count" ], 1 do
       processor.process
@@ -166,7 +166,7 @@ class PlaidAccount::Investments::TransactionsProcessorTest < ActiveSupport::Test
 
     @security_resolver.expects(:resolve).never
 
-    processor = PlaidAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
 
     assert_difference [ "Entry.count", "Transaction.count" ], 1 do
       processor.process

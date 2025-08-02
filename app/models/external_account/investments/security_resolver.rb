@@ -1,5 +1,5 @@
 # Resolves a Plaid security to an internal Security record, or nil
-class PlaidAccount::Investments::SecurityResolver
+class ExternalAccount::Investments::SecurityResolver
   UnresolvablePlaidSecurityError = Class.new(StandardError)
 
   def initialize(external_account)

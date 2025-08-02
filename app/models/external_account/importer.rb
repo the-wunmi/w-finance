@@ -1,4 +1,4 @@
-class PlaidAccount::Importer
+class ExternalAccount::Importer
   def initialize(external_account, account_snapshot:)
     @external_account = external_account
     @account_snapshot = account_snapshot

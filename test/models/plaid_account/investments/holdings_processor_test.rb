@@ -1,9 +1,9 @@
 require "test_helper"
 
-class PlaidAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestCase
+class ExternalAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestCase
   setup do
     @plaid_account = plaid_accounts(:one)
-    @security_resolver = PlaidAccount::Investments::SecurityResolver.new(@plaid_account)
+    @security_resolver = ExternalAccount::Investments::SecurityResolver.new(@plaid_account)
   end
 
   test "creates holding records from Plaid holdings snapshot" do
@@ -49,7 +49,7 @@ class PlaidAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestCase
                         )
                       )
 
-    processor = PlaidAccount::Investments::HoldingsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::HoldingsProcessor.new(@plaid_account, security_resolver: @security_resolver)
 
     assert_difference "Holding.count", 2 do
       processor.process
@@ -137,7 +137,7 @@ class PlaidAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestCase
                       .with(plaid_security_id: "stale")
                       .returns(OpenStruct.new(security: securities(:aapl), cash_equivalent?: false, brokerage_cash?: false))
 
-    processor = PlaidAccount::Investments::HoldingsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::HoldingsProcessor.new(@plaid_account, security_resolver: @security_resolver)
     processor.process
 
     # Should have created 3 new holdings
@@ -184,7 +184,7 @@ class PlaidAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestCase
                       .with(plaid_security_id: "success")
                       .returns(OpenStruct.new(security: securities(:aapl)))
 
-    processor = PlaidAccount::Investments::HoldingsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::HoldingsProcessor.new(@plaid_account, security_resolver: @security_resolver)
 
     # Should create only 1 holding (the successful one)
     assert_difference "Holding.count", 1 do

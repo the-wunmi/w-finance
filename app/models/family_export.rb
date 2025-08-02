@@ -3,6 +3,8 @@ class FamilyExport < ApplicationRecord
 
   has_one_attached :export_file
 
+  attribute :status, :string
+
   enum :status, {
     pending: "pending",
     processing: "processing",

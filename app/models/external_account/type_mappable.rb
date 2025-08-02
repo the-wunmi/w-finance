@@ -1,4 +1,4 @@
-module PlaidAccount::TypeMappable
+module ExternalAccount::TypeMappable
   extend ActiveSupport::Concern
 
   UnknownAccountTypeError = Class.new(StandardError)

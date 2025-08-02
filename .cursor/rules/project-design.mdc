@@ -102,7 +102,7 @@ All relevant metadata about the item and its underlying accounts are stored on [
 The Maybe app has the concept of a [syncable.rb](mdc:app/models/concerns/syncable.rb), which represents any model which can have its data "synced" in the background.  "Syncables" include:
 
 - `Account` - an account "sync" will sync account holdings, balances, and enhance transaction metadata
-- `PlaidItem` - a Plaid Item "sync" fetches data from Plaid APIs, normalizes that data, stores it on internal Maybe models, and then finally performs an "Account sync" for each of the underlying accounts created from the Plaid Item.
+- `ExternalItem` - a Plaid Item "sync" fetches data from Plaid APIs, normalizes that data, stores it on internal Maybe models, and then finally performs an "Account sync" for each of the underlying accounts created from the Plaid Item.
 - `Family` - a Family "sync" loops through the family's Plaid Items and individual Accounts and "syncs" each of them.  A family is synced once per day, automatically through [auto_sync.rb](mdc:app/controllers/concerns/auto_sync.rb).
 
 Each "sync" creates a [sync.rb](mdc:app/models/sync.rb) record in the database, which keeps track of the status of the sync, any errors that it encounters, and acts as an "audit table" for synced data.

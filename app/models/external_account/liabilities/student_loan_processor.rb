@@ -1,4 +1,4 @@
-class PlaidAccount::Liabilities::StudentLoanProcessor
+class ExternalAccount::Liabilities::StudentLoanProcessor
   def initialize(external_account)
     @external_account = external_account
   end

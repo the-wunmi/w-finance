@@ -3,6 +3,8 @@ class Subscription < ApplicationRecord
 
   belongs_to :family
 
+  attribute :status, :string
+
   # https://docs.stripe.com/api/subscriptions/object
   enum :status, {
     incomplete: "incomplete",

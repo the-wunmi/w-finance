@@ -1,12 +1,12 @@
 require "test_helper"
 
-class PlaidItem::AccountsSnapshotTest < ActiveSupport::TestCase
+class ExternalItem::AccountsSnapshotTest < ActiveSupport::TestCase
   setup do
     @plaid_item = plaid_items(:one)
     @plaid_item.plaid_accounts.destroy_all # Clean slate
 
     @plaid_provider = mock
-    @snapshot = PlaidItem::AccountsSnapshot.new(@plaid_item, plaid_provider: @plaid_provider)
+    @snapshot = ExternalItem::AccountsSnapshot.new(@plaid_item, plaid_provider: @plaid_provider)
   end
 
   test "fetches accounts" do

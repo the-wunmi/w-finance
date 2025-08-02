@@ -21,6 +21,8 @@ class Import < ApplicationRecord
 
   scope :ordered, -> { order(created_at: :desc) }
 
+  attribute :status, :string
+
   enum :status, {
     pending: "pending",
     complete: "complete",

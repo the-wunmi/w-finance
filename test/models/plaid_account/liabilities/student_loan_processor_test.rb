@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PlaidAccount::Liabilities::StudentLoanProcessorTest < ActiveSupport::TestCase
+class ExternalAccount::Liabilities::StudentLoanProcessorTest < ActiveSupport::TestCase
   setup do
     @plaid_account = plaid_accounts(:one)
     @plaid_account.update!(
@@ -22,7 +22,7 @@ class PlaidAccount::Liabilities::StudentLoanProcessorTest < ActiveSupport::TestC
       }
     })
 
-    processor = PlaidAccount::Liabilities::StudentLoanProcessor.new(@plaid_account)
+    processor = ExternalAccount::Liabilities::StudentLoanProcessor.new(@plaid_account)
     processor.process
 
     loan = @plaid_account.account.loan
@@ -43,7 +43,7 @@ class PlaidAccount::Liabilities::StudentLoanProcessorTest < ActiveSupport::TestC
       }
     })
 
-    processor = PlaidAccount::Liabilities::StudentLoanProcessor.new(@plaid_account)
+    processor = ExternalAccount::Liabilities::StudentLoanProcessor.new(@plaid_account)
     processor.process
 
     loan = @plaid_account.account.loan
@@ -56,7 +56,7 @@ class PlaidAccount::Liabilities::StudentLoanProcessorTest < ActiveSupport::TestC
   test "does nothing when loan data absent" do
     @plaid_account.update!(raw_liabilities_payload: {})
 
-    processor = PlaidAccount::Liabilities::StudentLoanProcessor.new(@plaid_account)
+    processor = ExternalAccount::Liabilities::StudentLoanProcessor.new(@plaid_account)
     processor.process
 
     loan = @plaid_account.account.loan

@@ -1,9 +1,9 @@
 require "test_helper"
 
-class PlaidEntry::ProcessorTest < ActiveSupport::TestCase
+class ExternalEntry::ProcessorTest < ActiveSupport::TestCase
   setup do
     @plaid_account = plaid_accounts(:one)
-    @category_matcher = mock("PlaidAccount::Transactions::CategoryMatcher")
+    @category_matcher = mock("ExternalAccount::Transactions::CategoryMatcher")
   end
 
   test "creates new entry transaction" do
@@ -21,7 +21,7 @@ class PlaidEntry::ProcessorTest < ActiveSupport::TestCase
 
     @category_matcher.expects(:match).with("Food").returns(categories(:food_and_drink))
 
-    processor = PlaidEntry::Processor.new(
+    processor = ExternalEntry::Processor.new(
       plaid_transaction,
       plaid_account: @plaid_account,
       category_matcher: @category_matcher
@@ -70,7 +70,7 @@ class PlaidEntry::ProcessorTest < ActiveSupport::TestCase
       entryable: Transaction.new
     )
 
-    processor = PlaidEntry::Processor.new(
+    processor = ExternalEntry::Processor.new(
       plaid_transaction,
       plaid_account: @plaid_account,
       category_matcher: @category_matcher

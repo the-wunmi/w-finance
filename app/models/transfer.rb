@@ -2,6 +2,8 @@ class Transfer < ApplicationRecord
   belongs_to :inflow_transaction, class_name: "Transaction"
   belongs_to :outflow_transaction, class_name: "Transaction"
 
+  attribute :status, :string
+
   enum :status, { pending: "pending", confirmed: "confirmed" }
 
   validates :inflow_transaction_id, uniqueness: true

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PlaidAccount::ImporterTest < ActiveSupport::TestCase
+class ExternalAccount::ImporterTest < ActiveSupport::TestCase
   setup do
     @plaid_account = plaid_accounts(:one)
     @mock_account_snapshot = mock
@@ -41,6 +41,6 @@ class PlaidAccount::ImporterTest < ActiveSupport::TestCase
     @plaid_account.expects(:upsert_plaid_investments_snapshot!).with(investments_data)
     @plaid_account.expects(:upsert_plaid_liabilities_snapshot!).with(liabilities_data)
 
-    PlaidAccount::Importer.new(@plaid_account, account_snapshot: @mock_account_snapshot).import
+    ExternalAccount::Importer.new(@plaid_account, account_snapshot: @mock_account_snapshot).import
   end
 end

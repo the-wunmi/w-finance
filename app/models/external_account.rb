@@ -1,4 +1,4 @@
-class PlaidAccount < ApplicationRecord
+class ExternalAccount < ApplicationRecord
   belongs_to :external_item
 
   has_one :account, dependent: :destroy

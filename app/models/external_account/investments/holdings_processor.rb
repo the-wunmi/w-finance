@@ -1,4 +1,4 @@
-class PlaidAccount::Investments::HoldingsProcessor
+class ExternalAccount::Investments::HoldingsProcessor
   def initialize(external_account, security_resolver:)
     @external_account = external_account
     @security_resolver = security_resolver

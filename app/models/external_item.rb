@@ -1,5 +1,8 @@
-class PlaidItem < ApplicationRecord
+class ExternalItem < ApplicationRecord
   include Syncable, Provided
+
+  attribute :region, :string
+  attribute :status, :string
 
   enum :region, { us: "us", eu: "eu" }
   enum :status, { good: "good", requires_update: "requires_update" }, default: :good
@@ -47,7 +50,7 @@ class PlaidItem < ApplicationRecord
   end
 
   def import_latest_external_data
-    PlaidItem::Importer.new(self, plaid_provider: plaid_provider).import
+    ExternalItem::Importer.new(self, plaid_provider: plaid_provider).import
   end
 
   # Reads the fetched data and updates internal domain objects
@@ -55,7 +58,7 @@ class PlaidItem < ApplicationRecord
   # manually to "re-sync" the already fetched data
   def process_accounts
     external_accounts.each do |external_account|
-      PlaidAccount::Processor.new(external_account).process
+      ExternalAccount::Processor.new(external_account).process
     end
   end
 

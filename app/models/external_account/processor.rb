@@ -1,5 +1,5 @@
-class PlaidAccount::Processor
-  include PlaidAccount::TypeMappable
+class ExternalAccount::Processor
+  include ExternalAccount::TypeMappable
 
   attr_reader :external_account
 
@@ -25,11 +25,11 @@ class PlaidAccount::Processor
 
     # Shared securities reader and resolver
     def security_resolver
-      @security_resolver ||= PlaidAccount::Investments::SecurityResolver.new(external_account)
+      @security_resolver ||= ExternalAccount::Investments::SecurityResolver.new(external_account)
     end
 
     def process_account!
-      PlaidAccount.transaction do
+      ExternalAccount.transaction do
         account = family.accounts.find_or_initialize_by(
           external_account_id: external_account.id
         )
@@ -62,14 +62,14 @@ class PlaidAccount::Processor
     end
 
     def process_transactions
-      PlaidAccount::Transactions::Processor.new(external_account).process
+      ExternalAccount::Transactions::Processor.new(external_account).process
     rescue => e
       report_exception(e)
     end
 
     def process_investments
-      PlaidAccount::Investments::TransactionsProcessor.new(external_account, security_resolver: security_resolver).process
-      PlaidAccount::Investments::HoldingsProcessor.new(external_account, security_resolver: security_resolver).process
+      ExternalAccount::Investments::TransactionsProcessor.new(external_account, security_resolver: security_resolver).process
+      ExternalAccount::Investments::HoldingsProcessor.new(external_account, security_resolver: security_resolver).process
     rescue => e
       report_exception(e)
     end
@@ -77,11 +77,11 @@ class PlaidAccount::Processor
     def process_liabilities
       case [ external_account.external_type, external_account.external_subtype ]
       when [ "credit", "credit card" ]
-        PlaidAccount::Liabilities::CreditProcessor.new(external_account).process
+        ExternalAccount::Liabilities::CreditProcessor.new(external_account).process
       when [ "loan", "mortgage" ]
-        PlaidAccount::Liabilities::MortgageProcessor.new(external_account).process
+        ExternalAccount::Liabilities::MortgageProcessor.new(external_account).process
       when [ "loan", "student" ]
-        PlaidAccount::Liabilities::StudentLoanProcessor.new(external_account).process
+        ExternalAccount::Liabilities::StudentLoanProcessor.new(external_account).process
       end
     rescue => e
       report_exception(e)
@@ -89,7 +89,7 @@ class PlaidAccount::Processor
 
     def balance_calculator
       if external_account.external_type == "investment"
-        @balance_calculator ||= PlaidAccount::Investments::BalanceCalculator.new(external_account, security_resolver: security_resolver)
+        @balance_calculator ||= ExternalAccount::Investments::BalanceCalculator.new(external_account, security_resolver: security_resolver)
       else
         balance = external_account.current_balance || external_account.available_balance || 0
 

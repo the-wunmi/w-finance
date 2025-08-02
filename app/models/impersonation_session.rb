@@ -4,6 +4,8 @@ class ImpersonationSession < ApplicationRecord
 
   has_many :logs, class_name: "ImpersonationSessionLog"
 
+  attribute :status, :string
+
   enum :status, { pending: "pending", in_progress: "in_progress", complete: "complete", rejected: "rejected" }
 
   scope :initiated, -> { where(status: [ :pending, :in_progress ]) }

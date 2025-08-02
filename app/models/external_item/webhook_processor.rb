@@ -1,4 +1,4 @@
-class PlaidItem::WebhookProcessor
+class ExternalItem::WebhookProcessor
   MissingItemError = Class.new(StandardError)
 
   def initialize(webhook_body)
@@ -38,7 +38,7 @@ class PlaidItem::WebhookProcessor
     attr_reader :webhook_type, :webhook_code, :item_id, :error
 
     def external_item
-      @external_item ||= PlaidItem.find_by(external_id: item_id)
+      @external_item ||= ExternalItem.find_by(external_id: item_id)
     end
 
     def handle_missing_item

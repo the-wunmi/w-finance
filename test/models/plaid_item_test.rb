@@ -12,7 +12,7 @@ class PlaidItemTest < ActiveSupport::TestCase
   test "removes plaid item when destroyed" do
     @plaid_provider.expects(:remove_item).with(@plaid_item.access_token).once
 
-    assert_difference "PlaidItem.count", -1 do
+    assert_difference "ExternalItem.count", -1 do
       @plaid_item.destroy
     end
   end

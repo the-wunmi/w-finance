@@ -1,4 +1,4 @@
-class PlaidAccount::Transactions::Processor
+class ExternalAccount::Transactions::Processor
   def initialize(external_account)
     @external_account = external_account
   end
@@ -7,14 +7,14 @@ class PlaidAccount::Transactions::Processor
     # Each entry is processed inside a transaction, but to avoid locking up the DB when
     # there are hundreds or thousands of transactions, we process them individually.
     modified_transactions.each do |transaction|
-      PlaidEntry::Processor.new(
+      ExternalEntry::Processor.new(
         transaction,
         external_account: external_account,
         category_matcher: category_matcher
       ).process
     end
 
-    PlaidAccount.transaction do
+    ExternalAccount.transaction do
       removed_transactions.each do |transaction|
         remove_external_transaction(transaction)
       end
@@ -25,7 +25,7 @@ class PlaidAccount::Transactions::Processor
     attr_reader :external_account
 
     def category_matcher
-      @category_matcher ||= PlaidAccount::Transactions::CategoryMatcher.new(family_categories)
+      @category_matcher ||= ExternalAccount::Transactions::CategoryMatcher.new(family_categories)
     end
 
     def family_categories

@@ -1,6 +1,8 @@
 class Valuation < ApplicationRecord
   include Entryable
 
+  attribute :kind, :string
+
   enum :kind, {
     reconciliation: "reconciliation",
     opening_anchor: "opening_anchor",

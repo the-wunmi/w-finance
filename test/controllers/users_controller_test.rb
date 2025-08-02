@@ -55,7 +55,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not Merchant.exists?(merchant.id)
     assert_not Import.exists?(import.id)
     assert_not Budget.exists?(budget.id)
-    assert_not PlaidItem.exists?(plaid_item.id)
+    assert_not ExternalItem.exists?(plaid_item.id)
   end
 
   test "non-admin cannot reset family data" do

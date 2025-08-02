@@ -1,4 +1,4 @@
-class PlaidItem::Importer
+class ExternalItem::Importer
   def initialize(external_item, plaid_provider:)
     @external_item = external_item
     @plaid_provider = plaid_provider
@@ -36,15 +36,15 @@ class PlaidItem::Importer
     end
 
     def fetch_and_import_accounts_data
-      snapshot = PlaidItem::AccountsSnapshot.new(external_item, plaid_provider: plaid_provider)
+      snapshot = ExternalItem::AccountsSnapshot.new(external_item, plaid_provider: plaid_provider)
 
-      PlaidItem.transaction do
+      ExternalItem.transaction do
         snapshot.accounts.each do |raw_account|
           external_account = external_item.external_accounts.find_or_initialize_by(
             external_id: raw_account.account_id
           )
 
-          PlaidAccount::Importer.new(
+          ExternalAccount::Importer.new(
             external_account,
             account_snapshot: snapshot.get_account_data(raw_account.account_id)
           ).import

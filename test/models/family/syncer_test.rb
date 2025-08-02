@@ -18,7 +18,7 @@ class Family::SyncerTest < ActiveSupport::TestCase
            .with(parent_sync: family_sync, window_start_date: nil, window_end_date: nil)
            .times(manual_accounts_count)
 
-    PlaidItem.any_instance
+    ExternalItem.any_instance
              .expects(:sync_later)
              .with(parent_sync: family_sync, window_start_date: nil, window_end_date: nil)
              .times(items_count)

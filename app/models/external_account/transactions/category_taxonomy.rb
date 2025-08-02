@@ -1,5 +1,5 @@
 # https://plaid.com/documents/transactions-personal-finance-category-taxonomy.csv
-module PlaidAccount::Transactions::CategoryTaxonomy
+module ExternalAccount::Transactions::CategoryTaxonomy
   CATEGORIES_MAP = {
     income: {
       classification: :income,

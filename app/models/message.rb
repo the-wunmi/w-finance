@@ -2,6 +2,8 @@ class Message < ApplicationRecord
   belongs_to :chat
   has_many :tool_calls, dependent: :destroy
 
+  attribute :status, :string
+
   enum :status, {
     pending: "pending",
     complete: "complete",

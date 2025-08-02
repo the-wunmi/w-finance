@@ -241,23 +241,23 @@ class ActiveSupport::TestCase
   end
   def other_liabilities(fixture_name = nil, *other_fixtures); end
 
-  sig { params(fixture_name: NilClass, other_fixtures: NilClass).returns(T::Array[PlaidAccount]) }
-  sig { params(fixture_name: T.any(String, Symbol), other_fixtures: NilClass).returns(PlaidAccount) }
+  sig { params(fixture_name: NilClass, other_fixtures: NilClass).returns(T::Array[T.untyped]) }
+  sig { params(fixture_name: T.any(String, Symbol), other_fixtures: NilClass).returns(T.untyped) }
   sig do
     params(
       fixture_name: T.any(String, Symbol),
       other_fixtures: T.any(String, Symbol)
-    ).returns(T::Array[PlaidAccount])
+    ).returns(T::Array[T.untyped])
   end
   def plaid_accounts(fixture_name = nil, *other_fixtures); end
 
-  sig { params(fixture_name: NilClass, other_fixtures: NilClass).returns(T::Array[PlaidItem]) }
-  sig { params(fixture_name: T.any(String, Symbol), other_fixtures: NilClass).returns(PlaidItem) }
+  sig { params(fixture_name: NilClass, other_fixtures: NilClass).returns(T::Array[T.untyped]) }
+  sig { params(fixture_name: T.any(String, Symbol), other_fixtures: NilClass).returns(T.untyped) }
   sig do
     params(
       fixture_name: T.any(String, Symbol),
       other_fixtures: T.any(String, Symbol)
-    ).returns(T::Array[PlaidItem])
+    ).returns(T::Array[T.untyped])
   end
   def plaid_items(fixture_name = nil, *other_fixtures); end
 

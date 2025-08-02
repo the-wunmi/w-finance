@@ -1,4 +1,4 @@
-class PlaidEntry::Processor
+class ExternalEntry::Processor
   # external_transaction is the raw hash fetched from external API and converted to JSONB
   def initialize(external_transaction, external_account:, category_matcher:)
     @external_transaction = external_transaction
@@ -7,7 +7,7 @@ class PlaidEntry::Processor
   end
 
   def process
-    PlaidAccount.transaction do
+    ExternalAccount.transaction do
       entry = account.entries.find_or_initialize_by(external_id: external_id) do |e|
         e.entryable = Transaction.new
       end

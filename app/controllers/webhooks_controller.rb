@@ -10,7 +10,7 @@ class WebhooksController < ApplicationController
 
     client.validate_webhook!(plaid_verification_header, webhook_body)
 
-    PlaidItem::WebhookProcessor.new(webhook_body).process
+    ExternalItem::WebhookProcessor.new(webhook_body).process
 
     render json: { received: true }, status: :ok
   rescue => error
@@ -26,7 +26,7 @@ class WebhooksController < ApplicationController
 
     client.validate_webhook!(plaid_verification_header, webhook_body)
 
-    PlaidItem::WebhookProcessor.new(webhook_body).process
+    ExternalItem::WebhookProcessor.new(webhook_body).process
 
     render json: { received: true }, status: :ok
   rescue => error

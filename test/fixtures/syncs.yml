@@ -5,7 +5,7 @@ account:
   completed_at: <%= Time.now %>
 
 plaid_item:
-  syncable_type: PlaidItem
+  syncable_type: ExternalItem
   syncable: one
   status: completed
   completed_at: <%= Time.now %>

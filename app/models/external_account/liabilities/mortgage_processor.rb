@@ -1,4 +1,4 @@
-class PlaidAccount::Liabilities::MortgageProcessor
+class ExternalAccount::Liabilities::MortgageProcessor
   def initialize(external_account)
     @external_account = external_account
   end

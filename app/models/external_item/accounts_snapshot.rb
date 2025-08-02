@@ -1,7 +1,7 @@
 # All Plaid data is fetched at the item-level.  This class is a simple wrapper that
 # providers a convenience method, get_account_data which scopes the item-level payload
 # to each Plaid Account
-class PlaidItem::AccountsSnapshot
+class ExternalItem::AccountsSnapshot
   def initialize(external_item, plaid_provider:)
     @external_item = external_item
     @plaid_provider = plaid_provider

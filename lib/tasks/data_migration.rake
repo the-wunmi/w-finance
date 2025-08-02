@@ -5,7 +5,7 @@ namespace :data_migration do
   task eu_plaid_webhooks: :environment do
     provider = Provider::Plaid.new(Rails.application.config.plaid_eu, region: :eu)
 
-    eu_items = PlaidItem.where(plaid_region: "eu")
+    eu_items = ExternalItem.where(plaid_region: "eu")
 
     eu_items.find_each do |item|
       request = Plaid::ItemWebhookUpdateRequest.new(

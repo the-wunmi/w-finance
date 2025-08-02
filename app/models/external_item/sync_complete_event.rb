@@ -1,4 +1,4 @@
-class PlaidItem::SyncCompleteEvent
+class ExternalItem::SyncCompleteEvent
   attr_reader :external_item
 
   def initialize(external_item)

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PlaidAccount::Investments::BalanceCalculatorTest < ActiveSupport::TestCase
+class ExternalAccount::Investments::BalanceCalculatorTest < ActiveSupport::TestCase
   setup do
     @plaid_account = plaid_accounts(:one)
 
@@ -69,8 +69,8 @@ class PlaidAccount::Investments::BalanceCalculatorTest < ActiveSupport::TestCase
 
     @plaid_account.update!(raw_investments_payload: test_investments)
 
-    security_resolver = PlaidAccount::Investments::SecurityResolver.new(@plaid_account)
-    balance_calculator = PlaidAccount::Investments::BalanceCalculator.new(@plaid_account, security_resolver: security_resolver)
+    security_resolver = ExternalAccount::Investments::SecurityResolver.new(@plaid_account)
+    balance_calculator = ExternalAccount::Investments::BalanceCalculator.new(@plaid_account, security_resolver: security_resolver)
 
     # We set this equal to `current_balance`
     assert_equal 4000, balance_calculator.balance

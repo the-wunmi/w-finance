@@ -1,11 +1,11 @@
 require "test_helper"
 require "ostruct"
 
-class PlaidItem::ImporterTest < ActiveSupport::TestCase
+class ExternalItem::ImporterTest < ActiveSupport::TestCase
   setup do
     @mock_provider = mock("Provider::Plaid")
     @plaid_item = plaid_items(:one)
-    @importer = PlaidItem::Importer.new(@plaid_item, plaid_provider: @mock_provider)
+    @importer = ExternalItem::Importer.new(@plaid_item, plaid_provider: @mock_provider)
   end
 
   test "imports item metadata" do
@@ -30,18 +30,18 @@ class PlaidItem::ImporterTest < ActiveSupport::TestCase
       OpenStruct.new(institution: institution_data)
     )
 
-    PlaidItem::AccountsSnapshot.any_instance.expects(:accounts).returns([
+    ExternalItem::AccountsSnapshot.any_instance.expects(:accounts).returns([
       OpenStruct.new(
         account_id: "acc_1",
         type: "depository",
       )
     ]).at_least_once
 
-    PlaidItem::AccountsSnapshot.any_instance.expects(:transactions_cursor).returns("test_cursor_1")
+    ExternalItem::AccountsSnapshot.any_instance.expects(:transactions_cursor).returns("test_cursor_1")
 
-    PlaidItem::AccountsSnapshot.any_instance.expects(:get_account_data).with("acc_1").once
+    ExternalItem::AccountsSnapshot.any_instance.expects(:get_account_data).with("acc_1").once
 
-    PlaidAccount::Importer.any_instance.expects(:import).once
+    ExternalAccount::Importer.any_instance.expects(:import).once
 
     @plaid_item.expects(:update!).with(next_cursor: "test_cursor_1")
     @plaid_item.expects(:upsert_plaid_snapshot!).with(item_data)

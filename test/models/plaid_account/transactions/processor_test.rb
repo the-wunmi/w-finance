@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PlaidAccount::Transactions::ProcessorTest < ActiveSupport::TestCase
+class ExternalAccount::Transactions::ProcessorTest < ActiveSupport::TestCase
   setup do
     @plaid_account = plaid_accounts(:one)
   end
@@ -15,23 +15,23 @@ class PlaidAccount::Transactions::ProcessorTest < ActiveSupport::TestCase
       removed: []
     })
 
-    mock_processor = mock("PlaidEntry::Processor")
-    category_matcher_mock = mock("PlaidAccount::Transactions::CategoryMatcher")
+    mock_processor = mock("ExternalEntry::Processor")
+    category_matcher_mock = mock("ExternalAccount::Transactions::CategoryMatcher")
 
-    PlaidAccount::Transactions::CategoryMatcher.stubs(:new).returns(category_matcher_mock)
-    PlaidEntry::Processor.expects(:new)
+    ExternalAccount::Transactions::CategoryMatcher.stubs(:new).returns(category_matcher_mock)
+    ExternalEntry::Processor.expects(:new)
                          .with(added_transactions.first, plaid_account: @plaid_account, category_matcher: category_matcher_mock)
                          .returns(mock_processor)
                          .once
 
-    PlaidEntry::Processor.expects(:new)
+    ExternalEntry::Processor.expects(:new)
                          .with(modified_transactions.first, plaid_account: @plaid_account, category_matcher: category_matcher_mock)
                          .returns(mock_processor)
                          .once
 
     mock_processor.expects(:process).twice
 
-    processor = PlaidAccount::Transactions::Processor.new(@plaid_account)
+    processor = ExternalAccount::Transactions::Processor.new(@plaid_account)
     processor.process
   end
 
@@ -52,7 +52,7 @@ class PlaidAccount::Transactions::ProcessorTest < ActiveSupport::TestCase
       removed: [ { "transaction_id" => destroyable_transaction_id } ]
     })
 
-    processor = PlaidAccount::Transactions::Processor.new(@plaid_account)
+    processor = ExternalAccount::Transactions::Processor.new(@plaid_account)
 
     assert_difference [ "Entry.count", "Transaction.count" ], -1 do
       processor.process

@@ -1,4 +1,4 @@
-class PlaidItem::Syncer
+class ExternalItem::Syncer
   attr_reader :external_item
 
   def initialize(external_item)

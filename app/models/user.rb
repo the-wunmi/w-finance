@@ -20,6 +20,8 @@ class User < ApplicationRecord
 
   normalizes :first_name, :last_name, with: ->(value) { value.strip.presence }
 
+  attribute :role, :string
+
   enum :role, { member: "member", admin: "admin", super_admin: "super_admin" }, validate: true
 
   has_one_attached :profile_image do |attachable|

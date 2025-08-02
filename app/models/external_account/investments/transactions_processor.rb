@@ -1,4 +1,4 @@
-class PlaidAccount::Investments::TransactionsProcessor
+class ExternalAccount::Investments::TransactionsProcessor
   SecurityNotFoundError = Class.new(StandardError)
 
   def initialize(external_account, security_resolver:)

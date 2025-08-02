@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PlaidAccount::Liabilities::MortgageProcessorTest < ActiveSupport::TestCase
+class ExternalAccount::Liabilities::MortgageProcessorTest < ActiveSupport::TestCase
   setup do
     @plaid_account = plaid_accounts(:one)
     @plaid_account.update!(
@@ -21,7 +21,7 @@ class PlaidAccount::Liabilities::MortgageProcessorTest < ActiveSupport::TestCase
       }
     })
 
-    processor = PlaidAccount::Liabilities::MortgageProcessor.new(@plaid_account)
+    processor = ExternalAccount::Liabilities::MortgageProcessor.new(@plaid_account)
     processor.process
 
     loan = @plaid_account.account.loan
@@ -33,7 +33,7 @@ class PlaidAccount::Liabilities::MortgageProcessorTest < ActiveSupport::TestCase
   test "does nothing when mortgage data absent" do
     @plaid_account.update!(raw_liabilities_payload: {})
 
-    processor = PlaidAccount::Liabilities::MortgageProcessor.new(@plaid_account)
+    processor = ExternalAccount::Liabilities::MortgageProcessor.new(@plaid_account)
     processor.process
 
     loan = @plaid_account.account.loan

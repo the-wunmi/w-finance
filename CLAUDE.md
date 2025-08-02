@@ -87,7 +87,7 @@ The application provides both internal and external APIs:
 ### Sync & Import System
 Two primary data ingestion methods:
 1. **Plaid Integration**: Real-time bank account syncing
-   - `PlaidItem` manages connections
+   - `ExternalItem` manages connections
    - `Sync` tracks sync operations
    - Background jobs handle data updates
 2. **CSV Import**: Manual data import with mapping

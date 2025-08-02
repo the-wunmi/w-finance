@@ -1,10 +1,10 @@
 require "test_helper"
 
-class PlaidAccount::Investments::SecurityResolverTest < ActiveSupport::TestCase
+class ExternalAccount::Investments::SecurityResolverTest < ActiveSupport::TestCase
   setup do
     @upstream_resolver = mock("Security::Resolver")
     @plaid_account = plaid_accounts(:one)
-    @resolver = PlaidAccount::Investments::SecurityResolver.new(@plaid_account)
+    @resolver = ExternalAccount::Investments::SecurityResolver.new(@plaid_account)
   end
 
   test "handles missing plaid security" do

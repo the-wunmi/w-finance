@@ -1,9 +1,9 @@
 require "test_helper"
 
-class PlaidAccount::TypeMappableTest < ActiveSupport::TestCase
+class ExternalAccount::TypeMappableTest < ActiveSupport::TestCase
   setup do
     class MockProcessor
-      include PlaidAccount::TypeMappable
+      include ExternalAccount::TypeMappable
     end
 
     @mock_processor = MockProcessor.new
@@ -23,7 +23,7 @@ class PlaidAccount::TypeMappableTest < ActiveSupport::TestCase
   end
 
   test "raises on invalid types" do
-    assert_raises PlaidAccount::TypeMappable::UnknownAccountTypeError do
+    assert_raises ExternalAccount::TypeMappable::UnknownAccountTypeError do
       @mock_processor.map_accountable("unknown")
     end
   end
