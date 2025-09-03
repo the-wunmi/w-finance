@@ -16,61 +16,61 @@ module Bootsnap
 
   private
 
-  # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
-  def instrumentation_enabled=(_arg0); end
-
-  class << self
-    # source://bootsnap//lib/bootsnap.rb#44
-    def _instrument(event, path); end
-
-    # source://bootsnap//lib/bootsnap.rb#137
-    def absolute_path?(path); end
-
-    # source://bootsnap//lib/bootsnap.rb#82
-    def default_setup; end
-
-    # source://bootsnap//lib/bootsnap.rb#37
-    def instrumentation=(callback); end
-
     # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
     def instrumentation_enabled=(_arg0); end
 
-    # source://bootsnap//lib/bootsnap.rb#24
-    def log!; end
+    class << self
+      # source://bootsnap//lib/bootsnap.rb#44
+      def _instrument(event, path); end
 
-    # source://bootsnap//lib/bootsnap.rb#14
-    def log_stats!; end
+      # source://bootsnap//lib/bootsnap.rb#137
+      def absolute_path?(path); end
 
-    # Returns the value of attribute logger.
-    #
-    # source://bootsnap//lib/bootsnap.rb#12
-    def logger; end
+      # source://bootsnap//lib/bootsnap.rb#82
+      def default_setup; end
 
-    # source://bootsnap//lib/bootsnap.rb#28
-    def logger=(logger); end
+      # source://bootsnap//lib/bootsnap.rb#37
+      def instrumentation=(callback); end
 
-    # Allow the C extension to redefine `rb_get_path` without warning.
-    # Allow the C extension to redefine `rb_get_path` without warning.
-    #
-    # source://bootsnap//lib/bootsnap.rb#145
-    def rb_get_path(_arg0); end
+      # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
+      def instrumentation_enabled=(_arg0); end
 
-    # source://bootsnap//lib/bootsnap.rb#48
-    def setup(cache_dir:, development_mode: T.unsafe(nil), load_path_cache: T.unsafe(nil), ignore_directories: T.unsafe(nil), readonly: T.unsafe(nil), revalidation: T.unsafe(nil), compile_cache_iseq: T.unsafe(nil), compile_cache_yaml: T.unsafe(nil), compile_cache_json: T.unsafe(nil)); end
+      # source://bootsnap//lib/bootsnap.rb#24
+      def log!; end
 
-    # source://bootsnap//lib/bootsnap.rb#78
-    def unload_cache!; end
+      # source://bootsnap//lib/bootsnap.rb#14
+      def log_stats!; end
 
-    private
+      # Returns the value of attribute logger.
+      #
+      # source://bootsnap//lib/bootsnap.rb#12
+      def logger; end
 
-    # source://bootsnap//lib/bootsnap.rb#159
-    def bool_env(key, default: T.unsafe(nil)); end
+      # source://bootsnap//lib/bootsnap.rb#28
+      def logger=(logger); end
 
-    # @return [Boolean]
-    #
-    # source://bootsnap//lib/bootsnap.rb#155
-    def enabled?(key); end
-  end
+      # Allow the C extension to redefine `rb_get_path` without warning.
+      # Allow the C extension to redefine `rb_get_path` without warning.
+      #
+      # source://bootsnap//lib/bootsnap.rb#145
+      def rb_get_path(_arg0); end
+
+      # source://bootsnap//lib/bootsnap.rb#48
+      def setup(cache_dir:, development_mode: T.unsafe(nil), load_path_cache: T.unsafe(nil), ignore_directories: T.unsafe(nil), readonly: T.unsafe(nil), revalidation: T.unsafe(nil), compile_cache_iseq: T.unsafe(nil), compile_cache_yaml: T.unsafe(nil), compile_cache_json: T.unsafe(nil)); end
+
+      # source://bootsnap//lib/bootsnap.rb#78
+      def unload_cache!; end
+
+      private
+
+        # source://bootsnap//lib/bootsnap.rb#159
+        def bool_env(key, default: T.unsafe(nil)); end
+
+        # @return [Boolean]
+        #
+        # source://bootsnap//lib/bootsnap.rb#155
+        def enabled?(key); end
+    end
 end
 
 # source://bootsnap//lib/bootsnap/compile_cache.rb#4
@@ -192,10 +192,10 @@ module Bootsnap::CompileCache::JSON
 
     private
 
-    # @return [Boolean]
-    #
-    # source://bootsnap//lib/bootsnap/compile_cache/json.rb#62
-    def supports_freeze?; end
+      # @return [Boolean]
+      #
+      # source://bootsnap//lib/bootsnap/compile_cache/json.rb#62
+      def supports_freeze?; end
   end
 end
 
@@ -208,22 +208,6 @@ end
 module Bootsnap::CompileCache::Native
   private
 
-  # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
-  def compile_option_crc32=(_arg0); end
-
-  # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
-  def fetch(_arg0, _arg1, _arg2, _arg3); end
-
-  # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
-  def precompile(_arg0, _arg1, _arg2); end
-
-  # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
-  def readonly=(_arg0); end
-
-  # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
-  def revalidation=(_arg0); end
-
-  class << self
     # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
     def compile_option_crc32=(_arg0); end
 
@@ -238,7 +222,23 @@ module Bootsnap::CompileCache::Native
 
     # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
     def revalidation=(_arg0); end
-  end
+
+    class << self
+      # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
+      def compile_option_crc32=(_arg0); end
+
+      # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
+      def fetch(_arg0, _arg1, _arg2, _arg3); end
+
+      # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
+      def precompile(_arg0, _arg1, _arg2); end
+
+      # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
+      def readonly=(_arg0); end
+
+      # source://bootsnap//lib/bootsnap/compile_cache/iseq.rb#3
+      def revalidation=(_arg0); end
+    end
 end
 
 # source://bootsnap//lib/bootsnap/compile_cache.rb#5
@@ -494,39 +494,39 @@ class Bootsnap::LoadPathCache::Cache
 
   private
 
-  # @return [Boolean]
-  #
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#135
-  def dir_changed?; end
+    # @return [Boolean]
+    #
+    # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#135
+    def dir_changed?; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#180
-  def expand_path(feature); end
+    # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#180
+    def expand_path(feature); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#211
-  def maybe_append_extension(feature); end
+    # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#211
+    def doubleu_append_extension(feature); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#188
-  def now; end
+    # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#188
+    def now; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#145
-  def push_paths_locked(*paths); end
+    # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#145
+    def push_paths_locked(*paths); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#207
-  def search_index(feature); end
+    # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#207
+    def search_index(feature); end
 
-  # @return [Boolean]
-  #
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#184
-  def stale?; end
+    # @return [Boolean]
+    #
+    # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#184
+    def stale?; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#239
-  def try_ext(feature); end
+    # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#239
+    def try_ext(feature); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#219
-  def try_index(feature); end
+    # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#219
+    def try_index(feature); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#163
-  def unshift_paths_locked(*paths); end
+    # source://bootsnap//lib/bootsnap/load_path_cache/cache.rb#163
+    def unshift_paths_locked(*paths); end
 end
 
 # seconds
@@ -751,28 +751,28 @@ class Bootsnap::LoadPathCache::LoadedFeaturesIndex
 
   private
 
-  # Might Ruby automatically search for this extension if
-  # someone tries to 'require' the file without it? E.g. Ruby
-  # will implicitly try 'x.rb' if you ask for 'x'.
-  #
-  # This is complex and platform-dependent, and the Ruby docs are a little
-  # handwavy about what will be tried when and in what order.
-  # So optimistically pretend that all known elidable extensions
-  # will be tried on all platforms, and that people are unlikely
-  # to name files in a way that assumes otherwise.
-  # (E.g. It's unlikely that someone will know that their code
-  # will _never_ run on MacOS, and therefore think they can get away
-  # with calling a Ruby file 'x.dylib.rb' and then requiring it as 'x.dylib'.)
-  #
-  # See <https://docs.ruby-lang.org/en/master/Kernel.html#method-i-require>.
-  #
-  # @return [Boolean]
-  #
-  # source://bootsnap//lib/bootsnap/load_path_cache/loaded_features_index.rb#146
-  def extension_elidable?(feature); end
+    # Might Ruby automatically search for this extension if
+    # someone tries to 'require' the file without it? E.g. Ruby
+    # will implicitly try 'x.rb' if you ask for 'x'.
+    #
+    # This is complex and platform-dependent, and the Ruby docs are a little
+    # handwavy about what will be tried when and in what order.
+    # So optimistically pretend that all known elidable extensions
+    # will be tried on all platforms, and that people are unlikely
+    # to name files in a way that assumes otherwise.
+    # (E.g. It's unlikely that someone will know that their code
+    # will _never_ run on MacOS, and therefore think they can get away
+    # with calling a Ruby file 'x.dylib.rb' and then requiring it as 'x.dylib'.)
+    #
+    # See <https://docs.ruby-lang.org/en/master/Kernel.html#method-i-require>.
+    #
+    # @return [Boolean]
+    #
+    # source://bootsnap//lib/bootsnap/load_path_cache/loaded_features_index.rb#146
+    def extension_elidable?(feature); end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/loaded_features_index.rb#150
-  def strip_extension_if_elidable(feature); end
+    # source://bootsnap//lib/bootsnap/load_path_cache/loaded_features_index.rb#150
+    def strip_extension_if_elidable(feature); end
 end
 
 # source://bootsnap//lib/bootsnap/load_path_cache/loaded_features_index.rb#129
@@ -834,20 +834,20 @@ class Bootsnap::LoadPathCache::Path
 
   private
 
-  # last time a directory was modified in this subtree. +dirs+ should be a
-  # list of relative paths to directories under +path+. e.g. for /a/b and
-  # /a/b/c, pass ('/a/b', ['c'])
-  #
-  # source://bootsnap//lib/bootsnap/load_path_cache/path.rb#99
-  def latest_mtime(path, dirs); end
+    # last time a directory was modified in this subtree. +dirs+ should be a
+    # list of relative paths to directories under +path+. e.g. for /a/b and
+    # /a/b/c, pass ('/a/b', ['c'])
+    #
+    # source://bootsnap//lib/bootsnap/load_path_cache/path.rb#99
+    def latest_mtime(path, dirs); end
 
-  # (expensive) returns [entries, dirs]
-  #
-  # source://bootsnap//lib/bootsnap/load_path_cache/path.rb#92
-  def scan!; end
+    # (expensive) returns [entries, dirs]
+    #
+    # source://bootsnap//lib/bootsnap/load_path_cache/path.rb#92
+    def scan!; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/path.rb#123
-  def stability; end
+    # source://bootsnap//lib/bootsnap/load_path_cache/path.rb#123
+    def stability; end
 end
 
 # Built-in ruby lib stuff doesn't change, but things can occasionally be
@@ -937,23 +937,23 @@ class Bootsnap::LoadPathCache::Store
 
   private
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#66
-  def commit_transaction; end
+    # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#66
+    def commit_transaction; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#112
-  def default_data; end
+    # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#112
+    def default_data; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#95
-  def dump_data; end
+    # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#95
+    def dump_data; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#73
-  def load_data; end
+    # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#73
+    def load_data; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#61
-  def mark_for_mutation!; end
+    # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#61
+    def mark_for_mutation!; end
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#116
-  def mkdir_p(path); end
+    # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#116
+    def mkdir_p(path); end
 end
 
 # source://bootsnap//lib/bootsnap/load_path_cache/store.rb#11
@@ -982,8 +982,8 @@ module Kernel
 
   private
 
-  # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#4
-  def require_without_bootsnap(name); end
+    # source://bootsnap//lib/bootsnap/load_path_cache/core_ext/kernel_require.rb#4
+    def require_without_bootsnap(name); end
 end
 
 module Psych

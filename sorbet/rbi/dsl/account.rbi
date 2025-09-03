@@ -446,6 +446,9 @@ class Account
     sig { params(value: T::Enumerable[::Balance]).void }
     def balances=(value); end
 
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ExternalAccount) }
+    def build_external_account(*args, &blk); end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(::Family) }
     def build_family(*args, &blk); end
 
@@ -457,6 +460,12 @@ class Account
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
     def build_logo_blob(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ExternalAccount) }
+    def create_external_account(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ExternalAccount) }
+    def create_external_account!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::Family) }
     def create_family(*args, &blk); end
@@ -495,6 +504,18 @@ class Account
 
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
     def entry_ids=(ids); end
+
+    sig { returns(T.nilable(::ExternalAccount)) }
+    def external_account; end
+
+    sig { params(value: T.nilable(::ExternalAccount)).void }
+    def external_account=(value); end
+
+    sig { returns(T::Boolean) }
+    def external_account_changed?; end
+
+    sig { returns(T::Boolean) }
+    def external_account_previously_changed?; end
 
     sig { returns(T.nilable(::Family)) }
     def family; end
@@ -563,6 +584,9 @@ class Account
     sig { returns(T.untyped) }
     def reload_accountable; end
 
+    sig { returns(T.nilable(::ExternalAccount)) }
+    def reload_external_account; end
+
     sig { returns(T.nilable(::Family)) }
     def reload_family; end
 
@@ -577,6 +601,9 @@ class Account
 
     sig { void }
     def reset_accountable; end
+
+    sig { void }
+    def reset_external_account; end
 
     sig { void }
     def reset_family; end
@@ -1180,6 +1207,51 @@ class Account
     sig { void }
     def currency_will_change!; end
 
+    sig { returns(T.nilable(::String)) }
+    def external_account_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def external_account_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def external_account_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def external_account_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def external_account_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def external_account_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def external_account_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def external_account_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def external_account_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def external_account_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def external_account_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def external_account_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def external_account_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def external_account_id_was; end
+
+    sig { void }
+    def external_account_id_will_change!; end
+
     sig { returns(::String) }
     def family_id; end
 
@@ -1360,51 +1432,6 @@ class Account
     sig { void }
     def import_id_will_change!; end
 
-    sig { returns(T::Boolean) }
-    def is_active; end
-
-    sig { params(value: T::Boolean).returns(T::Boolean) }
-    def is_active=(value); end
-
-    sig { returns(T::Boolean) }
-    def is_active?; end
-
-    sig { returns(T.nilable(T::Boolean)) }
-    def is_active_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def is_active_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def is_active_came_from_user?; end
-
-    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
-    def is_active_change; end
-
-    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
-    def is_active_change_to_be_saved; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def is_active_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(T::Boolean)) }
-    def is_active_in_database; end
-
-    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
-    def is_active_previous_change; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def is_active_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(T::Boolean)) }
-    def is_active_previously_was; end
-
-    sig { returns(T.nilable(T::Boolean)) }
-    def is_active_was; end
-
-    sig { void }
-    def is_active_will_change!; end
-
     sig { returns(T.untyped) }
     def locked_attributes; end
 
@@ -1495,51 +1522,6 @@ class Account
     sig { void }
     def name_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
-    def plaid_account_id; end
-
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
-    def plaid_account_id=(value); end
-
-    sig { returns(T::Boolean) }
-    def plaid_account_id?; end
-
-    sig { returns(T.nilable(::String)) }
-    def plaid_account_id_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def plaid_account_id_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def plaid_account_id_came_from_user?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def plaid_account_id_change; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def plaid_account_id_change_to_be_saved; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def plaid_account_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def plaid_account_id_in_database; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def plaid_account_id_previous_change; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def plaid_account_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def plaid_account_id_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def plaid_account_id_was; end
-
-    sig { void }
-    def plaid_account_id_will_change!; end
-
     sig { void }
     def restore_accountable_id!; end
 
@@ -1562,6 +1544,9 @@ class Account
     def restore_currency!; end
 
     sig { void }
+    def restore_external_account_id!; end
+
+    sig { void }
     def restore_family_id!; end
 
     sig { void }
@@ -1574,19 +1559,13 @@ class Account
     def restore_import_id!; end
 
     sig { void }
-    def restore_is_active!; end
-
-    sig { void }
     def restore_locked_attributes!; end
 
     sig { void }
     def restore_name!; end
 
     sig { void }
-    def restore_plaid_account_id!; end
-
-    sig { void }
-    def restore_scheduled_for_deletion!; end
+    def restore_status!; end
 
     sig { void }
     def restore_subtype!; end
@@ -1636,6 +1615,12 @@ class Account
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_currency?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_external_account_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_external_account_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
     sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_family_id; end
 
@@ -1660,12 +1645,6 @@ class Account
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_import_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
-    def saved_change_to_is_active; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def saved_change_to_is_active?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
     sig { returns(T.nilable([T.untyped, T.untyped])) }
     def saved_change_to_locked_attributes; end
 
@@ -1679,16 +1658,10 @@ class Account
     def saved_change_to_name?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def saved_change_to_plaid_account_id; end
+    def saved_change_to_status; end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def saved_change_to_plaid_account_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
-    def saved_change_to_scheduled_for_deletion; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def saved_change_to_scheduled_for_deletion?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+    def saved_change_to_status?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_subtype; end
@@ -1702,50 +1675,50 @@ class Account
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(T::Boolean)) }
-    def scheduled_for_deletion; end
+    sig { returns(T.nilable(::String)) }
+    def status; end
 
-    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
-    def scheduled_for_deletion=(value); end
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def status=(value); end
 
     sig { returns(T::Boolean) }
-    def scheduled_for_deletion?; end
+    def status?; end
 
-    sig { returns(T.nilable(T::Boolean)) }
-    def scheduled_for_deletion_before_last_save; end
+    sig { returns(T.nilable(::String)) }
+    def status_before_last_save; end
 
     sig { returns(T.untyped) }
-    def scheduled_for_deletion_before_type_cast; end
+    def status_before_type_cast; end
 
     sig { returns(T::Boolean) }
-    def scheduled_for_deletion_came_from_user?; end
+    def status_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
-    def scheduled_for_deletion_change; end
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def status_change; end
 
-    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
-    def scheduled_for_deletion_change_to_be_saved; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def scheduled_for_deletion_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(T::Boolean)) }
-    def scheduled_for_deletion_in_database; end
-
-    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
-    def scheduled_for_deletion_previous_change; end
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def status_change_to_be_saved; end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def scheduled_for_deletion_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+    def status_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(T::Boolean)) }
-    def scheduled_for_deletion_previously_was; end
+    sig { returns(T.nilable(::String)) }
+    def status_in_database; end
 
-    sig { returns(T.nilable(T::Boolean)) }
-    def scheduled_for_deletion_was; end
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def status_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def status_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def status_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def status_was; end
 
     sig { void }
-    def scheduled_for_deletion_will_change!; end
+    def status_will_change!; end
 
     sig { returns(T.nilable(::String)) }
     def subtype; end
@@ -1859,6 +1832,9 @@ class Account
     def will_save_change_to_currency?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_external_account_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_family_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
@@ -1871,19 +1847,13 @@ class Account
     def will_save_change_to_import_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def will_save_change_to_is_active?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_locked_attributes?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_name?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def will_save_change_to_plaid_account_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def will_save_change_to_scheduled_for_deletion?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+    def will_save_change_to_status?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_subtype?(from: T.unsafe(nil), to: T.unsafe(nil)); end

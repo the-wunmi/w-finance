@@ -28,8 +28,8 @@ class ExternalItem::Importer
     end
 
     def fetch_and_import_item_data
-      item_data = plaid_provider.get_item(external_item.access_token).item
-      institution_data = plaid_provider.get_institution(item_data.institution_id).institution
+      item_data = plaid_provider.get_item(external_item)
+      institution_data = plaid_provider.get_institution(item_data)
 
       external_item.upsert_external_snapshot!(item_data)
       external_item.upsert_institution_snapshot!(institution_data)
@@ -40,18 +40,16 @@ class ExternalItem::Importer
 
       ExternalItem.transaction do
         snapshot.accounts.each do |raw_account|
+          payload = Provider::DataProviderAdapter.new(external_item.provider).account_payload(raw_account)
           external_account = external_item.external_accounts.find_or_initialize_by(
-            external_id: raw_account.account_id
+            external_id: payload[:account_id]
           )
 
           ExternalAccount::Importer.new(
             external_account,
-            account_snapshot: snapshot.get_account_data(raw_account.account_id)
+            account_snapshot: snapshot.get_account_data(external_account)
           ).import
         end
-
-        # Once we know all data has been imported, save the cursor to avoid re-fetching the same data next time
-        external_item.update!(next_cursor: snapshot.transactions_cursor)
       end
     end
 end

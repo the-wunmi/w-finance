@@ -94,9 +94,6 @@ module GeneratedPathHelpersModule
   def category_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def changelog_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def chat_messages_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -239,9 +236,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def family_merchants_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def feedback_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def goals_onboarding_path(*args); end
@@ -493,9 +487,6 @@ module GeneratedPathHelpersModule
   def preview_view_components_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def privacy_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def properties_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -677,9 +668,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def tags_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def terms_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def toggle_active_account_path(*args); end

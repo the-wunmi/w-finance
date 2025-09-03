@@ -66,8 +66,13 @@ module AccountableResource
 
   private
     def set_link_options
-      @show_us_link = Current.family.can_connect_plaid_us?
-      @show_eu_link = Current.family.can_connect_plaid_eu?
+      @data_providers = []
+
+      @data_providers << "plaid_us" if Provider::Registry.get_provider(:plaid_us).present?
+      @data_providers << "plaid_eu" if Provider::Registry.get_provider(:plaid_eu).present? && self.eu?
+      @data_providers << "mono" if Provider::Registry.get_provider(:mono).present?
+
+      @data_providers
     end
 
     def accountable_type

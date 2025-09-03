@@ -2,8 +2,8 @@ require "test_helper"
 
 class ExternalAccount::Investments::TransactionsProcessorTest < ActiveSupport::TestCase
   setup do
-    @plaid_account = plaid_accounts(:one)
-    @security_resolver = ExternalAccount::Investments::SecurityResolver.new(@plaid_account)
+    @external_account = external_accounts(:one)
+    @security_resolver = ExternalAccount::Investments::SecurityResolver.new(@external_account)
   end
 
   test "creates regular trade entries" do
@@ -23,13 +23,13 @@ class ExternalAccount::Investments::TransactionsProcessorTest < ActiveSupport::T
       ]
     }
 
-    @plaid_account.update!(raw_investments_payload: test_investments_payload)
+    @external_account.update!(raw_investments_payload: test_investments_payload)
 
     @security_resolver.stubs(:resolve).returns(OpenStruct.new(
       security: securities(:aapl)
     ))
 
-    processor = ExternalAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::TransactionsProcessor.new(@external_account, security_resolver: @security_resolver)
 
     assert_difference [ "Entry.count", "Trade.count" ], 1 do
       processor.process
@@ -58,11 +58,11 @@ class ExternalAccount::Investments::TransactionsProcessorTest < ActiveSupport::T
       ]
     }
 
-    @plaid_account.update!(raw_investments_payload: test_investments_payload)
+    @external_account.update!(raw_investments_payload: test_investments_payload)
 
     @security_resolver.expects(:resolve).never # Cash transactions don't have a security
 
-    processor = ExternalAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::TransactionsProcessor.new(@external_account, security_resolver: @security_resolver)
 
     assert_difference [ "Entry.count", "Transaction.count" ], 1 do
       processor.process
@@ -91,11 +91,11 @@ class ExternalAccount::Investments::TransactionsProcessorTest < ActiveSupport::T
       ]
     }
 
-    @plaid_account.update!(raw_investments_payload: test_investments_payload)
+    @external_account.update!(raw_investments_payload: test_investments_payload)
 
     @security_resolver.expects(:resolve).never # Cash transactions don't have a security
 
-    processor = ExternalAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::TransactionsProcessor.new(@external_account, security_resolver: @security_resolver)
 
     assert_difference [ "Entry.count", "Transaction.count" ], 1 do
       processor.process
@@ -126,13 +126,13 @@ class ExternalAccount::Investments::TransactionsProcessorTest < ActiveSupport::T
       ]
     }
 
-    @plaid_account.update!(raw_investments_payload: test_investments_payload)
+    @external_account.update!(raw_investments_payload: test_investments_payload)
 
     @security_resolver.expects(:resolve).returns(OpenStruct.new(
       security: securities(:aapl)
     ))
 
-    processor = ExternalAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::TransactionsProcessor.new(@external_account, security_resolver: @security_resolver)
 
     assert_difference [ "Entry.count", "Trade.count" ], 1 do
       processor.process
@@ -162,11 +162,11 @@ class ExternalAccount::Investments::TransactionsProcessorTest < ActiveSupport::T
       ]
     }
 
-    @plaid_account.update!(raw_investments_payload: test_investments_payload)
+    @external_account.update!(raw_investments_payload: test_investments_payload)
 
     @security_resolver.expects(:resolve).never
 
-    processor = ExternalAccount::Investments::TransactionsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::TransactionsProcessor.new(@external_account, security_resolver: @security_resolver)
 
     assert_difference [ "Entry.count", "Transaction.count" ], 1 do
       processor.process

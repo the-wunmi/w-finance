@@ -7,6 +7,7 @@
 
 class Doorkeeper::AccessToken
   include GeneratedAssociationMethods
+  include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
@@ -281,7 +282,7 @@ class Doorkeeper::AccessToken
     sig { returns(::Doorkeeper::AccessToken) }
     def fourth!; end
 
-    sig { returns(Array) }
+    sig { returns(T::Array[T.untyped]) }
     def ids; end
 
     sig do
@@ -420,10 +421,10 @@ class Doorkeeper::AccessToken
   end
 
   module GeneratedAssociationMethods
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::Doorkeeper::Application)) }
     def application; end
 
-    sig { params(value: T.untyped).void }
+    sig { params(value: T.nilable(::Doorkeeper::Application)).void }
     def application=(value); end
 
     sig { returns(T::Boolean) }
@@ -432,16 +433,16 @@ class Doorkeeper::AccessToken
     sig { returns(T::Boolean) }
     def application_previously_changed?; end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Doorkeeper::Application) }
     def build_application(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Doorkeeper::Application) }
     def create_application(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Doorkeeper::Application) }
     def create_application!(*args, &blk); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::Doorkeeper::Application)) }
     def reload_application; end
 
     sig { void }
@@ -595,6 +596,635 @@ class Doorkeeper::AccessToken
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedAttributeMethods
+    sig { returns(::Integer) }
+    def application_id; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def application_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def application_id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def application_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def application_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def application_id_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def application_id_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def application_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def application_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def application_id_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def application_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def application_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def application_id_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def application_id_was; end
+
+    sig { void }
+    def application_id_will_change!; end
+
+    sig { returns(::ActiveSupport::TimeWithZone) }
+    def created_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def created_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def created_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def created_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def created_at_came_from_user?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_change; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_in_database; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_was; end
+
+    sig { void }
+    def created_at_will_change!; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def expires_in; end
+
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    def expires_in=(value); end
+
+    sig { returns(T::Boolean) }
+    def expires_in?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def expires_in_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def expires_in_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def expires_in_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def expires_in_change; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def expires_in_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def expires_in_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def expires_in_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def expires_in_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def expires_in_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def expires_in_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def expires_in_was; end
+
+    sig { void }
+    def expires_in_will_change!; end
+
+    sig { returns(::Integer) }
+    def id; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def id=(value); end
+
+    sig { returns(T::Boolean) }
+    def id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_previously_was; end
+
+    sig { returns(::Integer) }
+    def id_value; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def id_value=(value); end
+
+    sig { returns(T::Boolean) }
+    def id_value?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_value_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_value_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_value_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_value_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_value_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_value_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_value_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_value_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_value_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_value_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_value_was; end
+
+    sig { void }
+    def id_value_will_change!; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_was; end
+
+    sig { void }
+    def id_will_change!; end
+
+    sig { returns(::String) }
+    def previous_refresh_token; end
+
+    sig { params(value: ::String).returns(::String) }
+    def previous_refresh_token=(value); end
+
+    sig { returns(T::Boolean) }
+    def previous_refresh_token?; end
+
+    sig { returns(T.nilable(::String)) }
+    def previous_refresh_token_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def previous_refresh_token_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def previous_refresh_token_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def previous_refresh_token_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def previous_refresh_token_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def previous_refresh_token_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def previous_refresh_token_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def previous_refresh_token_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def previous_refresh_token_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def previous_refresh_token_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def previous_refresh_token_was; end
+
+    sig { void }
+    def previous_refresh_token_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def refresh_token; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def refresh_token=(value); end
+
+    sig { returns(T::Boolean) }
+    def refresh_token?; end
+
+    sig { returns(T.nilable(::String)) }
+    def refresh_token_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def refresh_token_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def refresh_token_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def refresh_token_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def refresh_token_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def refresh_token_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def refresh_token_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def refresh_token_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def refresh_token_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def refresh_token_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def refresh_token_was; end
+
+    sig { void }
+    def refresh_token_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def resource_owner_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def resource_owner_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def resource_owner_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def resource_owner_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def resource_owner_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def resource_owner_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def resource_owner_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def resource_owner_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def resource_owner_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def resource_owner_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def resource_owner_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def resource_owner_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def resource_owner_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def resource_owner_id_was; end
+
+    sig { void }
+    def resource_owner_id_will_change!; end
+
+    sig { void }
+    def restore_application_id!; end
+
+    sig { void }
+    def restore_created_at!; end
+
+    sig { void }
+    def restore_expires_in!; end
+
+    sig { void }
+    def restore_id!; end
+
+    sig { void }
+    def restore_id_value!; end
+
+    sig { void }
+    def restore_previous_refresh_token!; end
+
+    sig { void }
+    def restore_refresh_token!; end
+
+    sig { void }
+    def restore_resource_owner_id!; end
+
+    sig { void }
+    def restore_revoked_at!; end
+
+    sig { void }
+    def restore_scopes!; end
+
+    sig { void }
+    def restore_token!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def revoked_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def revoked_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def revoked_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def revoked_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def revoked_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def revoked_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def revoked_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def revoked_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def revoked_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def revoked_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def revoked_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def revoked_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def revoked_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def revoked_at_was; end
+
+    sig { void }
+    def revoked_at_will_change!; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_application_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_application_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def saved_change_to_created_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def saved_change_to_expires_in; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_expires_in?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_id_value; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_previous_refresh_token; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_previous_refresh_token?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_refresh_token; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_refresh_token?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_resource_owner_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_resource_owner_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_revoked_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_revoked_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_scopes; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_scopes?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_token; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_token?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def scopes; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def scopes=(value); end
+
+    sig { returns(T::Boolean) }
+    def scopes?; end
+
+    sig { returns(T.nilable(::String)) }
+    def scopes_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def scopes_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def scopes_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def scopes_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def scopes_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def scopes_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def scopes_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def scopes_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def scopes_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def scopes_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def scopes_was; end
+
+    sig { void }
+    def scopes_will_change!; end
+
+    sig { returns(::String) }
+    def token; end
+
+    sig { params(value: ::String).returns(::String) }
+    def token=(value); end
+
+    sig { returns(T::Boolean) }
+    def token?; end
+
+    sig { returns(T.nilable(::String)) }
+    def token_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def token_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def token_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def token_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def token_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def token_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def token_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def token_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def token_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def token_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def token_was; end
+
+    sig { void }
+    def token_will_change!; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_application_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_expires_in?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_previous_refresh_token?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_refresh_token?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_resource_owner_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_revoked_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_scopes?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_token?(from: T.unsafe(nil), to: T.unsafe(nil)); end
   end
 
   module GeneratedRelationMethods

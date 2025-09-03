@@ -15,7 +15,7 @@ class FamilyExport < ApplicationRecord
   scope :ordered, -> { order(created_at: :desc) }
 
   def filename
-    "maybe_export_#{created_at.strftime('%Y%m%d_%H%M%S')}.zip"
+    "doubleu_export_#{created_at.strftime('%Y%m%d_%H%M%S')}.zip"
   end
 
   def downloadable?

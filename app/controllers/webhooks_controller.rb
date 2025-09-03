@@ -6,7 +6,7 @@ class WebhooksController < ApplicationController
     webhook_body = request.body.read
     plaid_verification_header = request.headers["Plaid-Verification"]
 
-    client = Provider::Registry.plaid_provider_for_region(:us)
+    client = Provider::Registry.data_provider_for_region(:us)
 
     client.validate_webhook!(plaid_verification_header, webhook_body)
 
@@ -22,7 +22,7 @@ class WebhooksController < ApplicationController
     webhook_body = request.body.read
     plaid_verification_header = request.headers["Plaid-Verification"]
 
-    client = Provider::Registry.plaid_provider_for_region(:eu)
+    client = Provider::Registry.data_provider_for_region(:eu)
 
     client.validate_webhook!(plaid_verification_header, webhook_body)
 

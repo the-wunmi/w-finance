@@ -9,6 +9,8 @@ class ExternalAccount::Importer
     import_transactions if account_snapshot.transactions_data.present?
     import_investments if account_snapshot.investments_data.present?
     import_liabilities if account_snapshot.liabilities_data.present?
+    # Once we know all data has been imported, save the cursor to avoid re-fetching the same data next time
+    external_account.update!(next_cursor: account_snapshot.next_cursor) if account_snapshot.next_cursor.present?
   end
 
   private

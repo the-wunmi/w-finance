@@ -1,17 +1,15 @@
 class ExternalItem < ApplicationRecord
   include Syncable, Provided
 
-  attribute :region, :string
+  attribute :provider, :string
   attribute :status, :string
 
-  enum :region, { us: "us", eu: "eu" }
+  enum :provider, { plaid_us: "plaid_us", plaid_eu: "plaid_eu", mono: "mono", doubleu: "doubleu" }
   enum :status, { good: "good", requires_update: "requires_update" }, default: :good
 
   if Rails.application.credentials.active_record_encryption.present?
     encrypts :access_token, deterministic: true
   end
-
-  validates :name, :access_token, presence: true
 
   before_destroy :remove_external_item
 
@@ -29,7 +27,7 @@ class ExternalItem < ApplicationRecord
     family.get_link_token(
       webhooks_url: webhooks_url,
       redirect_url: redirect_url,
-      region: region,
+      provider_name: provider,
       access_token: access_token
     )
   rescue Plaid::ApiError => e
@@ -75,9 +73,10 @@ class ExternalItem < ApplicationRecord
 
   # Saves the raw data fetched from external API for this item
   def upsert_external_snapshot!(item_snapshot)
+    payload = Provider::DataProviderAdapter.new(provider).item_payload(item_snapshot)
     assign_attributes(
-      available_products: item_snapshot.available_products,
-      billed_products: item_snapshot.billed_products,
+      available_products: payload[:available_products],
+      billed_products: payload[:billed_products],
       raw_payload: item_snapshot,
     )
 
@@ -86,10 +85,12 @@ class ExternalItem < ApplicationRecord
 
   # Saves the raw data fetched from external API for this item's institution
   def upsert_institution_snapshot!(institution_snapshot)
+    payload = Provider::DataProviderAdapter.new(provider).institution_payload(institution_snapshot)
     assign_attributes(
-      institution_id: institution_snapshot.institution_id,
-      institution_url: institution_snapshot.url,
-      institution_color: institution_snapshot.primary_color,
+      name: payload[:name],
+      institution_id: payload[:institution_id],
+      institution_url: payload[:url],
+      institution_color: payload[:primary_color],
       raw_institution_payload: institution_snapshot
     )
 
@@ -100,9 +101,17 @@ class ExternalItem < ApplicationRecord
     supported_products.include?(product)
   end
 
+  def payload
+    self.raw_payload
+  end
+
+  def institution_payload
+    self.raw_institution_payload
+  end
+
   private
     def remove_external_item
-      plaid_provider.remove_item(access_token)
+      plaid_provider.remove_item(self)
     rescue Plaid::ApiError => e
       json_response = JSON.parse(e.response_body)
 

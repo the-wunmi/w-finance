@@ -38,7 +38,7 @@ class Demo::Generator
       end
 
       puts "👥 Creating empty family..."
-      create_family_and_users!("Demo Family", "user@maybe.local", onboarded: true, subscribed: true)
+      create_family_and_users!("Demo Family", "user@doubleu.local", onboarded: true, subscribed: true)
 
       puts "✅ Empty demo data loaded successfully!"
     end
@@ -53,14 +53,14 @@ class Demo::Generator
       end
 
       puts "👥 Creating new user family..."
-      create_family_and_users!("Demo Family", "user@maybe.local", onboarded: false, subscribed: false)
+      create_family_and_users!("Demo Family", "user@doubleu.local", onboarded: false, subscribed: false)
 
       puts "✅ New user demo data loaded successfully!"
     end
   end
 
   # Generate comprehensive realistic demo data with multi-currency
-  def generate_default_data!(skip_clear: false, email: "user@maybe.local")
+  def generate_default_data!(skip_clear: false, email: "user@doubleu.local")
     if skip_clear
       puts "⏭️  Skipping data clearing (appending new family)..."
     else
@@ -134,7 +134,7 @@ class Demo::Generator
       family.users.create!(
         email: email,
         first_name: "Demo (admin)",
-        last_name: "Maybe",
+        last_name: "DoubleU",
         role: "admin",
         password: "password",
         onboarded_at: onboarded ? Time.current : nil
@@ -144,7 +144,7 @@ class Demo::Generator
       family.users.create!(
         email: "partner_#{email}",
         first_name: "Demo (member)",
-        last_name: "Maybe",
+        last_name: "DoubleU",
         role: "member",
         password: "password",
         onboarded_at: onboarded ? Time.current : nil

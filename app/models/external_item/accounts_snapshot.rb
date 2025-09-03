@@ -5,49 +5,65 @@ class ExternalItem::AccountsSnapshot
   def initialize(external_item, plaid_provider:)
     @external_item = external_item
     @plaid_provider = plaid_provider
+    @cursors = {}
   end
 
   def accounts
-    @accounts ||= plaid_provider.get_item_accounts(external_item.access_token).accounts
+    @accounts ||= plaid_provider.get_item_accounts(external_item)
   end
 
-  def get_account_data(account_id)
+  def get_account_data(external_account)
     AccountData.new(
-      account_data: accounts.find { |a| a.account_id == account_id },
-      transactions_data: account_scoped_transactions_data(account_id),
-      investments_data: account_scoped_investments_data(account_id),
-      liabilities_data: account_scoped_liabilities_data(account_id)
+      account_data: account_scoped_data(external_account),
+      transactions_data: account_scoped_transactions_data(external_account),
+      investments_data: account_scoped_investments_data(external_account),
+      liabilities_data: account_scoped_liabilities_data(external_account),
+      next_cursor: cursors[external_account.external_id] # TODO optimize this
     )
   end
 
-  def transactions_cursor
-    return nil unless transactions_data
-    transactions_data.cursor
-  end
-
   private
-    attr_reader :external_item, :plaid_provider
+    attr_reader :external_item, :plaid_provider, :cursors
 
     TransactionsData = Data.define(:added, :modified, :removed)
     LiabilitiesData = Data.define(:credit, :mortgage, :student)
     InvestmentsData = Data.define(:transactions, :holdings, :securities)
-    AccountData = Data.define(:account_data, :transactions_data, :investments_data, :liabilities_data)
+    AccountData = Data.define(:account_data, :transactions_data, :investments_data, :liabilities_data, :next_cursor)
 
-    def account_scoped_transactions_data(account_id)
+    def account_scoped_data(external_account)
+      accounts.find { |a| Provider::DataProviderAdapter.new(external_item.provider).account_payload(a)[:account_id] == external_account.external_id }
+    end
+
+    def account_scoped_transactions_data(external_account)
+      return nil unless can_fetch_transactions?
+
+      transactions_data = plaid_provider.get_transactions(
+        external_item,
+        external_account.external_id,
+        next_cursor: external_account.next_cursor
+      )
+
       return nil unless transactions_data
 
+      cursors[external_account.external_id] = transactions_data.cursor
+
       TransactionsData.new(
-        added: transactions_data.added.select { |t| t.account_id == account_id },
-        modified: transactions_data.modified.select { |t| t.account_id == account_id },
-        removed: transactions_data.removed.select { |t| t.account_id == account_id }
+        added: transactions_data.added,
+        modified: transactions_data.modified,
+        removed: transactions_data.removed
       )
     end
 
-    def account_scoped_investments_data(account_id)
+    def account_scoped_investments_data(external_account)
+      return nil unless can_fetch_investments?
+
+      investments_data = plaid_provider.get_item_investments(external_item, external_account.external_id)
+
       return nil unless investments_data
 
-      transactions = investments_data.transactions.select { |t| t.account_id == account_id }
-      holdings = investments_data.holdings.select { |h| h.account_id == account_id }
+      transactions = investments_data.transactions
+      holdings = investments_data.holdings
+
       securities = transactions.count > 0 && holdings.count > 0 ? investments_data.securities : []
 
       InvestmentsData.new(
@@ -57,13 +73,17 @@ class ExternalItem::AccountsSnapshot
       )
     end
 
-    def account_scoped_liabilities_data(account_id)
+    def account_scoped_liabilities_data(external_account)
+      return nil unless can_fetch_liabilities?
+
+      liabilities_data = plaid_provider.get_item_liabilities(external_item, external_account.external_id)
+
       return nil unless liabilities_data
 
       LiabilitiesData.new(
-        credit: liabilities_data.credit&.find { |c| c.account_id == account_id },
-        mortgage: liabilities_data.mortgage&.find { |m| m.account_id == account_id },
-        student: liabilities_data.student&.find { |s| s.account_id == account_id }
+        credit: liabilities_data.credit&.first,
+        mortgage: liabilities_data.mortgage&.first,
+        student: liabilities_data.student&.first
       )
     end
 
@@ -71,23 +91,9 @@ class ExternalItem::AccountsSnapshot
       external_item.supports_product?("transactions") && accounts.any?
     end
 
-    def transactions_data
-      return nil unless can_fetch_transactions?
-
-      @transactions_data ||= plaid_provider.get_transactions(
-        external_item.access_token,
-        next_cursor: external_item.next_cursor
-      )
-    end
-
     def can_fetch_investments?
       external_item.supports_product?("investments") &&
       accounts.any? { |a| a.type == "investment" }
-    end
-
-    def investments_data
-      return nil unless can_fetch_investments?
-      @investments_data ||= plaid_provider.get_item_investments(external_item.access_token)
     end
 
     def can_fetch_liabilities?
@@ -96,10 +102,5 @@ class ExternalItem::AccountsSnapshot
         a.type == "credit" && a.subtype == "credit card" ||
         a.type == "loan" && (a.subtype == "mortgage" || a.subtype == "student")
       end
-    end
-
-    def liabilities_data
-      return nil unless can_fetch_liabilities?
-      @liabilities_data ||= plaid_provider.get_item_liabilities(external_item.access_token)
     end
 end

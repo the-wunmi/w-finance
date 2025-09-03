@@ -7,6 +7,7 @@
 
 class ExternalItem
   include GeneratedAssociationMethods
+  include GeneratedAttributeMethods
   include EnumMethodsModule
   extend CommonRelationMethods
   extend GeneratedRelationMethods
@@ -32,7 +33,7 @@ class ExternalItem
     def new(attributes = nil, &block); end
 
     sig { returns(T::Hash[T.any(String, Symbol), String]) }
-    def regions; end
+    def providers; end
 
     sig { returns(T::Hash[T.any(String, Symbol), String]) }
     def statuses; end
@@ -273,7 +274,7 @@ class ExternalItem
     sig { returns(::ExternalItem) }
     def fourth!; end
 
-    sig { returns(Array) }
+    sig { returns(T::Array[T.untyped]) }
     def ids; end
 
     sig do
@@ -397,28 +398,34 @@ class ExternalItem
 
   module EnumMethodsModule
     sig { void }
-    def eu!; end
-
-    sig { returns(T::Boolean) }
-    def eu?; end
-
-    sig { void }
     def good!; end
 
     sig { returns(T::Boolean) }
     def good?; end
 
     sig { void }
+    def mono!; end
+
+    sig { returns(T::Boolean) }
+    def mono?; end
+
+    sig { void }
+    def plaid_eu!; end
+
+    sig { returns(T::Boolean) }
+    def plaid_eu?; end
+
+    sig { void }
+    def plaid_us!; end
+
+    sig { returns(T::Boolean) }
+    def plaid_us?; end
+
+    sig { void }
     def requires_update!; end
 
     sig { returns(T::Boolean) }
     def requires_update?; end
-
-    sig { void }
-    def us!; end
-
-    sig { returns(T::Boolean) }
-    def us?; end
   end
 
   module GeneratedAssociationMethods
@@ -430,28 +437,37 @@ class ExternalItem
 
     # This method is created by ActiveRecord on the `ExternalItem` class because it declared `has_many :accounts, through: :external_accounts`.
     # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
-    sig { returns(ActiveRecord::Associations::CollectionProxy) }
+    sig { returns(::Account::PrivateCollectionProxy) }
     def accounts; end
 
-    sig { params(value: T::Enumerable[T.untyped]).void }
+    sig { params(value: T::Enumerable[::Account]).void }
     def accounts=(value); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Family) }
+    def build_family(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
     def build_logo_attachment(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
     def build_logo_blob(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Family) }
+    def create_family(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Family) }
+    def create_family!(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
     def create_logo_attachment(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
     def create_logo_attachment!(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
     def create_logo_blob(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
     def create_logo_blob!(*args, &blk); end
 
     sig { returns(T::Array[T.untyped]) }
@@ -462,29 +478,47 @@ class ExternalItem
 
     # This method is created by ActiveRecord on the `ExternalItem` class because it declared `has_many :external_accounts`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(ActiveRecord::Associations::CollectionProxy) }
+    sig { returns(::ExternalAccount::PrivateCollectionProxy) }
     def external_accounts; end
 
-    sig { params(value: T::Enumerable[T.untyped]).void }
+    sig { params(value: T::Enumerable[::ExternalAccount]).void }
     def external_accounts=(value); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::Family)) }
+    def family; end
+
+    sig { params(value: T.nilable(::Family)).void }
+    def family=(value); end
+
+    sig { returns(T::Boolean) }
+    def family_changed?; end
+
+    sig { returns(T::Boolean) }
+    def family_previously_changed?; end
+
+    sig { returns(T.nilable(::ActiveStorage::Attachment)) }
     def logo_attachment; end
 
-    sig { params(value: T.untyped).void }
+    sig { params(value: T.nilable(::ActiveStorage::Attachment)).void }
     def logo_attachment=(value); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::ActiveStorage::Blob)) }
     def logo_blob; end
 
-    sig { params(value: T.untyped).void }
+    sig { params(value: T.nilable(::ActiveStorage::Blob)).void }
     def logo_blob=(value); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::Family)) }
+    def reload_family; end
+
+    sig { returns(T.nilable(::ActiveStorage::Attachment)) }
     def reload_logo_attachment; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::ActiveStorage::Blob)) }
     def reload_logo_blob; end
+
+    sig { void }
+    def reset_family; end
 
     sig { void }
     def reset_logo_attachment; end
@@ -500,10 +534,10 @@ class ExternalItem
 
     # This method is created by ActiveRecord on the `ExternalItem` class because it declared `has_many :syncs`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(ActiveRecord::Associations::CollectionProxy) }
+    sig { returns(::Sync::PrivateCollectionProxy) }
     def syncs; end
 
-    sig { params(value: T::Enumerable[T.untyped]).void }
+    sig { params(value: T::Enumerable[::Sync]).void }
     def syncs=(value); end
   end
 
@@ -531,9 +565,6 @@ class ExternalItem
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def eager_load(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def eu(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def except(*args, &blk); end
@@ -587,22 +618,28 @@ class ExternalItem
     def merge(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def mono(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def needs_update(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def none(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_eu(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def not_good(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_requires_update(*args, &blk); end
+    def not_mono(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_us(*args, &blk); end
+    def not_plaid_eu(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def not_plaid_us(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def not_requires_update(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def null_relation?(*args, &blk); end
@@ -624,6 +661,12 @@ class ExternalItem
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def ordered(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def plaid_eu(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def plaid_us(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def preload(*args, &blk); end
@@ -668,9 +711,6 @@ class ExternalItem
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def unscope(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def us(*args, &blk); end
-
     sig { returns(PrivateAssociationRelationWhereChain) }
     sig { params(args: T.untyped).returns(PrivateAssociationRelation) }
     def where(*args); end
@@ -686,6 +726,1091 @@ class ExternalItem
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedAttributeMethods
+    sig { returns(T.nilable(::String)) }
+    def access_token; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def access_token=(value); end
+
+    sig { returns(T::Boolean) }
+    def access_token?; end
+
+    sig { returns(T.nilable(::String)) }
+    def access_token_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def access_token_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def access_token_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def access_token_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def access_token_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def access_token_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def access_token_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def access_token_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def access_token_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def access_token_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def access_token_was; end
+
+    sig { void }
+    def access_token_will_change!; end
+
+    sig { returns(T.nilable(T::Array[::String])) }
+    def available_products; end
+
+    sig { params(value: T.nilable(T::Array[::String])).returns(T.nilable(T::Array[::String])) }
+    def available_products=(value); end
+
+    sig { returns(T::Boolean) }
+    def available_products?; end
+
+    sig { returns(T.nilable(T::Array[::String])) }
+    def available_products_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def available_products_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def available_products_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(T::Array[::String]), T.nilable(T::Array[::String])])) }
+    def available_products_change; end
+
+    sig { returns(T.nilable([T.nilable(T::Array[::String]), T.nilable(T::Array[::String])])) }
+    def available_products_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def available_products_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Array[::String])) }
+    def available_products_in_database; end
+
+    sig { returns(T.nilable([T.nilable(T::Array[::String]), T.nilable(T::Array[::String])])) }
+    def available_products_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def available_products_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Array[::String])) }
+    def available_products_previously_was; end
+
+    sig { returns(T.nilable(T::Array[::String])) }
+    def available_products_was; end
+
+    sig { void }
+    def available_products_will_change!; end
+
+    sig { returns(T.nilable(T::Array[::String])) }
+    def billed_products; end
+
+    sig { params(value: T.nilable(T::Array[::String])).returns(T.nilable(T::Array[::String])) }
+    def billed_products=(value); end
+
+    sig { returns(T::Boolean) }
+    def billed_products?; end
+
+    sig { returns(T.nilable(T::Array[::String])) }
+    def billed_products_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def billed_products_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def billed_products_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(T::Array[::String]), T.nilable(T::Array[::String])])) }
+    def billed_products_change; end
+
+    sig { returns(T.nilable([T.nilable(T::Array[::String]), T.nilable(T::Array[::String])])) }
+    def billed_products_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def billed_products_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Array[::String])) }
+    def billed_products_in_database; end
+
+    sig { returns(T.nilable([T.nilable(T::Array[::String]), T.nilable(T::Array[::String])])) }
+    def billed_products_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def billed_products_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Array[::String])) }
+    def billed_products_previously_was; end
+
+    sig { returns(T.nilable(T::Array[::String])) }
+    def billed_products_was; end
+
+    sig { void }
+    def billed_products_will_change!; end
+
+    sig { returns(::ActiveSupport::TimeWithZone) }
+    def created_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def created_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def created_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def created_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def created_at_came_from_user?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_change; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_in_database; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_was; end
+
+    sig { void }
+    def created_at_will_change!; end
+
+    sig { returns(::String) }
+    def external_id; end
+
+    sig { params(value: ::String).returns(::String) }
+    def external_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def external_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def external_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def external_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def external_id_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def external_id_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def external_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def external_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def external_id_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def external_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def external_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def external_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def external_id_was; end
+
+    sig { void }
+    def external_id_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def family_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def family_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def family_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def family_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def family_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def family_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def family_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def family_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def family_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def family_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def family_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def family_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def family_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def family_id_was; end
+
+    sig { void }
+    def family_id_will_change!; end
+
+    sig { returns(::String) }
+    def id; end
+
+    sig { params(value: ::String).returns(::String) }
+    def id=(value); end
+
+    sig { returns(T::Boolean) }
+    def id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_previously_was; end
+
+    sig { returns(::String) }
+    def id_value; end
+
+    sig { params(value: ::String).returns(::String) }
+    def id_value=(value); end
+
+    sig { returns(T::Boolean) }
+    def id_value?; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_value_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_value_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_value_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_value_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_value_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_value_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_value_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_was; end
+
+    sig { void }
+    def id_value_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_was; end
+
+    sig { void }
+    def id_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_color; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def institution_color=(value); end
+
+    sig { returns(T::Boolean) }
+    def institution_color?; end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_color_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def institution_color_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def institution_color_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def institution_color_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def institution_color_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def institution_color_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_color_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def institution_color_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def institution_color_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_color_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_color_was; end
+
+    sig { void }
+    def institution_color_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def institution_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def institution_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def institution_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def institution_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def institution_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def institution_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def institution_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def institution_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def institution_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_id_was; end
+
+    sig { void }
+    def institution_id_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_url; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def institution_url=(value); end
+
+    sig { returns(T::Boolean) }
+    def institution_url?; end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_url_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def institution_url_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def institution_url_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def institution_url_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def institution_url_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def institution_url_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_url_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def institution_url_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def institution_url_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_url_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def institution_url_was; end
+
+    sig { void }
+    def institution_url_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def name; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def name=(value); end
+
+    sig { returns(T::Boolean) }
+    def name?; end
+
+    sig { returns(T.nilable(::String)) }
+    def name_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def name_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def name_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def name_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def name_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def name_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def name_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def name_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def name_was; end
+
+    sig { void }
+    def name_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def next_cursor; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def next_cursor=(value); end
+
+    sig { returns(T::Boolean) }
+    def next_cursor?; end
+
+    sig { returns(T.nilable(::String)) }
+    def next_cursor_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def next_cursor_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def next_cursor_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def next_cursor_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def next_cursor_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def next_cursor_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def next_cursor_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def next_cursor_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def next_cursor_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def next_cursor_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def next_cursor_was; end
+
+    sig { void }
+    def next_cursor_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def provider; end
+
+    sig { params(value: T.nilable(T.any(::String, ::Symbol))).returns(T.nilable(T.any(::String, ::Symbol))) }
+    def provider=(value); end
+
+    sig { returns(T::Boolean) }
+    def provider?; end
+
+    sig { returns(T.nilable(::String)) }
+    def provider_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def provider_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def provider_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def provider_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def provider_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def provider_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def provider_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def provider_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def provider_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def provider_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def provider_was; end
+
+    sig { void }
+    def provider_will_change!; end
+
+    sig { returns(T.untyped) }
+    def raw_institution_payload; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def raw_institution_payload=(value); end
+
+    sig { returns(T::Boolean) }
+    def raw_institution_payload?; end
+
+    sig { returns(T.untyped) }
+    def raw_institution_payload_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def raw_institution_payload_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def raw_institution_payload_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def raw_institution_payload_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def raw_institution_payload_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def raw_institution_payload_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def raw_institution_payload_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def raw_institution_payload_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def raw_institution_payload_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def raw_institution_payload_previously_was; end
+
+    sig { returns(T.untyped) }
+    def raw_institution_payload_was; end
+
+    sig { void }
+    def raw_institution_payload_will_change!; end
+
+    sig { returns(T.untyped) }
+    def raw_payload; end
+
+    sig { params(value: T.untyped).returns(T.untyped) }
+    def raw_payload=(value); end
+
+    sig { returns(T::Boolean) }
+    def raw_payload?; end
+
+    sig { returns(T.untyped) }
+    def raw_payload_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def raw_payload_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def raw_payload_came_from_user?; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def raw_payload_change; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def raw_payload_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def raw_payload_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def raw_payload_in_database; end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def raw_payload_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def raw_payload_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.untyped) }
+    def raw_payload_previously_was; end
+
+    sig { returns(T.untyped) }
+    def raw_payload_was; end
+
+    sig { void }
+    def raw_payload_will_change!; end
+
+    sig { void }
+    def restore_access_token!; end
+
+    sig { void }
+    def restore_available_products!; end
+
+    sig { void }
+    def restore_billed_products!; end
+
+    sig { void }
+    def restore_created_at!; end
+
+    sig { void }
+    def restore_external_id!; end
+
+    sig { void }
+    def restore_family_id!; end
+
+    sig { void }
+    def restore_id!; end
+
+    sig { void }
+    def restore_id_value!; end
+
+    sig { void }
+    def restore_institution_color!; end
+
+    sig { void }
+    def restore_institution_id!; end
+
+    sig { void }
+    def restore_institution_url!; end
+
+    sig { void }
+    def restore_name!; end
+
+    sig { void }
+    def restore_next_cursor!; end
+
+    sig { void }
+    def restore_provider!; end
+
+    sig { void }
+    def restore_raw_institution_payload!; end
+
+    sig { void }
+    def restore_raw_payload!; end
+
+    sig { void }
+    def restore_scheduled_for_deletion!; end
+
+    sig { void }
+    def restore_status!; end
+
+    sig { void }
+    def restore_updated_at!; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_access_token; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_access_token?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(T::Array[::String]), T.nilable(T::Array[::String])])) }
+    def saved_change_to_available_products; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_available_products?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(T::Array[::String]), T.nilable(T::Array[::String])])) }
+    def saved_change_to_billed_products; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_billed_products?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def saved_change_to_created_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_external_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_external_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_family_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_family_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_id_value; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_institution_color; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_institution_color?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_institution_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_institution_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_institution_url; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_institution_url?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_name; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_name?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_next_cursor; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_next_cursor?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_provider; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_provider?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_raw_institution_payload; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_raw_institution_payload?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.untyped, T.untyped])) }
+    def saved_change_to_raw_payload; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_raw_payload?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
+    def saved_change_to_scheduled_for_deletion; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_scheduled_for_deletion?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_status; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_status?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def saved_change_to_updated_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def scheduled_for_deletion; end
+
+    sig { params(value: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def scheduled_for_deletion=(value); end
+
+    sig { returns(T::Boolean) }
+    def scheduled_for_deletion?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def scheduled_for_deletion_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def scheduled_for_deletion_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def scheduled_for_deletion_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
+    def scheduled_for_deletion_change; end
+
+    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
+    def scheduled_for_deletion_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def scheduled_for_deletion_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def scheduled_for_deletion_in_database; end
+
+    sig { returns(T.nilable([T.nilable(T::Boolean), T.nilable(T::Boolean)])) }
+    def scheduled_for_deletion_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def scheduled_for_deletion_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def scheduled_for_deletion_previously_was; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def scheduled_for_deletion_was; end
+
+    sig { void }
+    def scheduled_for_deletion_will_change!; end
+
+    sig { returns(::String) }
+    def status; end
+
+    sig { params(value: T.any(::String, ::Symbol)).returns(T.any(::String, ::Symbol)) }
+    def status=(value); end
+
+    sig { returns(T::Boolean) }
+    def status?; end
+
+    sig { returns(T.nilable(::String)) }
+    def status_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def status_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def status_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def status_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def status_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def status_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def status_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def status_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def status_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def status_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def status_was; end
+
+    sig { void }
+    def status_will_change!; end
+
+    sig { returns(::ActiveSupport::TimeWithZone) }
+    def updated_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def updated_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def updated_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def updated_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def updated_at_came_from_user?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_change; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def updated_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_in_database; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def updated_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_was; end
+
+    sig { void }
+    def updated_at_will_change!; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_access_token?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_available_products?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_billed_products?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_external_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_family_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_institution_color?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_institution_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_institution_url?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_name?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_next_cursor?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_provider?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_raw_institution_payload?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_raw_payload?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_scheduled_for_deletion?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_status?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
   end
 
   module GeneratedRelationMethods
@@ -712,9 +1837,6 @@ class ExternalItem
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def eager_load(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def eu(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def except(*args, &blk); end
@@ -768,22 +1890,28 @@ class ExternalItem
     def merge(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def mono(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def needs_update(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def none(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_eu(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def not_good(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_requires_update(*args, &blk); end
+    def not_mono(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_us(*args, &blk); end
+    def not_plaid_eu(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def not_plaid_us(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def not_requires_update(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def null_relation?(*args, &blk); end
@@ -805,6 +1933,12 @@ class ExternalItem
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def ordered(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def plaid_eu(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def plaid_us(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def preload(*args, &blk); end
@@ -848,9 +1982,6 @@ class ExternalItem
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def unscope(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def us(*args, &blk); end
 
     sig { returns(PrivateRelationWhereChain) }
     sig { params(args: T.untyped).returns(PrivateRelation) }

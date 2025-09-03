@@ -1,4 +1,4 @@
-<%# locals: (path:, accountable_type:, show_us_link: true, show_eu_link: true) %>
+<%# locals: (path:, accountable_type:, data_providers:) %>
 
 <%= render layout: "accounts/new/container", locals: { title: t(".title"), back_path: new_account_path } do %>
   <div class="text-sm">
@@ -9,27 +9,31 @@
       <%= t("accounts.new.method_selector.manual_entry") %>
     <% end %>
 
-    <% if show_us_link %>
-      <%# Default US-only Link %>
-      <%= link_to new_plaid_item_path(region: "us", accountable_type: accountable_type),
-                  class: "text-primary flex items-center gap-4 w-full text-center focus:outline-hidden focus:bg-gray-50 border border-transparent focus:border focus:border-gray-200 px-2 hover:bg-gray-50 rounded-lg p-2",
-                  data: { turbo_frame: "modal" } do %>
+          <%= link_to banks_path,
+                  class: "text-primary flex items-center gap-4 w-full text-center focus:outline-hidden focus:bg-gray-50 border border-transparent focus:border focus:border-gray-200 px-2 hover:bg-gray-50 rounded-lg p-2" do %>
         <span class="flex w-8 h-8 shrink-0 grow-0 items-center justify-center rounded-lg bg-alpha-black-50 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.02)]">
           <%= icon("link-2") %>
         </span>
-        <%= t("accounts.new.method_selector.connected_entry") %>
+          <%= t("accounts.new.method_selector.connected_entry_with_provider", provider: "Direct Bank Connection") %>
       <% end %>
-    <% end %>
 
-    <%# EU Link %>
-    <% if show_eu_link %>
-      <%= link_to new_plaid_item_path(region: "eu", accountable_type: accountable_type),
+    <% data_providers.each do |provider_name| %>
+      <%= link_to new_external_item_path(provider: provider_name, accountable_type: accountable_type),
                   class: "text-primary flex items-center gap-4 w-full text-center focus:outline-hidden focus:bg-gray-50 border border-transparent focus:border focus:border-gray-200 px-2 hover:bg-gray-50 rounded-lg p-2",
                   data: { turbo_frame: "modal" } do %>
         <span class="flex w-8 h-8 shrink-0 grow-0 items-center justify-center rounded-lg bg-alpha-black-50 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.02)]">
           <%= icon("link-2") %>
         </span>
-        <%= t("accounts.new.method_selector.connected_entry_eu") %>
+        <% if data_providers.length == 1 %>
+          <%= t("accounts.new.method_selector.connected_entry") %>
+        <% else %>
+          <% provider_name_formatted = case provider_name.to_s
+               when "plaid_us" then "Plaid US"
+               when "plaid_eu" then "Plaid EU"
+               else provider_name.to_s.humanize
+               end %>
+          <%= t("accounts.new.method_selector.connected_entry_with_provider", provider: provider_name_formatted) %>
+        <% end %>
       <% end %>
     <% end %>
   </div>

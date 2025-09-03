@@ -645,10 +645,10 @@ class Entry
     sig { void }
     def account_id_will_change!; end
 
-    sig { returns(T.nilable(::BigDecimal)) }
+    sig { returns(::BigDecimal) }
     def amount; end
 
-    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    sig { params(value: ::BigDecimal).returns(::BigDecimal) }
     def amount=(value); end
 
     sig { returns(T::Boolean) }
@@ -663,10 +663,10 @@ class Entry
     sig { returns(T::Boolean) }
     def amount_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
     def amount_change; end
 
-    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
     def amount_change_to_be_saved; end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
@@ -675,7 +675,7 @@ class Entry
     sig { returns(T.nilable(::BigDecimal)) }
     def amount_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
     def amount_previous_change; end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
@@ -960,6 +960,51 @@ class Entry
     sig { void }
     def excluded_will_change!; end
 
+    sig { returns(T.nilable(::String)) }
+    def external_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def external_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def external_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def external_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def external_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def external_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def external_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def external_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def external_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def external_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def external_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def external_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def external_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def external_id_was; end
+
+    sig { void }
+    def external_id_will_change!; end
+
     sig { returns(::String) }
     def id; end
 
@@ -1230,51 +1275,6 @@ class Entry
     sig { void }
     def notes_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
-    def plaid_id; end
-
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
-    def plaid_id=(value); end
-
-    sig { returns(T::Boolean) }
-    def plaid_id?; end
-
-    sig { returns(T.nilable(::String)) }
-    def plaid_id_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def plaid_id_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def plaid_id_came_from_user?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def plaid_id_change; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def plaid_id_change_to_be_saved; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def plaid_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def plaid_id_in_database; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def plaid_id_previous_change; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def plaid_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def plaid_id_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def plaid_id_was; end
-
-    sig { void }
-    def plaid_id_will_change!; end
-
     sig { void }
     def restore_account_id!; end
 
@@ -1300,6 +1300,9 @@ class Entry
     def restore_excluded!; end
 
     sig { void }
+    def restore_external_id!; end
+
+    sig { void }
     def restore_id!; end
 
     sig { void }
@@ -1318,9 +1321,6 @@ class Entry
     def restore_notes!; end
 
     sig { void }
-    def restore_plaid_id!; end
-
-    sig { void }
     def restore_updated_at!; end
 
     sig { returns(T.nilable([::String, ::String])) }
@@ -1329,7 +1329,7 @@ class Entry
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_account_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
     def saved_change_to_amount; end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
@@ -1371,6 +1371,12 @@ class Entry
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_excluded?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_external_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_external_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
     sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_id; end
 
@@ -1406,12 +1412,6 @@ class Entry
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_notes?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def saved_change_to_plaid_id; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def saved_change_to_plaid_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_updated_at; end
@@ -1489,6 +1489,9 @@ class Entry
     def will_save_change_to_excluded?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_external_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
@@ -1505,9 +1508,6 @@ class Entry
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_notes?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def will_save_change_to_plaid_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end

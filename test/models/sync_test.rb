@@ -45,15 +45,15 @@ class SyncTest < ActiveSupport::TestCase
 
   test "can run nested syncs that alert the parent when complete" do
     family = families(:dylan_family)
-    plaid_item = plaid_items(:one)
+    external_item = external_items(:one)
     account = accounts(:connected)
 
     family_sync = Sync.create!(syncable: family)
-    plaid_item_sync = Sync.create!(syncable: plaid_item, parent: family_sync)
-    account_sync = Sync.create!(syncable: account, parent: plaid_item_sync)
+    external_item_sync = Sync.create!(syncable: external_item, parent: family_sync)
+    account_sync = Sync.create!(syncable: account, parent: external_item_sync)
 
     assert_equal "pending", family_sync.status
-    assert_equal "pending", plaid_item_sync.status
+    assert_equal "pending", external_item_sync.status
     assert_equal "pending", account_sync.status
 
     family.expects(:perform_sync).with(family_sync).once
@@ -62,12 +62,12 @@ class SyncTest < ActiveSupport::TestCase
 
     assert_equal "syncing", family_sync.reload.status
 
-    plaid_item.expects(:perform_sync).with(plaid_item_sync).once
+    external_item.expects(:perform_sync).with(external_item_sync).once
 
-    plaid_item_sync.perform
+    external_item_sync.perform
 
     assert_equal "syncing", family_sync.reload.status
-    assert_equal "syncing", plaid_item_sync.reload.status
+    assert_equal "syncing", external_item_sync.reload.status
 
     account.expects(:perform_sync).with(account_sync).once
 
@@ -82,22 +82,22 @@ class SyncTest < ActiveSupport::TestCase
 
     account_sync.perform
 
-    assert_equal "completed", plaid_item_sync.reload.status
+    assert_equal "completed", external_item_sync.reload.status
     assert_equal "completed", account_sync.reload.status
     assert_equal "completed", family_sync.reload.status
   end
 
   test "failures propagate up the chain" do
     family = families(:dylan_family)
-    plaid_item = plaid_items(:one)
+    external_item = external_items(:one)
     account = accounts(:connected)
 
     family_sync = Sync.create!(syncable: family)
-    plaid_item_sync = Sync.create!(syncable: plaid_item, parent: family_sync)
-    account_sync = Sync.create!(syncable: account, parent: plaid_item_sync)
+    external_item_sync = Sync.create!(syncable: external_item, parent: family_sync)
+    account_sync = Sync.create!(syncable: account, parent: external_item_sync)
 
     assert_equal "pending", family_sync.status
-    assert_equal "pending", plaid_item_sync.status
+    assert_equal "pending", external_item_sync.status
     assert_equal "pending", account_sync.status
 
     family.expects(:perform_sync).with(family_sync).once
@@ -106,12 +106,12 @@ class SyncTest < ActiveSupport::TestCase
 
     assert_equal "syncing", family_sync.reload.status
 
-    plaid_item.expects(:perform_sync).with(plaid_item_sync).once
+    external_item.expects(:perform_sync).with(external_item_sync).once
 
-    plaid_item_sync.perform
+    external_item_sync.perform
 
     assert_equal "syncing", family_sync.reload.status
-    assert_equal "syncing", plaid_item_sync.reload.status
+    assert_equal "syncing", external_item_sync.reload.status
 
     # This error should "bubble up" to the ExternalItem and Family sync results
     account.expects(:perform_sync).with(account_sync).raises(StandardError.new("test account sync error"))
@@ -128,22 +128,22 @@ class SyncTest < ActiveSupport::TestCase
 
     account_sync.perform
 
-    assert_equal "failed", plaid_item_sync.reload.status
+    assert_equal "failed", external_item_sync.reload.status
     assert_equal "failed", account_sync.reload.status
     assert_equal "failed", family_sync.reload.status
   end
 
   test "parent failure should not change status if child succeeds" do
     family = families(:dylan_family)
-    plaid_item = plaid_items(:one)
+    external_item = external_items(:one)
     account = accounts(:connected)
 
     family_sync = Sync.create!(syncable: family)
-    plaid_item_sync = Sync.create!(syncable: plaid_item, parent: family_sync)
-    account_sync = Sync.create!(syncable: account, parent: plaid_item_sync)
+    external_item_sync = Sync.create!(syncable: external_item, parent: family_sync)
+    account_sync = Sync.create!(syncable: account, parent: external_item_sync)
 
     assert_equal "pending", family_sync.status
-    assert_equal "pending", plaid_item_sync.status
+    assert_equal "pending", external_item_sync.status
     assert_equal "pending", account_sync.status
 
     family.expects(:perform_sync).with(family_sync).raises(StandardError.new("test family sync error"))
@@ -152,12 +152,12 @@ class SyncTest < ActiveSupport::TestCase
 
     assert_equal "failed", family_sync.reload.status
 
-    plaid_item.expects(:perform_sync).with(plaid_item_sync).raises(StandardError.new("test plaid item sync error"))
+    external_item.expects(:perform_sync).with(external_item_sync).raises(StandardError.new("test plaid item sync error"))
 
-    plaid_item_sync.perform
+    external_item_sync.perform
 
     assert_equal "failed", family_sync.reload.status
-    assert_equal "failed", plaid_item_sync.reload.status
+    assert_equal "failed", external_item_sync.reload.status
 
     # Leaf level sync succeeds, but shouldn't change the status of the already-failed parent syncs
     account.expects(:perform_sync).with(account_sync).once
@@ -174,7 +174,7 @@ class SyncTest < ActiveSupport::TestCase
 
     account_sync.perform
 
-    assert_equal "failed", plaid_item_sync.reload.status
+    assert_equal "failed", external_item_sync.reload.status
     assert_equal "failed", family_sync.reload.status
     assert_equal "completed", account_sync.reload.status
   end

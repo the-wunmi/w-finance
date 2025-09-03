@@ -1,4 +1,4 @@
-module Maybe
+module DoubleU
   class << self
     def version
       Semver.new(semver)

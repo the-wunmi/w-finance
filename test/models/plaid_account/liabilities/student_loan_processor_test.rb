@@ -2,18 +2,18 @@ require "test_helper"
 
 class ExternalAccount::Liabilities::StudentLoanProcessorTest < ActiveSupport::TestCase
   setup do
-    @plaid_account = plaid_accounts(:one)
-    @plaid_account.update!(
+    @external_account = external_accounts(:one)
+    @external_account.update!(
       plaid_type: "loan",
       plaid_subtype: "student"
     )
 
     # Change the underlying accountable to a Loan so the helper method `loan` is available
-    @plaid_account.account.update!(accountable: Loan.new)
+    @external_account.account.update!(accountable: Loan.new)
   end
 
   test "updates loan details including term months from Plaid data" do
-    @plaid_account.update!(raw_liabilities_payload: {
+    @external_account.update!(raw_liabilities_payload: {
       student: {
         interest_rate_percentage: 5.5,
         origination_principal_amount: 20000,
@@ -22,10 +22,10 @@ class ExternalAccount::Liabilities::StudentLoanProcessorTest < ActiveSupport::Te
       }
     })
 
-    processor = ExternalAccount::Liabilities::StudentLoanProcessor.new(@plaid_account)
+    processor = ExternalAccount::Liabilities::StudentLoanProcessor.new(@external_account)
     processor.process
 
-    loan = @plaid_account.account.loan
+    loan = @external_account.account.loan
 
     assert_equal "fixed", loan.rate_type
     assert_equal 5.5, loan.interest_rate
@@ -34,7 +34,7 @@ class ExternalAccount::Liabilities::StudentLoanProcessorTest < ActiveSupport::Te
   end
 
   test "handles missing payoff dates gracefully" do
-    @plaid_account.update!(raw_liabilities_payload: {
+    @external_account.update!(raw_liabilities_payload: {
       student: {
         interest_rate_percentage: 4.8,
         origination_principal_amount: 15000,
@@ -43,10 +43,10 @@ class ExternalAccount::Liabilities::StudentLoanProcessorTest < ActiveSupport::Te
       }
     })
 
-    processor = ExternalAccount::Liabilities::StudentLoanProcessor.new(@plaid_account)
+    processor = ExternalAccount::Liabilities::StudentLoanProcessor.new(@external_account)
     processor.process
 
-    loan = @plaid_account.account.loan
+    loan = @external_account.account.loan
 
     assert_nil loan.term_months
     assert_equal 4.8, loan.interest_rate
@@ -54,12 +54,12 @@ class ExternalAccount::Liabilities::StudentLoanProcessorTest < ActiveSupport::Te
   end
 
   test "does nothing when loan data absent" do
-    @plaid_account.update!(raw_liabilities_payload: {})
+    @external_account.update!(raw_liabilities_payload: {})
 
-    processor = ExternalAccount::Liabilities::StudentLoanProcessor.new(@plaid_account)
+    processor = ExternalAccount::Liabilities::StudentLoanProcessor.new(@external_account)
     processor.process
 
-    loan = @plaid_account.account.loan
+    loan = @external_account.account.loan
 
     assert_nil loan.interest_rate
     assert_nil loan.initial_balance

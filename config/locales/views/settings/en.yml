@@ -60,7 +60,7 @@ en:
         last_name: Last Name
         page_title: Account
         pending: Pending
-        profile_subtitle: Customize how you appear on Maybe
+        profile_subtitle: Customize how you appear on DoubleU
         profile_title: Profile
         remove_invitation: Remove Invitation
         remove_member: Remove Member
@@ -73,7 +73,6 @@ en:
       api_key_label: API Key
       billing_label: Billing
       categories_label: Categories
-      feedback_label: Feedback
       general_section_title: General
       imports_label: Imports
       logout: Logout

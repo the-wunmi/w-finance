@@ -7,6 +7,7 @@
 
 class Doorkeeper::Application
   include GeneratedAssociationMethods
+  include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
@@ -281,7 +282,7 @@ class Doorkeeper::Application
     sig { returns(::Doorkeeper::Application) }
     def fourth!; end
 
-    sig { returns(Array) }
+    sig { returns(T::Array[T.untyped]) }
     def ids; end
 
     sig do
@@ -428,10 +429,10 @@ class Doorkeeper::Application
 
     # This method is created by ActiveRecord on the `Doorkeeper::Application` class because it declared `has_many :access_grants`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(ActiveRecord::Associations::CollectionProxy) }
+    sig { returns(::Doorkeeper::AccessGrant::PrivateCollectionProxy) }
     def access_grants; end
 
-    sig { params(value: T::Enumerable[T.untyped]).void }
+    sig { params(value: T::Enumerable[::Doorkeeper::AccessGrant]).void }
     def access_grants=(value); end
 
     sig { returns(T::Array[T.untyped]) }
@@ -442,10 +443,10 @@ class Doorkeeper::Application
 
     # This method is created by ActiveRecord on the `Doorkeeper::Application` class because it declared `has_many :access_tokens`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(ActiveRecord::Associations::CollectionProxy) }
+    sig { returns(::Doorkeeper::AccessToken::PrivateCollectionProxy) }
     def access_tokens; end
 
-    sig { params(value: T::Enumerable[T.untyped]).void }
+    sig { params(value: T::Enumerable[::Doorkeeper::AccessToken]).void }
     def access_tokens=(value); end
 
     sig { returns(T::Array[T.untyped]) }
@@ -456,10 +457,10 @@ class Doorkeeper::Application
 
     # This method is created by ActiveRecord on the `Doorkeeper::Application` class because it declared `has_many :authorized_applications, through: :authorized_tokens`.
     # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
-    sig { returns(ActiveRecord::Associations::CollectionProxy) }
+    sig { returns(::Doorkeeper::Application::PrivateCollectionProxy) }
     def authorized_applications; end
 
-    sig { params(value: T::Enumerable[T.untyped]).void }
+    sig { params(value: T::Enumerable[::Doorkeeper::Application]).void }
     def authorized_applications=(value); end
 
     sig { returns(T::Array[T.untyped]) }
@@ -470,10 +471,10 @@ class Doorkeeper::Application
 
     # This method is created by ActiveRecord on the `Doorkeeper::Application` class because it declared `has_many :authorized_tokens`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(ActiveRecord::Associations::CollectionProxy) }
+    sig { returns(::Doorkeeper::AccessToken::PrivateCollectionProxy) }
     def authorized_tokens; end
 
-    sig { params(value: T::Enumerable[T.untyped]).void }
+    sig { params(value: T::Enumerable[::Doorkeeper::AccessToken]).void }
     def authorized_tokens=(value); end
 
     sig { returns(T.untyped) }
@@ -642,6 +643,692 @@ class Doorkeeper::Application
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedAttributeMethods
+    sig { returns(T::Boolean) }
+    def confidential; end
+
+    sig { params(value: T::Boolean).returns(T::Boolean) }
+    def confidential=(value); end
+
+    sig { returns(T::Boolean) }
+    def confidential?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def confidential_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def confidential_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def confidential_came_from_user?; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def confidential_change; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def confidential_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def confidential_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def confidential_in_database; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def confidential_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def confidential_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def confidential_previously_was; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def confidential_was; end
+
+    sig { void }
+    def confidential_will_change!; end
+
+    sig { returns(::ActiveSupport::TimeWithZone) }
+    def created_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def created_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def created_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def created_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def created_at_came_from_user?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_change; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_in_database; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_was; end
+
+    sig { void }
+    def created_at_will_change!; end
+
+    sig { returns(::Integer) }
+    def id; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def id=(value); end
+
+    sig { returns(T::Boolean) }
+    def id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_previously_was; end
+
+    sig { returns(::Integer) }
+    def id_value; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def id_value=(value); end
+
+    sig { returns(T::Boolean) }
+    def id_value?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_value_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_value_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_value_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_value_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_value_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_value_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_value_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def id_value_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_value_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_value_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_value_was; end
+
+    sig { void }
+    def id_value_will_change!; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def id_was; end
+
+    sig { void }
+    def id_will_change!; end
+
+    sig { returns(::String) }
+    def name; end
+
+    sig { params(value: ::String).returns(::String) }
+    def name=(value); end
+
+    sig { returns(T::Boolean) }
+    def name?; end
+
+    sig { returns(T.nilable(::String)) }
+    def name_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def name_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def name_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def name_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def name_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def name_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def name_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def name_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def name_was; end
+
+    sig { void }
+    def name_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def owner_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def owner_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def owner_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def owner_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def owner_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def owner_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def owner_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def owner_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def owner_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def owner_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def owner_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def owner_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def owner_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def owner_id_was; end
+
+    sig { void }
+    def owner_id_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def owner_type; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def owner_type=(value); end
+
+    sig { returns(T::Boolean) }
+    def owner_type?; end
+
+    sig { returns(T.nilable(::String)) }
+    def owner_type_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def owner_type_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def owner_type_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def owner_type_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def owner_type_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def owner_type_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def owner_type_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def owner_type_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def owner_type_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def owner_type_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def owner_type_was; end
+
+    sig { void }
+    def owner_type_will_change!; end
+
+    sig { returns(::String) }
+    def redirect_uri; end
+
+    sig { params(value: ::String).returns(::String) }
+    def redirect_uri=(value); end
+
+    sig { returns(T::Boolean) }
+    def redirect_uri?; end
+
+    sig { returns(T.nilable(::String)) }
+    def redirect_uri_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def redirect_uri_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def redirect_uri_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def redirect_uri_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def redirect_uri_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def redirect_uri_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def redirect_uri_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def redirect_uri_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def redirect_uri_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def redirect_uri_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def redirect_uri_was; end
+
+    sig { void }
+    def redirect_uri_will_change!; end
+
+    sig { void }
+    def restore_confidential!; end
+
+    sig { void }
+    def restore_created_at!; end
+
+    sig { void }
+    def restore_id!; end
+
+    sig { void }
+    def restore_id_value!; end
+
+    sig { void }
+    def restore_name!; end
+
+    sig { void }
+    def restore_owner_id!; end
+
+    sig { void }
+    def restore_owner_type!; end
+
+    sig { void }
+    def restore_redirect_uri!; end
+
+    sig { void }
+    def restore_scopes!; end
+
+    sig { void }
+    def restore_secret!; end
+
+    sig { void }
+    def restore_uid!; end
+
+    sig { void }
+    def restore_updated_at!; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def saved_change_to_confidential; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_confidential?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def saved_change_to_created_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_id_value; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_name; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_name?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_owner_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_owner_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_owner_type; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_owner_type?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_redirect_uri; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_redirect_uri?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_scopes; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_scopes?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_secret; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_secret?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_uid; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_uid?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def saved_change_to_updated_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(::String) }
+    def scopes; end
+
+    sig { params(value: ::String).returns(::String) }
+    def scopes=(value); end
+
+    sig { returns(T::Boolean) }
+    def scopes?; end
+
+    sig { returns(T.nilable(::String)) }
+    def scopes_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def scopes_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def scopes_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def scopes_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def scopes_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def scopes_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def scopes_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def scopes_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def scopes_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def scopes_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def scopes_was; end
+
+    sig { void }
+    def scopes_will_change!; end
+
+    sig { returns(::String) }
+    def secret; end
+
+    sig { params(value: ::String).returns(::String) }
+    def secret=(value); end
+
+    sig { returns(T::Boolean) }
+    def secret?; end
+
+    sig { returns(T.nilable(::String)) }
+    def secret_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def secret_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def secret_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def secret_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def secret_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def secret_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def secret_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def secret_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def secret_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def secret_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def secret_was; end
+
+    sig { void }
+    def secret_will_change!; end
+
+    sig { returns(::String) }
+    def uid; end
+
+    sig { params(value: ::String).returns(::String) }
+    def uid=(value); end
+
+    sig { returns(T::Boolean) }
+    def uid?; end
+
+    sig { returns(T.nilable(::String)) }
+    def uid_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def uid_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def uid_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def uid_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def uid_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def uid_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def uid_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def uid_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def uid_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def uid_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def uid_was; end
+
+    sig { void }
+    def uid_will_change!; end
+
+    sig { returns(::ActiveSupport::TimeWithZone) }
+    def updated_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def updated_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def updated_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def updated_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def updated_at_came_from_user?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_change; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def updated_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_in_database; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def updated_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_was; end
+
+    sig { void }
+    def updated_at_will_change!; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_confidential?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_name?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_owner_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_owner_type?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_redirect_uri?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_scopes?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_secret?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_uid?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
   end
 
   module GeneratedRelationMethods

@@ -7,6 +7,7 @@
 
 class FamilyExport
   include GeneratedAssociationMethods
+  include GeneratedAttributeMethods
   include EnumMethodsModule
   extend CommonRelationMethods
   extend GeneratedRelationMethods
@@ -270,7 +271,7 @@ class FamilyExport
     sig { returns(::FamilyExport) }
     def fourth!; end
 
-    sig { returns(Array) }
+    sig { returns(T::Array[T.untyped]) }
     def ids; end
 
     sig do
@@ -419,49 +420,49 @@ class FamilyExport
   end
 
   module GeneratedAssociationMethods
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
     def build_export_file_attachment(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
     def build_export_file_blob(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Family) }
     def build_family(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
     def create_export_file_attachment(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
     def create_export_file_attachment!(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
     def create_export_file_blob(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
     def create_export_file_blob!(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Family) }
     def create_family(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Family) }
     def create_family!(*args, &blk); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::ActiveStorage::Attachment)) }
     def export_file_attachment; end
 
-    sig { params(value: T.untyped).void }
+    sig { params(value: T.nilable(::ActiveStorage::Attachment)).void }
     def export_file_attachment=(value); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::ActiveStorage::Blob)) }
     def export_file_blob; end
 
-    sig { params(value: T.untyped).void }
+    sig { params(value: T.nilable(::ActiveStorage::Blob)).void }
     def export_file_blob=(value); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::Family)) }
     def family; end
 
-    sig { params(value: T.untyped).void }
+    sig { params(value: T.nilable(::Family)).void }
     def family=(value); end
 
     sig { returns(T::Boolean) }
@@ -470,13 +471,13 @@ class FamilyExport
     sig { returns(T::Boolean) }
     def family_previously_changed?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::ActiveStorage::Attachment)) }
     def reload_export_file_attachment; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::ActiveStorage::Blob)) }
     def reload_export_file_blob; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::Family)) }
     def reload_family; end
 
     sig { void }
@@ -662,6 +663,350 @@ class FamilyExport
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedAttributeMethods
+    sig { returns(::ActiveSupport::TimeWithZone) }
+    def created_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def created_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def created_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def created_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def created_at_came_from_user?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_change; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_in_database; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_was; end
+
+    sig { void }
+    def created_at_will_change!; end
+
+    sig { returns(::String) }
+    def family_id; end
+
+    sig { params(value: ::String).returns(::String) }
+    def family_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def family_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def family_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def family_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def family_id_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def family_id_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def family_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def family_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def family_id_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def family_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def family_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def family_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def family_id_was; end
+
+    sig { void }
+    def family_id_will_change!; end
+
+    sig { returns(::String) }
+    def id; end
+
+    sig { params(value: ::String).returns(::String) }
+    def id=(value); end
+
+    sig { returns(T::Boolean) }
+    def id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_previously_was; end
+
+    sig { returns(::String) }
+    def id_value; end
+
+    sig { params(value: ::String).returns(::String) }
+    def id_value=(value); end
+
+    sig { returns(T::Boolean) }
+    def id_value?; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_value_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_value_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_value_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_value_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_value_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_value_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_value_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_was; end
+
+    sig { void }
+    def id_value_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_was; end
+
+    sig { void }
+    def id_will_change!; end
+
+    sig { void }
+    def restore_created_at!; end
+
+    sig { void }
+    def restore_family_id!; end
+
+    sig { void }
+    def restore_id!; end
+
+    sig { void }
+    def restore_id_value!; end
+
+    sig { void }
+    def restore_status!; end
+
+    sig { void }
+    def restore_updated_at!; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def saved_change_to_created_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_family_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_family_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_id_value; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_status; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_status?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def saved_change_to_updated_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(::String) }
+    def status; end
+
+    sig { params(value: T.any(::String, ::Symbol)).returns(T.any(::String, ::Symbol)) }
+    def status=(value); end
+
+    sig { returns(T::Boolean) }
+    def status?; end
+
+    sig { returns(T.nilable(::String)) }
+    def status_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def status_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def status_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def status_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def status_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def status_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def status_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def status_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def status_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def status_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def status_was; end
+
+    sig { void }
+    def status_will_change!; end
+
+    sig { returns(::ActiveSupport::TimeWithZone) }
+    def updated_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def updated_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def updated_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def updated_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def updated_at_came_from_user?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_change; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def updated_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_in_database; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def updated_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_was; end
+
+    sig { void }
+    def updated_at_will_change!; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_family_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_status?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
   end
 
   module GeneratedRelationMethods

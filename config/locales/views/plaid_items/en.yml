@@ -1,11 +1,11 @@
 ---
 en:
-  plaid_items:
+  external_items:
     create:
       success: Account linked successfully.  Please wait for accounts to sync.
     destroy:
       success: Accounts scheduled for deletion.
-    plaid_item:
+    external_item:
       add_new: Add new connection
       confirm_accept: Delete institution
       confirm_body: This will permanently delete all the accounts in this group and

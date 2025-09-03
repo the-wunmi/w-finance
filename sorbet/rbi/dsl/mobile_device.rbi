@@ -7,6 +7,7 @@
 
 class MobileDevice
   include GeneratedAssociationMethods
+  include GeneratedAttributeMethods
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
@@ -260,7 +261,7 @@ class MobileDevice
     sig { returns(::MobileDevice) }
     def fourth!; end
 
-    sig { returns(Array) }
+    sig { returns(T::Array[T.untyped]) }
     def ids; end
 
     sig do
@@ -383,28 +384,28 @@ class MobileDevice
   end
 
   module GeneratedAssociationMethods
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Doorkeeper::Application) }
     def build_oauth_application(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
     def build_user(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Doorkeeper::Application) }
     def create_oauth_application(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Doorkeeper::Application) }
     def create_oauth_application!(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
     def create_user(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(T.untyped) }
+    sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
     def create_user!(*args, &blk); end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::Doorkeeper::Application)) }
     def oauth_application; end
 
-    sig { params(value: T.untyped).void }
+    sig { params(value: T.nilable(::Doorkeeper::Application)).void }
     def oauth_application=(value); end
 
     sig { returns(T::Boolean) }
@@ -413,10 +414,10 @@ class MobileDevice
     sig { returns(T::Boolean) }
     def oauth_application_previously_changed?; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::Doorkeeper::Application)) }
     def reload_oauth_application; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::User)) }
     def reload_user; end
 
     sig { void }
@@ -425,10 +426,10 @@ class MobileDevice
     sig { void }
     def reset_user; end
 
-    sig { returns(T.untyped) }
+    sig { returns(T.nilable(::User)) }
     def user; end
 
-    sig { params(value: T.untyped).void }
+    sig { params(value: T.nilable(::User)).void }
     def user=(value); end
 
     sig { returns(T::Boolean) }
@@ -584,6 +585,692 @@ class MobileDevice
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
+  end
+
+  module GeneratedAttributeMethods
+    sig { returns(T.nilable(::String)) }
+    def app_version; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def app_version=(value); end
+
+    sig { returns(T::Boolean) }
+    def app_version?; end
+
+    sig { returns(T.nilable(::String)) }
+    def app_version_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def app_version_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def app_version_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def app_version_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def app_version_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def app_version_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def app_version_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def app_version_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def app_version_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def app_version_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def app_version_was; end
+
+    sig { void }
+    def app_version_will_change!; end
+
+    sig { returns(::ActiveSupport::TimeWithZone) }
+    def created_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def created_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def created_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def created_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def created_at_came_from_user?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_change; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_in_database; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def created_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def created_at_was; end
+
+    sig { void }
+    def created_at_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_id; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def device_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def device_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def device_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def device_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def device_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def device_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def device_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def device_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def device_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def device_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def device_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_id_was; end
+
+    sig { void }
+    def device_id_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_name; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def device_name=(value); end
+
+    sig { returns(T::Boolean) }
+    def device_name?; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_name_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def device_name_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def device_name_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def device_name_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def device_name_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def device_name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def device_name_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def device_name_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def device_name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def device_name_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_name_was; end
+
+    sig { void }
+    def device_name_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_type; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def device_type=(value); end
+
+    sig { returns(T::Boolean) }
+    def device_type?; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_type_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def device_type_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def device_type_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def device_type_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def device_type_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def device_type_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def device_type_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def device_type_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def device_type_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def device_type_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def device_type_was; end
+
+    sig { void }
+    def device_type_will_change!; end
+
+    sig { returns(::String) }
+    def id; end
+
+    sig { params(value: ::String).returns(::String) }
+    def id=(value); end
+
+    sig { returns(T::Boolean) }
+    def id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_previously_was; end
+
+    sig { returns(::String) }
+    def id_value; end
+
+    sig { params(value: ::String).returns(::String) }
+    def id_value=(value); end
+
+    sig { returns(T::Boolean) }
+    def id_value?; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def id_value_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def id_value_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_value_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_value_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_value_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def id_value_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def id_value_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_value_was; end
+
+    sig { void }
+    def id_value_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def id_was; end
+
+    sig { void }
+    def id_will_change!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_seen_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_seen_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def last_seen_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_seen_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def last_seen_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def last_seen_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def last_seen_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def last_seen_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def last_seen_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_seen_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def last_seen_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def last_seen_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_seen_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_seen_at_was; end
+
+    sig { void }
+    def last_seen_at_will_change!; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def oauth_application_id; end
+
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    def oauth_application_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def oauth_application_id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def oauth_application_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def oauth_application_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def oauth_application_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def oauth_application_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def oauth_application_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def oauth_application_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def oauth_application_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def oauth_application_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def oauth_application_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def oauth_application_id_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def oauth_application_id_was; end
+
+    sig { void }
+    def oauth_application_id_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def os_version; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def os_version=(value); end
+
+    sig { returns(T::Boolean) }
+    def os_version?; end
+
+    sig { returns(T.nilable(::String)) }
+    def os_version_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def os_version_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def os_version_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def os_version_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def os_version_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def os_version_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def os_version_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def os_version_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def os_version_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def os_version_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def os_version_was; end
+
+    sig { void }
+    def os_version_will_change!; end
+
+    sig { void }
+    def restore_app_version!; end
+
+    sig { void }
+    def restore_created_at!; end
+
+    sig { void }
+    def restore_device_id!; end
+
+    sig { void }
+    def restore_device_name!; end
+
+    sig { void }
+    def restore_device_type!; end
+
+    sig { void }
+    def restore_id!; end
+
+    sig { void }
+    def restore_id_value!; end
+
+    sig { void }
+    def restore_last_seen_at!; end
+
+    sig { void }
+    def restore_oauth_application_id!; end
+
+    sig { void }
+    def restore_os_version!; end
+
+    sig { void }
+    def restore_updated_at!; end
+
+    sig { void }
+    def restore_user_id!; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_app_version; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_app_version?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def saved_change_to_created_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_device_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_device_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_device_name; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_device_name?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_device_type; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_device_type?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_id_value; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_last_seen_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_last_seen_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def saved_change_to_oauth_application_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_oauth_application_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_os_version; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_os_version?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def saved_change_to_updated_at; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_user_id; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_user_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(::ActiveSupport::TimeWithZone) }
+    def updated_at; end
+
+    sig { params(value: ::ActiveSupport::TimeWithZone).returns(::ActiveSupport::TimeWithZone) }
+    def updated_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def updated_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def updated_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def updated_at_came_from_user?; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_change; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def updated_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_in_database; end
+
+    sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
+    def updated_at_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def updated_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def updated_at_was; end
+
+    sig { void }
+    def updated_at_will_change!; end
+
+    sig { returns(::String) }
+    def user_id; end
+
+    sig { params(value: ::String).returns(::String) }
+    def user_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def user_id?; end
+
+    sig { returns(T.nilable(::String)) }
+    def user_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def user_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def user_id_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def user_id_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def user_id_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def user_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def user_id_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def user_id_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def user_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def user_id_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def user_id_was; end
+
+    sig { void }
+    def user_id_will_change!; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_app_version?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_device_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_device_name?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_device_type?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_last_seen_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_oauth_application_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_os_version?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_user_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
   end
 
   module GeneratedRelationMethods

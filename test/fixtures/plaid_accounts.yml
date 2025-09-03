@@ -3,7 +3,7 @@ one:
   available_balance: 1000
   currency: USD
   name: Plaid Depository Account
-  plaid_item: one
+  external_item: one
   plaid_id: "acc_mock_1"
   plaid_type: depository
   plaid_subtype: checking

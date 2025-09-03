@@ -2,8 +2,8 @@ require "test_helper"
 
 class ExternalAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestCase
   setup do
-    @plaid_account = plaid_accounts(:one)
-    @security_resolver = ExternalAccount::Investments::SecurityResolver.new(@plaid_account)
+    @external_account = external_accounts(:one)
+    @security_resolver = ExternalAccount::Investments::SecurityResolver.new(@external_account)
   end
 
   test "creates holding records from Plaid holdings snapshot" do
@@ -27,7 +27,7 @@ class ExternalAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestC
       transactions: [] # not relevant for test
     }
 
-    @plaid_account.update!(raw_investments_payload: test_investments_payload)
+    @external_account.update!(raw_investments_payload: test_investments_payload)
 
     @security_resolver.expects(:resolve)
                       .with(plaid_security_id: "123")
@@ -49,13 +49,13 @@ class ExternalAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestC
                         )
                       )
 
-    processor = ExternalAccount::Investments::HoldingsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::HoldingsProcessor.new(@external_account, security_resolver: @security_resolver)
 
     assert_difference "Holding.count", 2 do
       processor.process
     end
 
-    holdings = Holding.where(account: @plaid_account.account).order(:date)
+    holdings = Holding.where(account: @external_account.account).order(:date)
 
     assert_equal 100, holdings.first.qty
     assert_equal 100, holdings.first.price
@@ -75,7 +75,7 @@ class ExternalAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestC
   # after this date are now stale and should be deleted, as the Plaid data is the
   # authoritative source of truth for the current holdings.
   test "deletes stale holdings per security based on institution price date" do
-    account = @plaid_account.account
+    account = @external_account.account
 
     # Create a third security for testing
     third_security = Security.create!(ticker: "GOOGL", name: "Google", exchange_operating_mic: "XNAS", country_code: "US")
@@ -122,7 +122,7 @@ class ExternalAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestC
       transactions: []
     }
 
-    @plaid_account.update!(raw_investments_payload: test_investments_payload)
+    @external_account.update!(raw_investments_payload: test_investments_payload)
 
     # Mock security resolver for all three securities
     @security_resolver.expects(:resolve)
@@ -137,7 +137,7 @@ class ExternalAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestC
                       .with(plaid_security_id: "stale")
                       .returns(OpenStruct.new(security: securities(:aapl), cash_equivalent?: false, brokerage_cash?: false))
 
-    processor = ExternalAccount::Investments::HoldingsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::HoldingsProcessor.new(@external_account, security_resolver: @security_resolver)
     processor.process
 
     # Should have created 3 new holdings
@@ -172,7 +172,7 @@ class ExternalAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestC
       transactions: []
     }
 
-    @plaid_account.update!(raw_investments_payload: test_investments_payload)
+    @external_account.update!(raw_investments_payload: test_investments_payload)
 
     # First security fails to resolve
     @security_resolver.expects(:resolve)
@@ -184,7 +184,7 @@ class ExternalAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestC
                       .with(plaid_security_id: "success")
                       .returns(OpenStruct.new(security: securities(:aapl)))
 
-    processor = ExternalAccount::Investments::HoldingsProcessor.new(@plaid_account, security_resolver: @security_resolver)
+    processor = ExternalAccount::Investments::HoldingsProcessor.new(@external_account, security_resolver: @security_resolver)
 
     # Should create only 1 holding (the successful one)
     assert_difference "Holding.count", 1 do
@@ -192,6 +192,6 @@ class ExternalAccount::Investments::HoldingsProcessorTest < ActiveSupport::TestC
     end
 
     # Should have created the successful holding
-    assert @plaid_account.account.holdings.exists?(security: securities(:aapl), qty: 200)
+    assert @external_account.account.holdings.exists?(security: securities(:aapl), qty: 200)
   end
 end

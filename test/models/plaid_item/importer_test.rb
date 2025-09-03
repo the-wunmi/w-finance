@@ -4,8 +4,8 @@ require "ostruct"
 class ExternalItem::ImporterTest < ActiveSupport::TestCase
   setup do
     @mock_provider = mock("Provider::Plaid")
-    @plaid_item = plaid_items(:one)
-    @importer = ExternalItem::Importer.new(@plaid_item, plaid_provider: @mock_provider)
+    @external_item = external_items(:one)
+    @importer = ExternalItem::Importer.new(@external_item, plaid_provider: @mock_provider)
   end
 
   test "imports item metadata" do
@@ -17,7 +17,7 @@ class ExternalItem::ImporterTest < ActiveSupport::TestCase
       institution_name: "First Platypus Bank",
     )
 
-    @mock_provider.expects(:get_item).with(@plaid_item.access_token).returns(
+    @mock_provider.expects(:get_item).with(@external_item.access_token).returns(
       OpenStruct.new(item: item_data)
     )
 
@@ -43,9 +43,9 @@ class ExternalItem::ImporterTest < ActiveSupport::TestCase
 
     ExternalAccount::Importer.any_instance.expects(:import).once
 
-    @plaid_item.expects(:update!).with(next_cursor: "test_cursor_1")
-    @plaid_item.expects(:upsert_plaid_snapshot!).with(item_data)
-    @plaid_item.expects(:upsert_plaid_institution_snapshot!).with(institution_data)
+    @external_item.expects(:update!).with(next_cursor: "test_cursor_1")
+    @external_item.expects(:upsert_plaid_snapshot!).with(item_data)
+    @external_item.expects(:upsert_plaid_institution_snapshot!).with(institution_data)
 
     @importer.import
   end

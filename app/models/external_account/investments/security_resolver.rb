@@ -21,8 +21,8 @@ class ExternalAccount::Investments::SecurityResolver
       response = Response.new(security: nil, cash_equivalent?: true, brokerage_cash?: true)
     else
       security = Security::Resolver.new(
-        plaid_security["ticker_symbol"],
-        exchange_operating_mic: plaid_security["market_identifier_code"]
+        plaid_security[:ticker_symbol],
+        exchange_operating_mic: plaid_security[:market_identifier_code]
       ).resolve
 
       response = Response.new(
@@ -43,16 +43,16 @@ class ExternalAccount::Investments::SecurityResolver
     Response = Struct.new(:security, :cash_equivalent?, :brokerage_cash?, keyword_init: true)
 
     def securities
-      external_account.raw_investments_payload["securities"] || []
+      external_account.investments_payload[:securities] || []
     end
 
     # Tries to find security, or returns the "proxy security" (common with options contracts that have underlying securities)
     def get_plaid_security(plaid_security_id)
-      security = securities.find { |s| s["security_id"] == plaid_security_id && s["ticker_symbol"].present? }
+      security = securities.find { |s| s[:security_id] == plaid_security_id && s[:ticker_symbol].present? }
 
       return security if security.present?
 
-      securities.find { |s| s["proxy_security_id"] == plaid_security_id }
+      securities.find { |s| s[:proxy_security_id] == plaid_security_id }
     end
 
     def report_unresolvable_security(plaid_security_id)
@@ -63,7 +63,7 @@ class ExternalAccount::Investments::SecurityResolver
       end
     end
 
-    # Plaid treats "brokerage cash" differently than us.  Internally, Maybe treats "brokerage cash"
+    # Plaid treats "brokerage cash" differently than us.  Internally, DoubleU treats "brokerage cash"
     # as "uninvested cash" (i.e. cash that doesn't have a corresponding Security and can be withdrawn).
     #
     # Plaid treats everything as a "holding" with a corresponding Security.  For example, "brokerage cash" (USD)
@@ -82,12 +82,12 @@ class ExternalAccount::Investments::SecurityResolver
     end
 
     def brokerage_cash?(plaid_security)
-      return false unless plaid_security["ticker_symbol"].present?
-      known_plaid_brokerage_cash_tickers.include?(plaid_security["ticker_symbol"])
+      return false unless plaid_security[:ticker_symbol].present?
+      known_plaid_brokerage_cash_tickers.include?(plaid_security[:ticker_symbol])
     end
 
     def cash_equivalent?(plaid_security)
-      return false unless plaid_security["type"].present?
-      plaid_security["type"] == "cash" || plaid_security["is_cash_equivalent"] == true
+      return false unless plaid_security[:type].present?
+      plaid_security[:type] == "cash" || plaid_security[:is_cash_equivalent] == true
     end
 end

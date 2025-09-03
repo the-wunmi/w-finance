@@ -38,9 +38,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     merchant = merchants(:netflix)
     import = imports(:transaction)
     budget = budgets(:one)
-    plaid_item = plaid_items(:one)
+    external_item = external_items(:one)
 
-    Provider::Plaid.any_instance.expects(:remove_item).with(plaid_item.access_token).once
+    Provider::Plaid.any_instance.expects(:remove_item).with(external_item.access_token).once
 
     perform_enqueued_jobs(only: FamilyResetJob) do
       delete reset_user_url(@user)
@@ -55,7 +55,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_not Merchant.exists?(merchant.id)
     assert_not Import.exists?(import.id)
     assert_not Budget.exists?(budget.id)
-    assert_not ExternalItem.exists?(plaid_item.id)
+    assert_not ExternalItem.exists?(external_item.id)
   end
 
   test "non-admin cannot reset family data" do

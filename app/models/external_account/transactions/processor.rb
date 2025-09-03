@@ -43,18 +43,18 @@ class ExternalAccount::Transactions::Processor
     end
 
     def remove_external_transaction(raw_transaction)
-      account.entries.find_by(external_id: raw_transaction["transaction_id"])&.destroy
+      account.entries.find_by(external_id: raw_transaction[:transaction_id])&.destroy
     end
 
     # Since we find_or_create_by transactions, we don't need a distinction between added/modified
     def modified_transactions
-      modified = external_account.raw_transactions_payload["modified"] || []
-      added = external_account.raw_transactions_payload["added"] || []
+      modified = external_account.transactions_payload[:modified] || []
+      added = external_account.transactions_payload[:added] || []
 
       modified + added
     end
 
     def removed_transactions
-      external_account.raw_transactions_payload["removed"] || []
+      external_account.transactions_payload[:removed] || []
     end
 end

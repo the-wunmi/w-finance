@@ -2,7 +2,7 @@ require "test_helper"
 
 class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
   setup do
-    @plaid_account = plaid_accounts(:one)
+    @external_account = external_accounts(:one)
   end
 
   test "processes new account and assigns attributes" do
@@ -10,7 +10,7 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
 
     expect_default_subprocessor_calls
 
-    @plaid_account.update!(
+    @external_account.update!(
       plaid_id: "test_plaid_id",
       plaid_type: "depository",
       plaid_subtype: "checking",
@@ -22,14 +22,14 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
     )
 
     assert_difference "Account.count" do
-      ExternalAccount::Processor.new(@plaid_account).process
+      ExternalAccount::Processor.new(@external_account).process
     end
 
-    @plaid_account.reload
+    @external_account.reload
 
     account = Account.order(created_at: :desc).first
     assert_equal "Test Plaid Account", account.name
-    assert_equal @plaid_account.id, account.plaid_account_id
+    assert_equal @external_account.id, account.external_account_id
     assert_equal "checking", account.subtype
     assert_equal 1000, account.balance
     assert_equal 1000, account.cash_balance
@@ -41,28 +41,28 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
   test "processing is idempotent with updates and enrichments" do
     expect_default_subprocessor_calls
 
-    assert_equal "Plaid Depository Account", @plaid_account.account.name
-    assert_equal "checking", @plaid_account.account.subtype
+    assert_equal "Plaid Depository Account", @external_account.account.name
+    assert_equal "checking", @external_account.account.subtype
 
-    @plaid_account.account.update!(
+    @external_account.account.update!(
       name: "User updated name",
       subtype: "savings",
       balance: 2000 # User cannot override balance.  This will be overridden by the processor on next processing
     )
 
-    @plaid_account.account.lock_attr!(:name)
-    @plaid_account.account.lock_attr!(:subtype)
-    @plaid_account.account.lock_attr!(:balance) # Even if balance somehow becomes locked, Plaid ignores it and overrides it
+    @external_account.account.lock_attr!(:name)
+    @external_account.account.lock_attr!(:subtype)
+    @external_account.account.lock_attr!(:balance) # Even if balance somehow becomes locked, Plaid ignores it and overrides it
 
     assert_no_difference "Account.count" do
-      ExternalAccount::Processor.new(@plaid_account).process
+      ExternalAccount::Processor.new(@external_account).process
     end
 
-    @plaid_account.reload
+    @external_account.reload
 
-    assert_equal "User updated name", @plaid_account.account.name
-    assert_equal "savings", @plaid_account.account.subtype
-    assert_equal @plaid_account.current_balance, @plaid_account.account.balance # Overriden by processor
+    assert_equal "User updated name", @external_account.account.name
+    assert_equal "savings", @external_account.account.subtype
+    assert_equal @external_account.current_balance, @external_account.account.balance # Overriden by processor
   end
 
   test "account processing failure halts further processing" do
@@ -76,7 +76,7 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
     expect_no_liability_processor_calls
 
     assert_raises(StandardError) do
-      ExternalAccount::Processor.new(@plaid_account).process
+      ExternalAccount::Processor.new(@external_account).process
     end
   end
 
@@ -87,21 +87,21 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
     expect_investment_product_processor_calls
 
     assert_nothing_raised do
-      ExternalAccount::Processor.new(@plaid_account).process
+      ExternalAccount::Processor.new(@external_account).process
     end
   end
 
   test "calculates balance using BalanceCalculator for investment accounts" do
-    @plaid_account.update!(plaid_type: "investment")
+    @external_account.update!(plaid_type: "investment")
 
     # Balance is called twice: once for account.balance and once for set_current_balance
     ExternalAccount::Investments::BalanceCalculator.any_instance.expects(:balance).returns(1000).twice
     ExternalAccount::Investments::BalanceCalculator.any_instance.expects(:cash_balance).returns(1000).once
 
-    ExternalAccount::Processor.new(@plaid_account).process
+    ExternalAccount::Processor.new(@external_account).process
 
     # Verify that the balance was set correctly
-    account = @plaid_account.account
+    account = @external_account.account
     assert_equal 1000, account.balance
     assert_equal 1000, account.cash_balance
 
@@ -116,13 +116,13 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
     expect_no_investment_balance_calculator_calls
     expect_depository_product_processor_calls
 
-    @plaid_account.update!(plaid_type: "credit", plaid_subtype: "credit card")
+    @external_account.update!(plaid_type: "credit", plaid_subtype: "credit card")
 
     ExternalAccount::Liabilities::CreditProcessor.any_instance.expects(:process).once
     ExternalAccount::Liabilities::MortgageProcessor.any_instance.expects(:process).never
     ExternalAccount::Liabilities::StudentLoanProcessor.any_instance.expects(:process).never
 
-    ExternalAccount::Processor.new(@plaid_account).process
+    ExternalAccount::Processor.new(@external_account).process
   end
 
   test "processes mortgage liability data" do
@@ -130,13 +130,13 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
     expect_no_investment_balance_calculator_calls
     expect_depository_product_processor_calls
 
-    @plaid_account.update!(plaid_type: "loan", plaid_subtype: "mortgage")
+    @external_account.update!(plaid_type: "loan", plaid_subtype: "mortgage")
 
     ExternalAccount::Liabilities::CreditProcessor.any_instance.expects(:process).never
     ExternalAccount::Liabilities::MortgageProcessor.any_instance.expects(:process).once
     ExternalAccount::Liabilities::StudentLoanProcessor.any_instance.expects(:process).never
 
-    ExternalAccount::Processor.new(@plaid_account).process
+    ExternalAccount::Processor.new(@external_account).process
   end
 
   test "processes student loan liability data" do
@@ -144,13 +144,13 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
     expect_no_investment_balance_calculator_calls
     expect_depository_product_processor_calls
 
-    @plaid_account.update!(plaid_type: "loan", plaid_subtype: "student")
+    @external_account.update!(plaid_type: "loan", plaid_subtype: "student")
 
     ExternalAccount::Liabilities::CreditProcessor.any_instance.expects(:process).never
     ExternalAccount::Liabilities::MortgageProcessor.any_instance.expects(:process).never
     ExternalAccount::Liabilities::StudentLoanProcessor.any_instance.expects(:process).once
 
-    ExternalAccount::Processor.new(@plaid_account).process
+    ExternalAccount::Processor.new(@external_account).process
   end
 
   test "creates current balance anchor when processing account" do
@@ -159,7 +159,7 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
     # Clear out accounts to start fresh
     Account.destroy_all
 
-    @plaid_account.update!(
+    @external_account.update!(
       plaid_id: "test_plaid_id",
       plaid_type: "depository",
       plaid_subtype: "checking",
@@ -173,7 +173,7 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
     assert_difference "Account.count", 1 do
       assert_difference "Entry.count", 1 do
         assert_difference "Valuation.count", 1 do
-          ExternalAccount::Processor.new(@plaid_account).process
+          ExternalAccount::Processor.new(@external_account).process
         end
       end
     end
@@ -193,9 +193,9 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
   test "updates existing current balance anchor when reprocessing" do
     # First process creates the account and anchor
     expect_default_subprocessor_calls
-    ExternalAccount::Processor.new(@plaid_account).process
+    ExternalAccount::Processor.new(@external_account).process
 
-    account = @plaid_account.account
+    account = @external_account.account
     original_anchor = account.valuations.current_anchor.first
     assert_not_nil original_anchor
     original_anchor_id = original_anchor.id
@@ -203,7 +203,7 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
     original_balance = original_anchor.entry.amount
 
     # Update the plaid account balance
-    @plaid_account.update!(current_balance: 2500)
+    @external_account.update!(current_balance: 2500)
 
     # Expect subprocessor calls again for the second processing
     expect_default_subprocessor_calls
@@ -211,7 +211,7 @@ class ExternalAccount::ProcessorTest < ActiveSupport::TestCase
     # Reprocess should update the existing anchor
     assert_no_difference "Valuation.count" do
       assert_no_difference "Entry.count" do
-        ExternalAccount::Processor.new(@plaid_account).process
+        ExternalAccount::Processor.new(@external_account).process
       end
     end
 

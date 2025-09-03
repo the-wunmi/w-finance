@@ -75,21 +75,6 @@ class Account < ApplicationRecord
     end
   end
 
-  def institution_domain
-    url_string = external_account&.external_item&.institution_url
-    return nil unless url_string.present?
-
-    begin
-      uri = URI.parse(url_string)
-      # Use safe navigation on .host before calling gsub
-      uri.host&.gsub(/^www\./, "")
-    rescue URI::InvalidURIError
-      # Log a warning if the URL is invalid and return nil
-      Rails.logger.warn("Invalid institution URL encountered for account #{id}: #{url_string}")
-      nil
-    end
-  end
-
   def destroy_later
     mark_for_deletion!
     DestroyJob.perform_later(self)

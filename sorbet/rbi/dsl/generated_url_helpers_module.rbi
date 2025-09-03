@@ -94,9 +94,6 @@ module GeneratedUrlHelpersModule
   def category_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def changelog_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def chat_messages_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -239,9 +236,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def family_merchants_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def feedback_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def goals_onboarding_url(*args); end
@@ -493,9 +487,6 @@ module GeneratedUrlHelpersModule
   def preview_view_components_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def privacy_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def properties_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -677,9 +668,6 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def tags_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def terms_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def toggle_active_account_url(*args); end

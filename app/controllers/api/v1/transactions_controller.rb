@@ -248,7 +248,7 @@ end
              "entries.name ILIKE ? OR entries.notes ILIKE ? OR merchants.name ILIKE ?",
              search_term, search_term, search_term
            )
-end
+    end
 
     def transaction_params
       params.require(:transaction).permit(

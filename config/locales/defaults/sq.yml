@@ -5,8 +5,8 @@ sq:
       messages:
         record_invalid: 'Vlerësimi dështoi: %{errors}'
         restrict_dependent_destroy:
-          has_many: S’fshihet dot zëri, ngaqë ekzistojnë %{record} që varen prej tij
-          has_one: S’fshihet dot zëri, ngaqë ekziston një %{record} që varet prej
+          has_many: S'fshihet dot zëri, ngaqë ekzistojnë %{record} që varen prej tij
+          has_one: S'fshihet dot zëri, ngaqë ekziston një %{record} që varet prej
             tij
   date:
     abbr_day_names:
@@ -108,20 +108,20 @@ sq:
     format: "%{attribute} %{message}"
     messages:
       accepted: duhet pranuar
-      blank: s’mund të jetë i zbrazët
-      confirmation: s’përputhet me %{attribute}
-      empty: s’mund të jetë i zbrazët
+      blank: s'mund të jetë i zbrazët
+      confirmation: s'përputhet me %{attribute}
+      empty: s'mund të jetë i zbrazët
       equal_to: duhet të jetë baras me %{count}
       even: duhet të jetë çift
       exclusion: është i rezervuar
       greater_than: duhet të jetë më i madh se %{count}
       greater_than_or_equal_to: duhet të jetë më i madh ose i barabartë me %{count}
-      inclusion: s’përfshihet te lista
+      inclusion: s'përfshihet te lista
       invalid: është i pavlefshëm
       less_than: duhet të jetë më i vogël se %{count}
       less_than_or_equal_to: duhet të jetë më i vogël ose i barabartë me %{count}
       model_invalid: 'Vlerësimi dështoi: %{errors}'
-      not_a_number: s’është numër
+      not_a_number: s'është numër
       not_an_integer: duhet të jetë numër i plotë
       odd: duhet të jetë tek
       other_than: duhet të jetë më shumë se %{count}

@@ -24,7 +24,7 @@ class ExternalAccount::Investments::BalanceCalculator
 
   # Plaid considers "brokerage cash" and "cash equivalent holdings" to all be part of "cash balance"
   #
-  # Internally, we DO NOT.  Maybe clearly distinguishes between "brokerage cash" vs. "holdings (i.e. invested cash)"
+  # Internally, we DO NOT.  DoubleU clearly distinguishes between "brokerage cash" vs. "holdings (i.e. invested cash)"
   # For this reason, we must manually calculate the cash balance based on "total value" and "holdings value"
   # See ExternalAccount::Investments::SecurityResolver for more details.
   def cash_balance
@@ -44,7 +44,7 @@ class ExternalAccount::Investments::BalanceCalculator
     attr_reader :external_account, :security_resolver
 
     def holdings
-      external_account.raw_investments_payload["holdings"] || []
+      external_account.investments_payload[:holdings] || []
     end
 
     def calculate_investment_brokerage_cash
@@ -62,10 +62,10 @@ class ExternalAccount::Investments::BalanceCalculator
     def true_holdings_value
       # True holdings are holdings *less* Plaid's "pseudo-securities" (e.g. `CUR:USD` brokerage cash "holding")
       true_holdings = holdings.reject do |h|
-        security = security_resolver.resolve(plaid_security_id: h["security_id"])
+        security = security_resolver.resolve(plaid_security_id: h[:security_id])
         security.brokerage_cash?
       end
 
-      true_holdings.sum { |h| h["quantity"] * h["institution_price"] }
+      true_holdings.sum { |h| h[:quantity] * h[:institution_price] }
     end
 end

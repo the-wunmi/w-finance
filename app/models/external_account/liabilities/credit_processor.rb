@@ -20,6 +20,6 @@ class ExternalAccount::Liabilities::CreditProcessor
     end
 
     def credit_data
-      external_account.raw_liabilities_payload["credit"]
+      external_account.liabilities_payload[:credit]
     end
 end

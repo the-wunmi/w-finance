@@ -1,7 +1,7 @@
 class Provider::Plaid
   attr_reader :client, :region
 
-  MAYBE_SUPPORTED_PLAID_PRODUCTS = %w[transactions investments liabilities].freeze
+  DOUBLEU_SUPPORTED_PLAID_PRODUCTS = %w[transactions investments liabilities].freeze
   MAX_HISTORY_DAYS = Rails.env.development? ? 90 : 730
 
   def initialize(config, region: :us)
@@ -45,7 +45,7 @@ class Provider::Plaid
   def get_link_token(user_id:, webhooks_url:, redirect_url:, accountable_type: nil, access_token: nil)
     request_params = {
       user: { client_user_id: user_id },
-      client_name: "Maybe Finance",
+      client_name: "DoubleU Finance",
       country_codes: country_codes,
       language: "en",
       webhook: webhooks_url,
@@ -62,7 +62,7 @@ class Provider::Plaid
 
     request = Plaid::LinkTokenCreateRequest.new(request_params)
 
-    client.link_token_create(request)
+    client.link_token_create(request).link_token
   end
 
   def exchange_public_token(token)
@@ -73,22 +73,23 @@ class Provider::Plaid
     client.item_public_token_exchange(request)
   end
 
-  def get_item(access_token)
-    request = Plaid::ItemGetRequest.new(access_token: access_token)
-    client.item_get(request)
+  def get_item(external_item)
+    request = Plaid::ItemGetRequest.new(access_token: external_item.access_token)
+    client.item_get(request).item
   end
 
-  def remove_item(access_token)
-    request = Plaid::ItemRemoveRequest.new(access_token: access_token)
+  def remove_item(external_item)
+    request = Plaid::ItemRemoveRequest.new(access_token: external_item.access_token)
     client.item_remove(request)
+    nil
   end
 
-  def get_item_accounts(access_token)
-    request = Plaid::AccountsGetRequest.new(access_token: access_token)
-    client.accounts_get(request)
+  def get_item_accounts(external_item)
+    request = Plaid::AccountsGetRequest.new(access_token: external_item.access_token)
+    client.accounts_get(request).accounts
   end
 
-  def get_transactions(access_token, next_cursor: nil)
+  def get_transactions(external_item, account_id, next_cursor: nil)
     cursor = next_cursor
     added = []
     modified = []
@@ -97,10 +98,11 @@ class Provider::Plaid
 
     while has_more
       request = Plaid::TransactionsSyncRequest.new(
-        access_token: access_token,
+        access_token: external_item.access_token,
         cursor: cursor,
         options: {
-          include_original_description: true
+          include_original_description: true,
+          account_id: account_id
         }
       )
 
@@ -116,45 +118,60 @@ class Provider::Plaid
     TransactionSyncResponse.new(added:, modified:, removed:, cursor:)
   end
 
-  def get_item_investments(access_token, start_date: nil, end_date: Date.current)
-    start_date = start_date || MAX_HISTORY_DAYS.days.ago.to_date
-    holdings, holding_securities = get_item_holdings(access_token: access_token)
-    transactions, transaction_securities = get_item_investment_transactions(access_token: access_token, start_date:, end_date:)
+  def get_item_investments(external_item, account_id, start_date: nil, end_date: Date.current)
+    begin
+      start_date = start_date || MAX_HISTORY_DAYS.days.ago.to_date
+      holdings, holding_securities = get_item_holdings(external_item.access_token, account_id)
+      transactions, transaction_securities = get_item_investment_transactions(external_item.access_token, account_id, start_date:, end_date:)
 
-    merged_securities = ((holding_securities || []) + (transaction_securities || [])).uniq { |s| s.security_id }
+      merged_securities = ((holding_securities || []) + (transaction_securities || [])).uniq { |s| s.security_id }
 
-    InvestmentsResponse.new(holdings:, transactions:, securities: merged_securities)
+      InvestmentsResponse.new(holdings:, transactions:, securities: merged_securities)
+    rescue Plaid::ApiError => e
+      json_response = JSON.parse(e.response_body)
+      raise e unless json_response["error_code"] == "NO_INVESTMENT_ACCOUNTS"
+      nil
+    end
   end
 
-  def get_item_liabilities(access_token)
-    request = Plaid::LiabilitiesGetRequest.new({ access_token: access_token })
-    response = client.liabilities_get(request)
-    response.liabilities
+  def get_item_liabilities(external_item, account_id)
+    begin
+      request = Plaid::LiabilitiesGetRequest.new(access_token: external_item.access_token, options: { account_ids: [ account_id ] })
+      response = client.liabilities_get(request)
+      response.liabilities
+    rescue Plaid::ApiError => e
+      json_response = JSON.parse(e.response_body)
+      raise e unless json_response["error_code"] == "NO_LIABILITY_ACCOUNTS"
+      nil
+    end
   end
 
-  def get_institution(institution_id)
+  def get_institution(item_data)
     request = Plaid::InstitutionsGetByIdRequest.new({
-      institution_id: institution_id,
+      institution_id: item_data.institution_id,
       country_codes: country_codes,
       options: {
         include_optional_metadata: true
       }
     })
-    client.institutions_get_by_id(request)
+    client.institutions_get_by_id(request).institution
   end
 
   private
     TransactionSyncResponse = Struct.new :added, :modified, :removed, :cursor, keyword_init: true
     InvestmentsResponse = Struct.new :holdings, :transactions, :securities, keyword_init: true
 
-    def get_item_holdings(access_token:)
-      request = Plaid::InvestmentsHoldingsGetRequest.new({ access_token: access_token })
+    def get_item_holdings(access_token, account_id)
+      request = Plaid::InvestmentsHoldingsGetRequest.new(
+        access_token: access_token,
+        options: { account_ids: [ account_id ] }
+      )
       response = client.investments_holdings_get(request)
 
       [ response.holdings, response.securities ]
     end
 
-    def get_item_investment_transactions(access_token:, start_date:, end_date:)
+    def get_item_investment_transactions(access_token, account_id, start_date:, end_date:)
       transactions = []
       securities = []
       offset = 0
@@ -164,7 +181,7 @@ class Provider::Plaid
           access_token: access_token,
           start_date: start_date.to_s,
           end_date: end_date.to_s,
-          options: { offset: offset }
+          options: { offset: offset, account_ids: [ account_id ] }
         )
 
         response = client.investments_transactions_get(request)
@@ -195,7 +212,7 @@ class Provider::Plaid
     def get_additional_consented_products(accountable_type)
       return [] if eu?
 
-      MAYBE_SUPPORTED_PLAID_PRODUCTS - [ get_primary_product(accountable_type) ]
+      DOUBLEU_SUPPORTED_PLAID_PRODUCTS - [ get_primary_product(accountable_type) ]
     end
 
     def eu?

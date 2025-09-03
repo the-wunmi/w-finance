@@ -6,23 +6,23 @@ class ExternalAccount::Investments::HoldingsProcessor
 
   def process
     holdings.each do |plaid_holding|
-      resolved_security_result = security_resolver.resolve(plaid_security_id: plaid_holding["security_id"])
+      resolved_security_result = security_resolver.resolve(plaid_security_id: plaid_holding[:security_id])
 
       next unless resolved_security_result.security.present?
 
       security = resolved_security_result.security
-      holding_date = plaid_holding["institution_price_as_of"] || Date.current
+      holding_date = plaid_holding[:institution_price_as_of] || Date.current
 
       holding = account.holdings.find_or_initialize_by(
         security: security,
         date: holding_date,
-        currency: plaid_holding["iso_currency_code"]
+        currency: plaid_holding[:iso_currency_code]
       )
 
       holding.assign_attributes(
-        qty: plaid_holding["quantity"],
-        price: plaid_holding["institution_price"],
-        amount: plaid_holding["quantity"] * plaid_holding["institution_price"]
+        qty: plaid_holding[:quantity],
+        price: plaid_holding[:institution_price],
+        amount: plaid_holding[:quantity] * plaid_holding[:institution_price]
       )
 
       ActiveRecord::Base.transaction do
@@ -45,6 +45,6 @@ class ExternalAccount::Investments::HoldingsProcessor
     end
 
     def holdings
-      external_account.raw_investments_payload["holdings"] || []
+      external_account.investments_payload[:holdings] || []
     end
 end

@@ -21,12 +21,12 @@
   </div>
 </header>
 
-<% if @manual_accounts.empty? && @plaid_items.empty? %>
+<% if @manual_accounts.empty? && @external_items.empty? %>
   <%= render "empty" %>
 <% else %>
   <div class="space-y-2">
-    <% if @plaid_items.any? %>
-      <%= render @plaid_items.sort_by(&:created_at) %>
+    <% if @external_items.any? %>
+      <%= render @external_items.sort_by(&:created_at) %>
     <% end %>
 
     <% if @manual_accounts.any? %>

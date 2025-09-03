@@ -80,14 +80,14 @@ rm:
       less_than_x_minutes:
         few: main che %{count} minutas
         many: main che %{count} minutas
-        one: main ch’ina minuta
+        one: main ch'ina minuta
         other: main che %{count} minutas
         two: main che %{count} minutas
         zero: main che %{count} minutas
       less_than_x_seconds:
         few: main che %{count} secundas
         many: main che %{count} secundas
-        one: main ch’ina secunda
+        one: main ch'ina secunda
         other: main che %{count} secundas
         two: main che %{count} secundas
         zero: main che %{count} secundas

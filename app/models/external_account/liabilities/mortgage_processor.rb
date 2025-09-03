@@ -20,6 +20,6 @@ class ExternalAccount::Liabilities::MortgageProcessor
     end
 
     def mortgage_data
-      external_account.raw_liabilities_payload["mortgage"]
+      external_account.liabilities_payload[:mortgage]
     end
 end

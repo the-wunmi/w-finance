@@ -7,14 +7,16 @@ class ExternalAccount < ApplicationRecord
   validate :has_balance
 
   def upsert_external_snapshot!(account_snapshot)
+    payload = Provider::DataProviderAdapter.new(provider).account_payload(account_snapshot)
+
     assign_attributes(
-      current_balance: account_snapshot.balances.current,
-      available_balance: account_snapshot.balances.available,
-      currency: account_snapshot.balances.iso_currency_code,
-      external_type: account_snapshot.type,
-      external_subtype: account_snapshot.subtype,
-      name: account_snapshot.name,
-      mask: account_snapshot.mask,
+      current_balance: payload[:current_balance],
+      available_balance: payload[:available_balance],
+      currency: payload[:currency],
+      external_type: payload[:type],
+      external_subtype: payload[:subtype],
+      name: payload[:name],
+      mask: payload[:mask],
       raw_payload: account_snapshot
     )
 
@@ -43,6 +45,26 @@ class ExternalAccount < ApplicationRecord
     )
 
     save!
+  end
+
+  def provider
+    self.external_item.provider
+  end
+
+  def payload
+    Provider::DataProviderAdapter.new(provider).account_payload(self.raw_payload)
+  end
+
+  def transactions_payload
+    Provider::DataProviderAdapter.new(provider).transactions_payload(self.raw_transactions_payload)
+  end
+
+  def investments_payload
+    Provider::DataProviderAdapter.new(provider).investments_payload(self.raw_investments_payload)
+  end
+
+  def liabilities_payload
+    Provider::DataProviderAdapter.new(provider).liabilities_payload(self.raw_liabilities_payload)
   end
 
   private

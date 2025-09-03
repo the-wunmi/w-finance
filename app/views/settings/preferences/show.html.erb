@@ -10,11 +10,6 @@
             Money::Currency.as_options.map { |currency| [ "#{currency.name} (#{currency.iso_code})", currency.iso_code ] },
             { label: t(".currency") }, disabled: true %>
 
-        <%= family_form.select :locale,
-            language_options,
-            { label: t(".language") },
-            { data: { auto_submit_form_target: "auto" } } %>
-
         <%= family_form.select :timezone,
             timezone_options,
             { label: t(".timezone") },
@@ -35,7 +30,6 @@
             { label: t(".country") },
             { data: { auto_submit_form_target: "auto" } } %>
 
-        <p class="text-xs italic pl-2 text-secondary">Please note, we are still working on translations for various languages.  Please see the <%= link_to "I18n issue", "https://github.com/maybe-finance/maybe/issues/1225", target: "_blank", class: "underline" %> for more information.</p>
       <% end %>
     <% end %>
   </div>

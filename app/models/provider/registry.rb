@@ -18,10 +18,6 @@ class Provider::Registry
       raise Error.new("Provider '#{name}' not found in registry")
     end
 
-    def plaid_provider_for_region(region)
-      region.to_sym == :us ? plaid_us : plaid_eu
-    end
-
     private
       def stripe
         secret_key = ENV["STRIPE_SECRET_KEY"]
@@ -56,16 +52,32 @@ class Provider::Registry
         Provider::Plaid.new(config, region: :eu)
       end
 
-      def github
-        Provider::Github.new
-      end
-
       def openai
         access_token = ENV.fetch("OPENAI_ACCESS_TOKEN", Setting.openai_access_token)
 
         return nil unless access_token.present?
 
         Provider::Openai.new(access_token)
+      end
+
+      def mono
+        secret_key = ENV["MONO_SECRET_KEY"]
+
+        return nil unless secret_key.present?
+
+        Provider::Mono.new(secret_key)
+      end
+
+      def wise
+        api_key = ENV["WISE_API_KEY"]
+
+        return nil unless api_key.present?
+
+        Provider::Wise.new(api_key)
+      end
+
+      def doubleu
+        Provider::DoubleU.new
       end
   end
 
@@ -92,13 +104,13 @@ class Provider::Registry
     def available_providers
       case concept
       when :exchange_rates
-        %i[synth]
+        %i[wise synth]
       when :securities
         %i[synth]
       when :llm
         %i[openai]
       else
-        %i[synth plaid_us plaid_eu github openai]
+        %i[synth plaid_us plaid_eu mono doubleu openai wise]
       end
     end
 end

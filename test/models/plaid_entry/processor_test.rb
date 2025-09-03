@@ -2,7 +2,7 @@ require "test_helper"
 
 class ExternalEntry::ProcessorTest < ActiveSupport::TestCase
   setup do
-    @plaid_account = plaid_accounts(:one)
+    @external_account = external_accounts(:one)
     @category_matcher = mock("ExternalAccount::Transactions::CategoryMatcher")
   end
 
@@ -23,7 +23,7 @@ class ExternalEntry::ProcessorTest < ActiveSupport::TestCase
 
     processor = ExternalEntry::Processor.new(
       plaid_transaction,
-      plaid_account: @plaid_account,
+      external_account: @external_account,
       category_matcher: @category_matcher
     )
 
@@ -61,7 +61,7 @@ class ExternalEntry::ProcessorTest < ActiveSupport::TestCase
     @category_matcher.expects(:match).with("Food").returns(categories(:food_and_drink))
 
     # Create an existing entry
-    @plaid_account.account.entries.create!(
+    @external_account.account.entries.create!(
       plaid_id: existing_plaid_id,
       amount: 100,
       currency: "USD",
@@ -72,7 +72,7 @@ class ExternalEntry::ProcessorTest < ActiveSupport::TestCase
 
     processor = ExternalEntry::Processor.new(
       plaid_transaction,
-      plaid_account: @plaid_account,
+      external_account: @external_account,
       category_matcher: @category_matcher
     )
 

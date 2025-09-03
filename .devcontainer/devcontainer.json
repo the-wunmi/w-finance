@@ -1,5 +1,5 @@
 {
-  "name": "Maybe",
+  "name": "DoubleU",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",

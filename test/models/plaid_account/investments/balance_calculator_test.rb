@@ -2,9 +2,9 @@ require "test_helper"
 
 class ExternalAccount::Investments::BalanceCalculatorTest < ActiveSupport::TestCase
   setup do
-    @plaid_account = plaid_accounts(:one)
+    @external_account = external_accounts(:one)
 
-    @plaid_account.update!(
+    @external_account.update!(
       plaid_type: "investment",
       current_balance: 4000,
       available_balance: 2000 # We ignore this since we have current_balance + holdings
@@ -67,10 +67,10 @@ class ExternalAccount::Investments::BalanceCalculatorTest < ActiveSupport::TestC
       ]
     }
 
-    @plaid_account.update!(raw_investments_payload: test_investments)
+    @external_account.update!(raw_investments_payload: test_investments)
 
-    security_resolver = ExternalAccount::Investments::SecurityResolver.new(@plaid_account)
-    balance_calculator = ExternalAccount::Investments::BalanceCalculator.new(@plaid_account, security_resolver: security_resolver)
+    security_resolver = ExternalAccount::Investments::SecurityResolver.new(@external_account)
+    balance_calculator = ExternalAccount::Investments::BalanceCalculator.new(@external_account, security_resolver: security_resolver)
 
     # We set this equal to `current_balance`
     assert_equal 4000, balance_calculator.balance

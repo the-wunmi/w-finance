@@ -3,10 +3,10 @@ oc:
   activerecord:
     errors:
       messages:
-        record_invalid: La validacion a fracassat : %{errors}
+        record_invalid: La validacion a fracassat:%{errors}
         restrict_dependent_destroy:
-          has_many: Podètz pas suprimir l’enregistrament perque i a %{record} dependéncias
-          has_one: Podètz pas suprimir l’enregistrament perque i a una dependéncia
+          has_many: Podètz pas suprimir l'enregistrament perque i a %{record} dependéncias
+          has_one: Podètz pas suprimir l'enregistrament perque i a una dependéncia
   date:
     abbr_day_names:
     - dg
@@ -47,13 +47,13 @@ oc:
     - de genièr
     - de febrièr
     - de març
-    - d’abrial
+    - d'abrial
     - de mai
     - de junh
     - de julhet
-    - d’agost
+    - d'agost
     - de setembre
-    - d’octòbre
+    - d'octòbre
     - de novembre
     - de decembre
     order:
@@ -76,13 +76,13 @@ oc:
         other: quasi %{count} ans
       half_a_minute: mièja minuta
       less_than_x_minutes:
-        one: mens d’una minuta
+        one: mens d'una minuta
         other: mens de %{count} minutas
       less_than_x_seconds:
-        one: mens d’una segonda
+        one: mens d'una segonda
         other: mens de %{count} segondas
       over_x_years:
-        one: mai d’un an
+        one: mai d'un an
         other: mai de %{count} ans
       x_days:
         one: un jorn
@@ -131,7 +131,7 @@ oc:
       required: deu existir
       taken: es pas disponible
       too_long:
-        one: es tròp long (pas mai d’un caractèr)
+        one: es tròp long (pas mai d'un caractèr)
         other: es tròp long (%{count} caractèrs al maximum)
       too_short:
         one: es tròp cort (almens un caractèr)
@@ -142,8 +142,8 @@ oc:
     template:
       body: I a agut de problèmas amb los camps seguents : 
       header:
-        one: Impossible d’enregistrar aqueste/a %{model} perque i a %{count} error
-        other: Impossible d’enregistrar aqueste/a %{model} perque i a %{count} errors
+        one: Impossible d'enregistrar aqueste/a %{model} perque i a %{count} error
+        other: Impossible d'enregistrar aqueste/a %{model} perque i a %{count} errors
   helpers:
     select:
       prompt: Mercés de seleccionar

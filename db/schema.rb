@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_29_000002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.uuid "accountable_id"
     t.decimal "balance", precision: 19, scale: 4
     t.string "currency"
-    t.virtual "classification", type: :string, as: "\nCASE\n    WHEN ((accountable_type)::text = ANY ((ARRAY['Loan'::character varying, 'CreditCard'::character varying, 'OtherLiability'::character varying])::text[])) THEN 'liability'::text\n    ELSE 'asset'::text\nEND", stored: true
+    t.virtual "classification", type: :string, as: "\nCASE\n    WHEN ((accountable_type)::text = ANY (ARRAY[('Loan'::character varying)::text, ('CreditCard'::character varying)::text, ('OtherLiability'::character varying)::text])) THEN 'liability'::text\n    ELSE 'asset'::text\nEND", stored: true
     t.uuid "import_id"
     t.uuid "external_account_id"
     t.decimal "cash_balance", precision: 19, scale: 4, default: "0.0"
@@ -38,12 +38,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.index ["accountable_id", "accountable_type"], name: "index_accounts_on_accountable_id_and_accountable_type"
     t.index ["accountable_type"], name: "index_accounts_on_accountable_type"
     t.index ["currency"], name: "index_accounts_on_currency"
+    t.index ["external_account_id"], name: "index_accounts_on_external_account_id"
     t.index ["family_id", "accountable_type"], name: "index_accounts_on_family_id_and_accountable_type"
     t.index ["family_id", "id"], name: "index_accounts_on_family_id_and_id"
     t.index ["family_id", "status"], name: "index_accounts_on_family_id_and_status"
     t.index ["family_id"], name: "index_accounts_on_family_id"
     t.index ["import_id"], name: "index_accounts_on_import_id"
-    t.index ["external_account_id"], name: "index_accounts_on_external_account_id"
     t.index ["status"], name: "index_accounts_on_status"
   end
 
@@ -132,6 +132,38 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.index ["account_id", "date", "currency"], name: "index_account_balances_on_account_id_date_currency_unique", unique: true
     t.index ["account_id", "date"], name: "index_balances_on_account_id_and_date", order: { date: :desc }
     t.index ["account_id"], name: "index_balances_on_account_id"
+  end
+
+  create_table "bank_connections", force: :cascade do |t|
+    t.bigint "family_id", null: false
+    t.bigint "bank_provider_id", null: false
+    t.string "status", default: "pending", null: false
+    t.text "credentials"
+    t.text "session_token"
+    t.datetime "session_expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_provider_id"], name: "index_bank_connections_on_bank_provider_id"
+    t.index ["family_id", "bank_provider_id"], name: "index_bank_connections_on_family_id_and_bank_provider_id"
+    t.index ["family_id"], name: "index_bank_connections_on_family_id"
+  end
+
+  create_table "bank_providers", force: :cascade do |t|
+    t.string "bank_id", null: false
+    t.string "name", null: false
+    t.string "display_name"
+    t.string "country_code", limit: 2, null: false
+    t.string "website"
+    t.string "primary_color"
+    t.json "mfa_config"
+    t.json "credential_fields"
+    t.json "connection_config"
+    t.json "ui_config"
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bank_id"], name: "index_bank_providers_on_bank_id", unique: true
+    t.index ["country_code", "active"], name: "index_bank_providers_on_country_code_and_active"
   end
 
   create_table "budget_categories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -251,6 +283,49 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.index ["from_currency", "to_currency", "date"], name: "index_exchange_rates_on_base_converted_date_unique", unique: true
     t.index ["from_currency"], name: "index_exchange_rates_on_from_currency"
     t.index ["to_currency"], name: "index_exchange_rates_on_to_currency"
+  end
+
+  create_table "external_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "external_item_id", null: false
+    t.string "external_id", null: false
+    t.string "external_type", null: false
+    t.string "external_subtype"
+    t.string "external_provider", null: false
+    t.decimal "current_balance", precision: 19, scale: 4
+    t.decimal "available_balance", precision: 19, scale: 4
+    t.string "currency", null: false
+    t.string "name", null: false
+    t.string "mask"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "raw_payload", default: {}
+    t.jsonb "raw_transactions_payload", default: {}
+    t.jsonb "raw_investments_payload", default: {}
+    t.jsonb "raw_liabilities_payload", default: {}
+    t.index ["external_id"], name: "index_external_accounts_on_external_id", unique: true
+    t.index ["external_item_id"], name: "index_external_accounts_on_external_item_id"
+  end
+
+  create_table "external_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "family_id"
+    t.string "access_token"
+    t.string "external_id", null: false
+    t.string "name"
+    t.string "next_cursor"
+    t.boolean "scheduled_for_deletion", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "available_products", default: [], array: true
+    t.string "billed_products", default: [], array: true
+    t.string "provider", default: "plaid_us"
+    t.string "institution_url"
+    t.string "institution_id"
+    t.string "institution_color"
+    t.string "status", default: "good", null: false
+    t.jsonb "raw_payload", default: {}
+    t.jsonb "raw_institution_payload", default: {}
+    t.index ["external_id"], name: "index_external_items_on_external_id", unique: true
+    t.index ["family_id"], name: "index_external_items_on_family_id"
   end
 
   create_table "families", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -527,49 +602,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.jsonb "locked_attributes", default: {}
   end
 
-  create_table "external_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "external_item_id", null: false
-    t.string "external_id", null: false
-    t.string "external_type", null: false
-    t.string "external_subtype"
-    t.string "external_provider", null: false
-    t.decimal "current_balance", precision: 19, scale: 4
-    t.decimal "available_balance", precision: 19, scale: 4
-    t.string "currency", null: false
-    t.string "name", null: false
-    t.string "mask"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.jsonb "raw_payload", default: {}
-    t.jsonb "raw_transactions_payload", default: {}
-    t.jsonb "raw_investments_payload", default: {}
-    t.jsonb "raw_liabilities_payload", default: {}
-    t.index ["external_id"], name: "index_external_accounts_on_external_id", unique: true
-    t.index ["external_item_id"], name: "index_external_accounts_on_external_item_id"
-  end
-
-  create_table "external_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "family_id", null: true
-    t.string "access_token"
-    t.string "external_id", null: false
-    t.string "name"
-    t.string "next_cursor"
-    t.boolean "scheduled_for_deletion", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "available_products", default: [], array: true
-    t.string "billed_products", default: [], array: true
-    t.string "region", default: "us", null: true
-    t.string "institution_url"
-    t.string "institution_id"
-    t.string "institution_color"
-    t.string "status", default: "good", null: false
-    t.jsonb "raw_payload", default: {}
-    t.jsonb "raw_institution_payload", default: {}
-    t.index ["family_id"], name: "index_external_items_on_family_id"
-    t.index ["external_id"], name: "index_external_items_on_external_id", unique: true
-  end
-
   create_table "properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -825,9 +857,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
     t.jsonb "locked_attributes", default: {}
   end
 
+  add_foreign_key "accounts", "external_accounts"
   add_foreign_key "accounts", "families"
   add_foreign_key "accounts", "imports"
-  add_foreign_key "accounts", "external_accounts"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_keys", "users"
@@ -839,6 +871,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
   add_foreign_key "chats", "users"
   add_foreign_key "entries", "accounts"
   add_foreign_key "entries", "imports"
+  add_foreign_key "external_accounts", "external_items"
+  add_foreign_key "external_items", "families"
   add_foreign_key "family_exports", "families"
   add_foreign_key "holdings", "accounts"
   add_foreign_key "holdings", "securities"
@@ -854,8 +888,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_24_115507) do
   add_foreign_key "mobile_devices", "users"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
-  add_foreign_key "external_accounts", "external_items"
-  add_foreign_key "external_items", "families"
   add_foreign_key "rejected_transfers", "transactions", column: "inflow_transaction_id"
   add_foreign_key "rejected_transfers", "transactions", column: "outflow_transaction_id"
   add_foreign_key "rule_actions", "rules"

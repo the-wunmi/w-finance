@@ -3,15 +3,15 @@ require "test_helper"
 class ExternalAccount::Investments::SecurityResolverTest < ActiveSupport::TestCase
   setup do
     @upstream_resolver = mock("Security::Resolver")
-    @plaid_account = plaid_accounts(:one)
-    @resolver = ExternalAccount::Investments::SecurityResolver.new(@plaid_account)
+    @external_account = external_accounts(:one)
+    @resolver = ExternalAccount::Investments::SecurityResolver.new(@external_account)
   end
 
   test "handles missing plaid security" do
     missing_id = "missing_security_id"
 
     # Ensure there are *no* securities that reference the missing ID
-    @plaid_account.update!(raw_investments_payload: {
+    @external_account.update!(raw_investments_payload: {
       securities: [
         {
           "security_id" => "some_other_id",
@@ -35,7 +35,7 @@ class ExternalAccount::Investments::SecurityResolverTest < ActiveSupport::TestCa
   test "identifies brokerage cash plaid securities" do
     brokerage_cash_id = "brokerage_cash_security_id"
 
-    @plaid_account.update!(raw_investments_payload: {
+    @external_account.update!(raw_investments_payload: {
       securities: [
         {
           "security_id" => brokerage_cash_id,
@@ -58,7 +58,7 @@ class ExternalAccount::Investments::SecurityResolverTest < ActiveSupport::TestCa
   test "identifies cash equivalent plaid securities" do
     mmf_security_id = "money_market_security_id"
 
-    @plaid_account.update!(raw_investments_payload: {
+    @external_account.update!(raw_investments_payload: {
       securities: [
         {
           "security_id" => mmf_security_id,
@@ -87,7 +87,7 @@ class ExternalAccount::Investments::SecurityResolverTest < ActiveSupport::TestCa
   test "resolves normal plaid securities" do
     security_id = "regular_security_id"
 
-    @plaid_account.update!(raw_investments_payload: {
+    @external_account.update!(raw_investments_payload: {
       securities: [
         {
           "security_id" => security_id,

@@ -1,8 +1,6 @@
 ---
 en:
   pages:
-    changelog:
-      title: What's new
     dashboard:
       net_worth_chart:
         data_not_available: Data not available for the selected period

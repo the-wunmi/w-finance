@@ -54,32 +54,32 @@ class ExternalEntry::Processor
     end
 
     def external_id
-      external_transaction["transaction_id"]
+      external_transaction[:transaction_id]
     end
 
     def name
-      external_transaction["merchant_name"] || external_transaction["original_description"]
+      external_transaction[:merchant_name] || external_transaction[:description]
     end
 
     def amount
-      external_transaction["amount"]
+      external_transaction[:amount]
     end
 
     def currency
-      external_transaction["iso_currency_code"]
+      external_transaction[:iso_currency_code] || external_account.currency
     end
 
     def date
-      external_transaction["date"]
+      external_transaction[:date]
     end
 
     def detailed_category
-      external_transaction.dig("personal_finance_category", "detailed")
+      external_transaction[:category]
     end
 
     def merchant
-      merchant_id = external_transaction["merchant_entity_id"]
-      merchant_name = external_transaction["merchant_name"]
+      merchant_id = external_transaction[:merchant_id]
+      merchant_name = external_transaction[:merchant_name]
 
       return nil unless merchant_id.present? && merchant_name.present?
 
@@ -88,8 +88,8 @@ class ExternalEntry::Processor
         name: merchant_name,
       ) do |m|
         m.provider_merchant_id = merchant_id
-        m.website_url = external_transaction["website"]
-        m.logo_url = external_transaction["logo_url"]
+        m.website_url = external_transaction.website
+        m.logo_url = external_transaction.logo_url
       end
     end
 end

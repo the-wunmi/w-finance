@@ -4,7 +4,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static values = {
     linkToken: String,
-    region: { type: String, default: "us" },
+    provider: { type: String, default: "plaid_us" },
     isUpdate: { type: Boolean, default: false },
     itemId: String,
   };
@@ -14,21 +14,32 @@ export default class extends Controller {
   }
 
   open() {
-    const handler = Plaid.create({
-      token: this.linkTokenValue,
-      onSuccess: this.handleSuccess,
-      onLoad: this.handleLoad,
-      onExit: this.handleExit,
-      onEvent: this.handleEvent,
-    });
-
-    handler.open();
+    if (this.providerValue === "mono") {
+      const connect = new Connect({
+        key: this.linkTokenValue,
+        onSuccess: (response) => {
+          this.handleSuccess(response.code);
+        },
+        onClose: this.handleExit,
+      });
+      connect.setup();
+      connect.open();
+    } else {
+      const handler = Plaid.create({
+        token: this.linkTokenValue,
+        onSuccess: this.handleSuccess,
+        onLoad: this.handleLoad,
+        onExit: this.handleExit,
+        onEvent: this.handleEvent,
+      });
+      handler.open();
+    }
   }
 
   handleSuccess = (public_token, metadata) => {
     if (this.isUpdateValue) {
       // Trigger a sync to verify the connection and update status
-      fetch(`/plaid_items/${this.itemIdValue}/sync`, {
+      fetch(`/external_items/${this.itemIdValue}/sync`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -43,17 +54,17 @@ export default class extends Controller {
     }
 
     // For new connections, create a new Plaid item
-    fetch("/plaid_items", {
+    fetch("/external_items", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector('[name="csrf-token"]').content,
       },
       body: JSON.stringify({
-        plaid_item: {
+        external_item: {
           public_token: public_token,
           metadata: metadata,
-          region: this.regionValue,
+          provider: this.providerValue,
         },
       }),
     }).then((response) => {

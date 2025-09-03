@@ -8,8 +8,8 @@ class ExternalAccount::Liabilities::StudentLoanProcessor
 
     account.loan.update!(
       rate_type: "fixed",
-      interest_rate: student_loan_data["interest_rate_percentage"],
-      initial_balance: student_loan_data["origination_principal_amount"],
+      interest_rate: student_loan_data[:interest_rate_percentage],
+      initial_balance: student_loan_data[:origination_principal_amount],
       term_months: term_months
     )
   end
@@ -28,11 +28,11 @@ class ExternalAccount::Liabilities::StudentLoanProcessor
     end
 
     def origination_date
-      parse_date(student_loan_data["origination_date"])
+      parse_date(student_loan_data[:origination_date])
     end
 
     def expected_payoff_date
-      parse_date(student_loan_data["expected_payoff_date"])
+      parse_date(student_loan_data[:expected_payoff_date])
     end
 
     def parse_date(value)
@@ -45,6 +45,6 @@ class ExternalAccount::Liabilities::StudentLoanProcessor
     end
 
     def student_loan_data
-      external_account.raw_liabilities_payload["student"]
+      external_account.liabilities_payload[:student]
     end
 end

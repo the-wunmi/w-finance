@@ -3,11 +3,11 @@ gd:
   activerecord:
     errors:
       messages:
-        record_invalid: 'Dh’fhàillig leis an dearbhadh: %{errors}'
+        record_invalid: 'Dhfhàillig leis an dearbhadh: %{errors}'
         restrict_dependent_destroy:
-          has_many: Cha b’ urrainn dhuinn an reacord a sguabadh às on a tha %{record}
+          has_many: Cha b' urrainn dhuinn an reacord a sguabadh às on a tha %{record}
             ann a tha an eisimeil air
-          has_one: Cha b’ urrainn dhuinn an reacord a sguabadh às on a tha %{record}
+          has_one: Cha b' urrainn dhuinn an reacord a sguabadh às on a tha %{record}
             ann a tha an eisimeil air
   date:
     abbr_day_names:
@@ -137,10 +137,10 @@ gd:
     messages:
       accepted: feumach air aontachadh
       blank: chan fhaod seo a bhith bàn
-      confirmation: chan eil e ’na mhaids dha %{attribute}
+      confirmation: chan eil e 'na mhaids dha %{attribute}
       empty: chan fhaod seo a bhith falamh
       equal_to: feumaidh seo a bhith co-ionnan ri %{count}
-      even: feumaidh seo a bhith ’na àireamh chothrom
+      even: feumaidh seo a bhith 'na àireamh chothrom
       exclusion: tha seo glèidhte
       greater_than: feumaidh seo a bhith nas motha na %{count}
       greater_than_or_equal_to: feumaidh seo a bhith nas motha na no co-ionann ri
@@ -150,10 +150,10 @@ gd:
       invalid: chan eil seo dligheach
       less_than: feumaidh seo a bhith nas lugha na %{count}
       less_than_or_equal_to: feumaidh seo a bhith nas lugha na no co-ionann ri %{count}
-      model_invalid: 'Dh’fhàillig leis an dearbhadh: %{errors}'
-      not_a_number: chan eil seo ’na àireamh
-      not_an_integer: feumaidh seo a bhith ’na àireamh shlàn
-      odd: feumaidh seo a bhith ’na àireamh chòrr
+      model_invalid: 'Dhfhàillig leis an dearbhadh: %{errors}'
+      not_a_number: chan eil seo 'na àireamh
+      not_an_integer: feumaidh seo a bhith 'na àireamh shlàn
+      odd: feumaidh seo a bhith 'na àireamh chòrr
       other_than: chan fhaod seo a bhith %{count}
       present: feumaidh seo a bhith bàn
       required: feumaidh seo a bhith ann
@@ -178,10 +178,10 @@ gd:
     template:
       body: 'Bha duilgheadasan ann leis na raointean seo:'
       header:
-        few: Dh’adhbharaich %{count} mearachdan nach gabh a’ %{model} seo a shàbhaladh
-        one: Dh’adhbharaich %{count} mhearachd nach gabh a’ %{model} seo a shàbhaladh
-        other: Dh’adhbharaich %{count} mearachd nach gabh a’ %{model} seo a shàbhaladh
-        two: Dh’adhbharaich %{count} mhearachd nach gabh a’ %{model} seo a shàbhaladh
+        few: Dh'adhbharaich %{count} mearachdan nach gabh a' %{model} seo a shàbhaladh
+        one: Dh'adhbharaich %{count} mhearachd nach gabh a' %{model} seo a shàbhaladh
+        other: Dh'adhbharaich %{count} mearachd nach gabh a' %{model} seo a shàbhaladh
+        two: Dh'adhbharaich %{count} mhearachd nach gabh a' %{model} seo a shàbhaladh
   helpers:
     select:
       prompt: Tagh

@@ -599,6 +599,51 @@ class Balance
     sig { void }
     def balance_will_change!; end
 
+    sig { returns(::BigDecimal) }
+    def cash_adjustments; end
+
+    sig { params(value: ::BigDecimal).returns(::BigDecimal) }
+    def cash_adjustments=(value); end
+
+    sig { returns(T::Boolean) }
+    def cash_adjustments?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_adjustments_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def cash_adjustments_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def cash_adjustments_came_from_user?; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def cash_adjustments_change; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def cash_adjustments_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def cash_adjustments_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_adjustments_in_database; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def cash_adjustments_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def cash_adjustments_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_adjustments_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_adjustments_was; end
+
+    sig { void }
+    def cash_adjustments_will_change!; end
+
     sig { returns(T.nilable(::BigDecimal)) }
     def cash_balance; end
 
@@ -643,6 +688,96 @@ class Balance
 
     sig { void }
     def cash_balance_will_change!; end
+
+    sig { returns(::BigDecimal) }
+    def cash_inflows; end
+
+    sig { params(value: ::BigDecimal).returns(::BigDecimal) }
+    def cash_inflows=(value); end
+
+    sig { returns(T::Boolean) }
+    def cash_inflows?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_inflows_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def cash_inflows_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def cash_inflows_came_from_user?; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def cash_inflows_change; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def cash_inflows_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def cash_inflows_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_inflows_in_database; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def cash_inflows_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def cash_inflows_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_inflows_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_inflows_was; end
+
+    sig { void }
+    def cash_inflows_will_change!; end
+
+    sig { returns(::BigDecimal) }
+    def cash_outflows; end
+
+    sig { params(value: ::BigDecimal).returns(::BigDecimal) }
+    def cash_outflows=(value); end
+
+    sig { returns(T::Boolean) }
+    def cash_outflows?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_outflows_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def cash_outflows_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def cash_outflows_came_from_user?; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def cash_outflows_change; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def cash_outflows_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def cash_outflows_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_outflows_in_database; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def cash_outflows_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def cash_outflows_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_outflows_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def cash_outflows_was; end
+
+    sig { void }
+    def cash_outflows_will_change!; end
 
     sig { returns(::ActiveSupport::TimeWithZone) }
     def created_at; end
@@ -779,6 +914,186 @@ class Balance
     sig { void }
     def date_will_change!; end
 
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_balance; end
+
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    def end_balance=(value); end
+
+    sig { returns(T::Boolean) }
+    def end_balance?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_balance_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def end_balance_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def end_balance_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def end_balance_change; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def end_balance_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def end_balance_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_balance_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def end_balance_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def end_balance_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_balance_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_balance_was; end
+
+    sig { void }
+    def end_balance_will_change!; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_cash_balance; end
+
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    def end_cash_balance=(value); end
+
+    sig { returns(T::Boolean) }
+    def end_cash_balance?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_cash_balance_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def end_cash_balance_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def end_cash_balance_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def end_cash_balance_change; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def end_cash_balance_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def end_cash_balance_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_cash_balance_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def end_cash_balance_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def end_cash_balance_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_cash_balance_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_cash_balance_was; end
+
+    sig { void }
+    def end_cash_balance_will_change!; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_non_cash_balance; end
+
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    def end_non_cash_balance=(value); end
+
+    sig { returns(T::Boolean) }
+    def end_non_cash_balance?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_non_cash_balance_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def end_non_cash_balance_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def end_non_cash_balance_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def end_non_cash_balance_change; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def end_non_cash_balance_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def end_non_cash_balance_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_non_cash_balance_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def end_non_cash_balance_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def end_non_cash_balance_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_non_cash_balance_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def end_non_cash_balance_was; end
+
+    sig { void }
+    def end_non_cash_balance_will_change!; end
+
+    sig { returns(::Integer) }
+    def flows_factor; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def flows_factor=(value); end
+
+    sig { returns(T::Boolean) }
+    def flows_factor?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def flows_factor_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def flows_factor_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def flows_factor_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def flows_factor_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def flows_factor_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def flows_factor_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def flows_factor_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def flows_factor_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def flows_factor_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def flows_factor_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def flows_factor_was; end
+
+    sig { void }
+    def flows_factor_will_change!; end
+
     sig { returns(::String) }
     def id; end
 
@@ -869,6 +1184,186 @@ class Balance
     sig { void }
     def id_will_change!; end
 
+    sig { returns(::BigDecimal) }
+    def net_market_flows; end
+
+    sig { params(value: ::BigDecimal).returns(::BigDecimal) }
+    def net_market_flows=(value); end
+
+    sig { returns(T::Boolean) }
+    def net_market_flows?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def net_market_flows_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def net_market_flows_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def net_market_flows_came_from_user?; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def net_market_flows_change; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def net_market_flows_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def net_market_flows_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def net_market_flows_in_database; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def net_market_flows_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def net_market_flows_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def net_market_flows_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def net_market_flows_was; end
+
+    sig { void }
+    def net_market_flows_will_change!; end
+
+    sig { returns(::BigDecimal) }
+    def non_cash_adjustments; end
+
+    sig { params(value: ::BigDecimal).returns(::BigDecimal) }
+    def non_cash_adjustments=(value); end
+
+    sig { returns(T::Boolean) }
+    def non_cash_adjustments?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_adjustments_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def non_cash_adjustments_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def non_cash_adjustments_came_from_user?; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def non_cash_adjustments_change; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def non_cash_adjustments_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def non_cash_adjustments_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_adjustments_in_database; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def non_cash_adjustments_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def non_cash_adjustments_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_adjustments_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_adjustments_was; end
+
+    sig { void }
+    def non_cash_adjustments_will_change!; end
+
+    sig { returns(::BigDecimal) }
+    def non_cash_inflows; end
+
+    sig { params(value: ::BigDecimal).returns(::BigDecimal) }
+    def non_cash_inflows=(value); end
+
+    sig { returns(T::Boolean) }
+    def non_cash_inflows?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_inflows_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def non_cash_inflows_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def non_cash_inflows_came_from_user?; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def non_cash_inflows_change; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def non_cash_inflows_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def non_cash_inflows_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_inflows_in_database; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def non_cash_inflows_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def non_cash_inflows_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_inflows_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_inflows_was; end
+
+    sig { void }
+    def non_cash_inflows_will_change!; end
+
+    sig { returns(::BigDecimal) }
+    def non_cash_outflows; end
+
+    sig { params(value: ::BigDecimal).returns(::BigDecimal) }
+    def non_cash_outflows=(value); end
+
+    sig { returns(T::Boolean) }
+    def non_cash_outflows?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_outflows_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def non_cash_outflows_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def non_cash_outflows_came_from_user?; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def non_cash_outflows_change; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def non_cash_outflows_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def non_cash_outflows_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_outflows_in_database; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def non_cash_outflows_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def non_cash_outflows_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_outflows_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def non_cash_outflows_was; end
+
+    sig { void }
+    def non_cash_outflows_will_change!; end
+
     sig { void }
     def restore_account_id!; end
 
@@ -876,7 +1371,16 @@ class Balance
     def restore_balance!; end
 
     sig { void }
+    def restore_cash_adjustments!; end
+
+    sig { void }
     def restore_cash_balance!; end
+
+    sig { void }
+    def restore_cash_inflows!; end
+
+    sig { void }
+    def restore_cash_outflows!; end
 
     sig { void }
     def restore_created_at!; end
@@ -888,10 +1392,43 @@ class Balance
     def restore_date!; end
 
     sig { void }
+    def restore_end_balance!; end
+
+    sig { void }
+    def restore_end_cash_balance!; end
+
+    sig { void }
+    def restore_end_non_cash_balance!; end
+
+    sig { void }
+    def restore_flows_factor!; end
+
+    sig { void }
     def restore_id!; end
 
     sig { void }
     def restore_id_value!; end
+
+    sig { void }
+    def restore_net_market_flows!; end
+
+    sig { void }
+    def restore_non_cash_adjustments!; end
+
+    sig { void }
+    def restore_non_cash_inflows!; end
+
+    sig { void }
+    def restore_non_cash_outflows!; end
+
+    sig { void }
+    def restore_start_balance!; end
+
+    sig { void }
+    def restore_start_cash_balance!; end
+
+    sig { void }
+    def restore_start_non_cash_balance!; end
 
     sig { void }
     def restore_updated_at!; end
@@ -908,11 +1445,29 @@ class Balance
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def saved_change_to_cash_adjustments; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_cash_adjustments?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def saved_change_to_cash_balance; end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_cash_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def saved_change_to_cash_inflows; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_cash_inflows?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def saved_change_to_cash_outflows; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_cash_outflows?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_created_at; end
@@ -932,6 +1487,30 @@ class Balance
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_date?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def saved_change_to_end_balance; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_end_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def saved_change_to_end_cash_balance; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_end_cash_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def saved_change_to_end_non_cash_balance; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_end_non_cash_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_flows_factor; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_flows_factor?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
     sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_id; end
 
@@ -944,11 +1523,188 @@ class Balance
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def saved_change_to_net_market_flows; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_net_market_flows?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def saved_change_to_non_cash_adjustments; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_non_cash_adjustments?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def saved_change_to_non_cash_inflows; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_non_cash_inflows?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def saved_change_to_non_cash_outflows; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_non_cash_outflows?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def saved_change_to_start_balance; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_start_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def saved_change_to_start_cash_balance; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_start_cash_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def saved_change_to_start_non_cash_balance; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def saved_change_to_start_non_cash_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_updated_at; end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def saved_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_balance; end
+
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    def start_balance=(value); end
+
+    sig { returns(T::Boolean) }
+    def start_balance?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_balance_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def start_balance_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def start_balance_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def start_balance_change; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def start_balance_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def start_balance_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_balance_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def start_balance_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def start_balance_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_balance_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_balance_was; end
+
+    sig { void }
+    def start_balance_will_change!; end
+
+    sig { returns(::BigDecimal) }
+    def start_cash_balance; end
+
+    sig { params(value: ::BigDecimal).returns(::BigDecimal) }
+    def start_cash_balance=(value); end
+
+    sig { returns(T::Boolean) }
+    def start_cash_balance?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_cash_balance_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def start_cash_balance_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def start_cash_balance_came_from_user?; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def start_cash_balance_change; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def start_cash_balance_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def start_cash_balance_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_cash_balance_in_database; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def start_cash_balance_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def start_cash_balance_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_cash_balance_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_cash_balance_was; end
+
+    sig { void }
+    def start_cash_balance_will_change!; end
+
+    sig { returns(::BigDecimal) }
+    def start_non_cash_balance; end
+
+    sig { params(value: ::BigDecimal).returns(::BigDecimal) }
+    def start_non_cash_balance=(value); end
+
+    sig { returns(T::Boolean) }
+    def start_non_cash_balance?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_non_cash_balance_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def start_non_cash_balance_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def start_non_cash_balance_came_from_user?; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def start_non_cash_balance_change; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def start_non_cash_balance_change_to_be_saved; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def start_non_cash_balance_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_non_cash_balance_in_database; end
+
+    sig { returns(T.nilable([::BigDecimal, ::BigDecimal])) }
+    def start_non_cash_balance_previous_change; end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def start_non_cash_balance_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_non_cash_balance_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def start_non_cash_balance_was; end
+
+    sig { void }
+    def start_non_cash_balance_will_change!; end
 
     sig { returns(::ActiveSupport::TimeWithZone) }
     def updated_at; end
@@ -1002,7 +1758,16 @@ class Balance
     def will_save_change_to_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_cash_adjustments?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_cash_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_cash_inflows?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_cash_outflows?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_created_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end
@@ -1014,10 +1779,43 @@ class Balance
     def will_save_change_to_date?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_end_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_end_cash_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_end_non_cash_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_flows_factor?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_id?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_id_value?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_net_market_flows?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_non_cash_adjustments?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_non_cash_inflows?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_non_cash_outflows?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_start_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_start_cash_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
+    def will_save_change_to_start_non_cash_balance?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
     def will_save_change_to_updated_at?(from: T.unsafe(nil), to: T.unsafe(nil)); end

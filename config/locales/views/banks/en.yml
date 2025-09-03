@@ -1,0 +1,28 @@
+en:
+  banks:
+    bank_selection_form:
+      title: "Connect Your Bank Account"
+      search_placeholder: "Type to search banks..."
+      no_banks_found: "No banks match your search"
+      back_button: "Back"
+      cancel_button: "Cancel"
+    bank_information_form:
+      title: "Connect Your Bank Account"
+      security_notice_title: "Security Notice"
+      security_notice_text: "Your credentials are encrypted and used only to fetch your financial data. We never store your passwords in plain text."
+      select_option: "Select %{label}..."
+      cancel_button: "Cancel"
+      connect_button: "Connect Account"
+    connect:
+      title: "Connect Your Bank Account"
+      success: "Bank connected successfully"
+      session_expired: "Your session expired, please try connecting again."
+      mfa_title: "Verify your account"
+      mfa_code_label: "Verification code"
+      mfa_code_placeholder: "Enter the code you received"
+      verify_button: "Verify"
+      confirm_text: "Finish connecting your bank."
+      finish_button: "Finish"
+      cancel_button: "Cancel"
+      connected_title: "Connected to"
+      connected_subtitle: "Click Finish to link and start syncing your accounts."

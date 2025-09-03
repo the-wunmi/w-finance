@@ -33,7 +33,7 @@ connected:
   subtype: checking
   accountable_type: Depository
   accountable: two
-  plaid_account: one
+  external_account: one
   status: active
 
 credit_card:
