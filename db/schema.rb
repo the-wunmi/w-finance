@@ -155,6 +155,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_29_000002) do
     t.string "country_code", limit: 2, null: false
     t.string "website"
     t.string "primary_color"
+    t.string "logo_url"
     t.json "mfa_config"
     t.json "credential_fields"
     t.json "connection_config"
