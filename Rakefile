@@ -5,10 +5,3 @@ require_relative "config/application"
 
 Rails.application.load_tasks
 
-if Rails.env.development?
-  namespace :db do
-    task :migrate do
-      system("bundle exec tapioca dsl", exception: true)
-    end
-  end
-end

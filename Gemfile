@@ -80,8 +80,6 @@ gem "after_commit_everywhere", "~> 1.0"
 # AI
 gem "ruby-openai"
 
-# Sorbet
-gem "sorbet-runtime"
 
 group :development, :test do
   gem "debug", platforms: %i[mri windows]
@@ -90,7 +88,6 @@ group :development, :test do
   gem "i18n-tasks"
   gem "erb_lint"
   gem "dotenv-rails"
-  gem "tapioca", "~> 0.17"
 end
 
 if ENV["BENCHMARKING_ENABLED"]
@@ -107,7 +104,6 @@ group :development do
   gem "stackprof"
   gem "derailed_benchmarks"
   gem "foreman"
-  gem "sorbet"
 end
 
 group :test do
