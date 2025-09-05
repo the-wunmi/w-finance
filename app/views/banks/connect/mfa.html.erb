@@ -2,18 +2,13 @@
   <% dialog.with_header(title: t("banks.connect.mfa_title")) %>
   <% dialog.with_body do %>
     <%= styled_form_with url: verify_mfa_bank_connect_path(bank_id: @bank.id, connection_id: @connection.id), method: :post, id: "bank-mfa-form" do |f| %>
+      <%= password_field_tag "_password_", "", style: "display:none", autocomplete: "new-password" %>
       <div class="space-y-4">
         <% if @mfa_fields.present? %>
           <% field = @mfa_fields.first %>
-          <%= f.text_field :mfa_code,
-                           label: field.label,
-                           placeholder: field.placeholder,
-                           required: true,
-    autofocus: true,
-    autocomplete: "one-time-code",
-                           help_text: field.help_text %>
+          <%= f.text_field :mfa_code, label: field.label, placeholder: field.placeholder, required: true, autofocus: true, autocomplete: "one-time-code", help_text: field.help_text %>
         <% else %>
-          <%= f.text_field :mfa_code, label: t("banks.connect.mfa_code_label"), placeholder: t("banks.connect.mfa_code_placeholder") %>
+          <%= f.text_field :mfa_code, label: t("banks.connect.mfa_code_label"), placeholder: t("banks.connect.mfa_code_placeholder"), autocomplete: "one-time-code" %>
         <% end %>
       </div>
     <% end %>

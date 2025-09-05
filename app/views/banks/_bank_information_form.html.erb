@@ -4,7 +4,8 @@
   <% dialog.with_header(title: t(".title")) %>
   <% dialog.with_body do %>
 
-      <%= styled_form_with url: bank_connect_path(bank_id: bank.id), method: :post, id: "bank-credentials-form" do |f| %>
+      <%= styled_form_with url: bank_connect_path(bank_id: bank.id), method: :post, id: "bank-credentials-form", html: { autocomplete: "off" } do |f| %>
+            <%= password_field_tag "_password_", "", style: "display:none", autocomplete: "new-password" %>
             <%= f.hidden_field :provider, value: "doubleu" %>
             <%= f.hidden_field :bank_id, value: bank.bank_id %>
             <%= f.hidden_field :public_token, value: "session_based" %>
@@ -59,6 +60,7 @@
                              label: field.label,
                              placeholder: field.placeholder,
                              required: field.required,
+                             autocomplete: "new-password",
                              help_text: field.help_text) %>
                 <% end %>
               <% end %>
