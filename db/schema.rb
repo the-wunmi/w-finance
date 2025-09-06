@@ -291,11 +291,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_29_000002) do
     t.string "external_id", null: false
     t.string "external_type", null: false
     t.string "external_subtype"
-    t.string "external_provider", null: false
     t.decimal "current_balance", precision: 19, scale: 4
     t.decimal "available_balance", precision: 19, scale: 4
     t.string "currency", null: false
     t.string "name", null: false
+    t.string "next_cursor"
     t.string "mask"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

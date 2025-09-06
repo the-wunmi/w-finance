@@ -50,6 +50,9 @@ DoubleU Finance is a comprehensive, open-source personal finance application bas
    # Enter the running container
    devcontainer exec --workspace-folder . bash
 
+   # Copy the example environment file and customize as needed:
+   cp .env.example .env.local
+
    # Set up the application (installs dependencies, sets up database, seeds data)
    bin/setup
    ```
@@ -83,6 +86,7 @@ If you prefer using VS Code:
 4. **Set up the application**
    ```bash
    # In VS Code terminal
+   cp .env.example .env.local
    bin/setup
    bin/rails server -b 0.0.0.0
    ```
@@ -96,16 +100,6 @@ The dev container includes:
 - **PostgreSQL** database server
 - **Redis** for caching and background jobs
 - **Sidekiq** worker for background job processing
-
-## Configuration
-
-### Environment Variables
-
-Copy the example environment file and customize as needed:
-
-```bash
-cp .env.example .env.local
-```
 
 ## Contributing
 
