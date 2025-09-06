@@ -23,6 +23,20 @@ DoubleU Finance is a comprehensive, open-source personal finance application bas
 - **Cache/Jobs**: Redis + Sidekiq
 - **Frontend**: Hotwire (Turbo + Stimulus), Tailwind CSS
 
+## Quick Deploy
+
+Deploy DoubleU Finance to Render with one click:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/the-wunmi/w-finance)
+
+This will automatically set up:
+- Rails web application
+- PostgreSQL database
+- Redis cache
+- Sidekiq background worker
+
+**Note**: After deployment, you'll need to set your `RAILS_MASTER_KEY` in the Render dashboard environment variables.
+
 ## Getting Started
 
 ### Prerequisites
