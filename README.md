@@ -22,9 +22,6 @@ DoubleU Finance is a comprehensive, open-source personal finance application bas
 - **Database**: PostgreSQL
 - **Cache/Jobs**: Redis + Sidekiq
 - **Frontend**: Hotwire (Turbo + Stimulus), Tailwind CSS
-- **Components**: ViewComponent + Lookbook
-- **Authentication**: Custom with Doorkeeper OAuth
-- **Monitoring**: Sentry, Skylight, Rack Mini Profiler
 
 ## Getting Started
 
@@ -109,13 +106,6 @@ Copy the example environment file and customize as needed:
 ```bash
 cp .env.example .env.local
 ```
-
-Key environment variables:
-
-- `DATABASE_URL` - PostgreSQL connection string
-- `REDIS_URL` - Redis connection string
-- `RAILS_MASTER_KEY` - Encryption key for credentials
-- `OPENAI_API_KEY` - For AI assistant features (optional)
 
 ## Contributing
 
