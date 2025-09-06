@@ -95,3 +95,4 @@ services:
     name: w-finance-redis
     plan: free
     maxmemoryPolicy: allkeys-lru
+    ipAllowList: []
