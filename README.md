@@ -102,7 +102,7 @@ If you prefer using VS Code:
    # In VS Code terminal
    cp .env.example .env.local
    bin/setup
-   bin/rails server -b 0.0.0.0
+   bin/dev
    ```
 
 ## What's Included
