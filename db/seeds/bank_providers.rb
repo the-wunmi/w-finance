@@ -110,6 +110,6 @@ class BankProviderSeeder
     end
 end
 
-if Rails.env.development? || Rails.env.test?
-  BankProviderSeeder.seed!
-end
+BankProviderSeeder.seed!
+
+puts "Bank providers seeded successfully"

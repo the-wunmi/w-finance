@@ -4,35 +4,53 @@ databases:
     user: wf_user
     plan: free
 
+
 services:
   - type: web
-    name: w-finance-web
+    name: w-finance-app
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"
+    startCommand: "bash -c 'bundle exec sidekiq & bundle exec puma -C config/puma.rb'"
+    autoDeploy: false
     envVars:
+      - key: SECRET_KEY_BASE
+        sync: false
+      - key: RAILS_ENV
+        value: production
+      - key: SELF_HOSTED
+        value: true
       - key: DATABASE_URL
         fromDatabase:
           name: w-finance-db
           property: connectionString
-      - key: RAILS_MASTER_KEY
-        sync: false
       - key: REDIS_URL
         fromService:
           type: redis
           name: w-finance-redis
           property: connectionString
-      - key: RAILS_ENV
-        value: production
       - key: RAILS_SERVE_STATIC_FILES
         value: true
       - key: RAILS_LOG_TO_STDOUT
         value: true
       - key: WEB_CONCURRENCY
-        value: 2
+        value: 1
       - key: RAILS_MAX_THREADS
-        value: 5
+        value: 1
+      - key: RUBY_GC_HEAP_INIT_SLOTS
+        value: 300000
+      - key: RUBY_GC_HEAP_FREE_SLOTS
+        value: 300000
+      - key: RUBY_GC_HEAP_GROWTH_FACTOR
+        value: 1.1
+      - key: RUBY_GC_MALLOC_LIMIT
+        value: 32000000
+      - key: RUBY_GC_MALLOC_LIMIT_MAX
+        value: 64000000
+      - key: RUBY_GC_OLDMALLOC_LIMIT
+        value: 32000000
+      - key: RUBY_GC_OLDMALLOC_LIMIT_MAX
+        value: 64000000
       - key: POSTGRES_DB
         value: wf_production
       - key: POSTGRES_USER
@@ -49,47 +67,6 @@ services:
         fromDatabase:
           name: w-finance-db
           property: password
-
-  - type: worker
-    name: w-finance-worker
-    runtime: ruby
-    plan: free
-    buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec sidekiq"
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: w-finance-db
-          property: connectionString
-      - key: RAILS_MASTER_KEY
-        sync: false
-      - key: REDIS_URL
-        fromService:
-          type: redis
-          name: w-finance-redis
-          property: connectionString
-      - key: RAILS_ENV
-        value: production
-      - key: RAILS_MAX_THREADS
-        value: 3
-      - key: POSTGRES_DB
-        value: wf_production
-      - key: POSTGRES_USER
-        value: wf_user
-      - key: DB_HOST
-        fromDatabase:
-          name: w-finance-db
-          property: host
-      - key: DB_PORT
-        fromDatabase:
-          name: w-finance-db
-          property: port
-      - key: POSTGRES_PASSWORD
-        fromDatabase:
-          name: w-finance-db
-          property: password
-      - key: SELF_HOSTED
-        value: true
 
   - type: redis
     name: w-finance-redis
