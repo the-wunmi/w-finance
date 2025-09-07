@@ -87,6 +87,6 @@ class Provider::Wise < Provider
     end
 
     def base_url
-      ENV["WISE_BASE_URL"]
+      ENV["WISE_BASE_URL"] || "https://api.sandbox.transferwise.tech"
     end
 end

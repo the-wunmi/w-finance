@@ -30,12 +30,13 @@ Deploy DoubleU Finance to Render with one click:
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/the-wunmi/w-finance)
 
 This will automatically set up:
+
 - Rails web application
 - PostgreSQL database
 - Redis cache
 - Sidekiq background worker
 
-**Note**: After deployment, you'll need to set your `RAILS_MASTER_KEY` in the Render dashboard environment variables.
+**Note**: After deployment, you'll need to set a `SECRET_KEY_BASE` in the Render dashboard environment variables, any cryptographically secure random string will work, Render has an option to help generate one.
 
 ## Getting Started
 
@@ -48,18 +49,21 @@ This will automatically set up:
 ### Development Setup
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/the-wunmi/w-finance
    cd w-finance
    ```
 
 2. **Start the development environment**
+
    ```bash
    # Start the dev container (builds everything fresh)
    devcontainer up --workspace-folder .
    ```
 
 3. **Enter the container and set up the application**
+
    ```bash
    # Enter the running container
    devcontainer exec --workspace-folder . bash
@@ -72,9 +76,10 @@ This will automatically set up:
    ```
 
 4. **Start the Rails server**
+
    ```bash
    # Inside the container
-   bin/rails server -b 0.0.0.0
+   bin/dev
    ```
 
 5. **Access the application**
@@ -86,6 +91,7 @@ This will automatically set up:
 If you prefer using VS Code:
 
 1. **Open in VS Code**
+
    ```bash
    code .
    ```
@@ -98,10 +104,17 @@ If you prefer using VS Code:
    - Wait for the container to build and start
 
 4. **Set up the application**
+
    ```bash
    # In VS Code terminal
    cp .env.example .env.local
    bin/setup
+   ```
+
+5. **Start the Rails server**
+
+   ```bash
+   # Inside the container
    bin/dev
    ```
 

@@ -34,23 +34,9 @@ services:
       - key: RAILS_LOG_TO_STDOUT
         value: true
       - key: WEB_CONCURRENCY
-        value: 1
+        value: 2
       - key: RAILS_MAX_THREADS
-        value: 1
-      - key: RUBY_GC_HEAP_INIT_SLOTS
-        value: 300000
-      - key: RUBY_GC_HEAP_FREE_SLOTS
-        value: 300000
-      - key: RUBY_GC_HEAP_GROWTH_FACTOR
-        value: 1.1
-      - key: RUBY_GC_MALLOC_LIMIT
-        value: 32000000
-      - key: RUBY_GC_MALLOC_LIMIT_MAX
-        value: 64000000
-      - key: RUBY_GC_OLDMALLOC_LIMIT
-        value: 32000000
-      - key: RUBY_GC_OLDMALLOC_LIMIT_MAX
-        value: 64000000
+        value: 3
       - key: POSTGRES_DB
         value: wf_production
       - key: POSTGRES_USER
