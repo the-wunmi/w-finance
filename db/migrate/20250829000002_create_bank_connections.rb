@@ -1,7 +1,7 @@
 class CreateBankConnections < ActiveRecord::Migration[7.1]
   def change
     create_table :bank_connections do |t|
-      t.references :family, null: false
+      t.references :family, null: false, foreign_key: true, type: :uuid
       t.references :bank_provider, null: false
       t.string :status, null: false, default: "pending"
       t.text :credentials

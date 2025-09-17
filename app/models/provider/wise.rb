@@ -21,7 +21,7 @@ class Provider::Wise < Provider
       rates = Array(response.body)
       rate_entry = rates.first
 
-      if rate_entry.nil? || rate_entry["rate"].nil?
+      if rate_entry.nil? || rate_entry["rate"].nil? || rate_entry["rate"].zero?
         Rails.logger.warn("#{self.class.name} returned no rate data for pair from: #{from} to: #{to} on: #{date}")
         Sentry.capture_exception(InvalidExchangeRateError.new("#{self.class.name} returned no rate data"), level: :warning) do |scope|
           scope.set_context("rate", { from: from, to: to, date: date })

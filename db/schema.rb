@@ -135,7 +135,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_29_000002) do
   end
 
   create_table "bank_connections", force: :cascade do |t|
-    t.bigint "family_id", null: false
+    t.uuid "family_id", null: false
     t.bigint "bank_provider_id", null: false
     t.string "status", default: "pending", null: false
     t.text "credentials"
@@ -865,6 +865,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_29_000002) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_keys", "users"
   add_foreign_key "balances", "accounts", on_delete: :cascade
+  add_foreign_key "bank_connections", "families"
   add_foreign_key "budget_categories", "budgets"
   add_foreign_key "budget_categories", "categories"
   add_foreign_key "budgets", "families"

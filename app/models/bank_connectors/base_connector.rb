@@ -41,8 +41,8 @@ class BankConnectors::BaseConnector
         f.request :json
         f.response :json
         f.adapter Faraday.default_adapter
-        f.options.timeout = 30
-        f.options.open_timeout = 10
+        f.options.timeout = 90
+        f.options.open_timeout = 30
       end
     end
 
