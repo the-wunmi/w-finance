@@ -105,6 +105,43 @@ class BankProviderSeeder
             connection_config: {
               base_url: "https://app.providusbank.com/"
             }
+        },
+        {
+          bank_id: "kuda",
+          name: "Kuda Bank",
+          display_name: "Kuda Bank",
+          country_code: "NG",
+          website: "https://kudabank.com",
+          primary_color: "#40196d",
+          logo_url: "https://logo.clearbit.com/kudabank.com",
+          credential_fields: [
+            {
+              name: "username",
+              label: "Username",
+              type: "text",
+              required: true,
+              placeholder: "Enter your username"
+            },
+            {
+              name: "password",
+              label: "Password",
+              type: "password",
+              required: true,
+              placeholder: "Enter your password"
+            }
+          ],
+          mfa_config: [
+            {
+              name: "otp",
+              label: "OTP Code",
+              type: "text",
+              placeholder: "Enter OTP",
+              help_text: "Enter the OTP sent to your registered phone number"
+            }
+          ],
+          connection_config: {
+            base_url: ENV["KUDA_BASE_URL"]
+          }
         }
       ]
     end

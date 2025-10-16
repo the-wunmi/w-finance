@@ -18,7 +18,7 @@ class Provider::DoubleuAdapter
 
   def account_payload(data)
     {
-      account_id: data["id"],
+      account_id: data["id"]&.to_s,
       name: data["name"],
       type: data["type"],
       subtype: data["type"],
@@ -36,15 +36,15 @@ class Provider::DoubleuAdapter
       added: data[:added]&.map do |t|
         {
           transaction_id: t[:id],
-          merchant_id: nil,
-          merchant_name: nil,
+          merchant_id: t[:merchant_id],
+          merchant_name: t[:merchant_name],
           description: t[:narration],
           amount: t[:type] == "credit" ? -t[:amount] : t[:amount],
           date: t[:date],
-          iso_currency_code: nil,
+          iso_currency_code: t[:currency],
           category: t[:category],
-          website: nil,
-          logo_url: nil
+          website: t[:website],
+          logo_url: t[:logo_url]
         }
       end,
       modified: [],

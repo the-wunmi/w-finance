@@ -58,7 +58,7 @@ class ExternalEntry::Processor
     end
 
     def name
-      external_transaction[:merchant_name] || external_transaction[:description]
+      external_transaction[:description] || external_transaction[:merchant_name]
     end
 
     def amount
@@ -88,8 +88,11 @@ class ExternalEntry::Processor
         name: merchant_name,
       ) do |m|
         m.provider_merchant_id = merchant_id
-        m.website_url = external_transaction.website
-        m.logo_url = external_transaction.logo_url
+        m.website_url = external_transaction[:website]
+        m.logo_url = external_transaction[:logo_url]
       end
+      rescue => e
+        puts e
+        raise e
     end
 end
