@@ -276,7 +276,28 @@ class BankConnectors::ProvidusConnector < BankConnectors::BaseConnector
     ENCRYPTION_IV = ENV["PROVIDUS_ENCRYPTION_IV"]
 
     def generate_transaction_id(account_id, transaction)
-      Digest::SHA256.hexdigest("#{account_id}-#{transaction['date']}-#{transaction['amount']}-#{transaction['narration']}")
+      normalized_date = normalize_transaction_date(transaction["date"])
+      Digest::SHA256.hexdigest("#{account_id}-#{normalized_date}-#{transaction['amount']}-#{transaction['narration']}")
+    end
+
+    def normalize_transaction_date(raw_date)
+      raise ArgumentError, "Transaction date is missing" if raw_date.blank?
+
+      parsed_time = begin
+        Time.zone&.parse(raw_date.to_s)
+      rescue ArgumentError
+        nil
+      end
+
+      parsed_time ||= begin
+        Time.parse(raw_date.to_s)
+      rescue ArgumentError, TypeError
+        nil
+      end
+
+      raise ArgumentError, "Invalid transaction date: #{raw_date.inspect}" unless parsed_time
+
+      parsed_time.utc.iso8601
     end
 
     def generate_key(str, device_id)
